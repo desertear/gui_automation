@@ -1,0 +1,13 @@
+config system password-policy
+    set status enable
+    set expire-status enable
+    set expire-day 1
+end
+config system admin
+    edit "${admin_username}"
+        set accprofile "${admin_profile}"
+        set vdom "root"
+        set password ${admin_password}
+        set force-password-change enable
+    next
+end

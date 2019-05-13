@@ -1,0 +1,26 @@
+##### Verify user can start/stop the capture for vlan, aggregate, redundant interfaces
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall sniffer
+            purge
+        end
+end
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+           delete "718826_Redun address"
+           delete "718826_vlan address"
+           delete "718826_Aggre address"
+        end
+end
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            delete "718826_vlan"
+            delete "718826_Aggre"    
+            delete "718826_Redun"
+        end
+end
+
+
+ 

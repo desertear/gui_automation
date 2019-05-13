@@ -1,0 +1,3 @@
+config system replacemsg sslvpn "sslvpn-login"
+     unset  buffer 
+end

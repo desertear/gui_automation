@@ -1,0 +1,8 @@
+config log fortianalyzer setting
+    set status enable
+    set server "${FGT_FAZ_IP}"
+    set upload-option realtime
+end
+
+execute log filter device fortianalyzer
+execute log delete-all

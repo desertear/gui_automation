@@ -1,0 +1,40 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config firewall policy
+            delete ${FW_TEST_V4_POLICY_ID_1}
+            delete ${FW_TEST_V4_POLICY_ID_2}
+            delete ${FW_TEST_V4_POLICY_ID_3}
+            delete ${FW_TEST_V4_POLICY_ID_4}
+            delete ${FW_TEST_V4_POLICY_ID_5}
+        end
+        config firewall policy6
+            delete ${FW_TEST_V6_POLICY_ID_1}
+            delete ${FW_TEST_V6_POLICY_ID_2}
+            delete ${FW_TEST_V6_POLICY_ID_3}
+            delete ${FW_TEST_V6_POLICY_ID_4}
+            delete ${FW_TEST_V6_POLICY_ID_5}
+            delete ${FW_TEST_V6_POLICY_ID_6}
+        end
+        config vpn ipsec phase2-interface
+            delete "ipsec"
+        end
+        config vpn ipsec phase1-interface
+            delete ipsec
+        end
+        config firewall address6
+            delete ipsec_range_6
+        end
+        config firewall address
+            delete ipsec_range
+        end
+        config vpn ssl settings
+            unset port
+            unset source-interface
+        end
+        config system settings
+            unset gui-dynamic-profile-display
+            unset gui-allow-unnamed-policy
+        end
+
+    next    
+end

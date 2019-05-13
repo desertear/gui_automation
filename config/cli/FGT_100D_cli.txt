@@ -1,0 +1,63 @@
+config system dhcp server
+    purge
+end
+
+config firewall policy
+    purge
+end
+
+config firewall policy6
+    purge
+end
+
+config system virtual-switch
+    edit lan
+        config port
+            delete port1
+            delete port2
+            delete port3
+            delete port4
+            delete port5
+            delete port6
+            delete port7
+            delete port8
+            delete port9
+            delete port10
+            delete port11
+            delete port12
+            delete port13
+            delete port14
+            delete port15
+            delete port16
+        end
+    next
+    delete lan
+end
+
+config system interface
+    edit "dmz"
+        unset ip
+        unset role
+    next
+    edit "wan1"
+        unset mode
+        unset role
+    next
+    edit "wan2"
+        unset mode
+        unset role
+    next
+    edit "mgmt"
+        unset ip
+        unset dedicated-to
+        unset role
+    next
+end
+
+config router static
+    purge
+end
+
+config router static6
+    purge
+end

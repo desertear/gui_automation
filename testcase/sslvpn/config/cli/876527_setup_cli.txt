@@ -1,0 +1,4 @@
+config vpn ssl web portal
+	edit "testportal"
+		set forticlient-download disable
+end

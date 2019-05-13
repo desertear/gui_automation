@@ -1,0 +1,3 @@
+#Use "java -jar selenium-server-standalone-3.141.59.jar -h" to see how to use Selenium Grid.
+#For more details, please visit: https://www.seleniumhq.org/docs/07_selenium_grid.jsp
+java -jar /home/auto/automation/script/trunk/gui_automation/tools/selenium_grid/selenium-server-standalone-3.141.59.jar -role node -hub http://10.6.30.143:4444/grid/register -host 10.6.30.11 -browser -port 12345 -remoteHost http://10.6.30.11:12345 browserName=firefox -browser browserName=chrome

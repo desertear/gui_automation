@@ -1,0 +1,3 @@
+host	os	browser
+10.6.30.103	win7-32	chrome
+10.6.30.109	win8-64	firefox

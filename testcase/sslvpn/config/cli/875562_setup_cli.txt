@@ -1,0 +1,14 @@
+config vpn ssl web user-group-bookmark
+    edit "${FGT_USER_GROUP_NAME}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set apptype rdp
+                set host "${host}"
+                set port "${port}"
+                set logon-user ${username}
+                set logon-password ${password}
+                set security any
+            next
+        end
+    next
+end

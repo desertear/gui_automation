@@ -1,0 +1,60 @@
+config system console
+    set output standard
+end
+
+#config interface for OA access
+config system interface
+    edit "${FGT_VLAN30_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGT_VLAN30_IP} 255.255.255.0
+        set allowaccess ping https http telnet ssh snmp
+        set status up
+        set type physical
+        config ipv6
+            set ip6-address ${FGT_VLAN30_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh snmp
+        end
+    next
+#config interface for GUI access
+    edit "${FGT_VLAN20_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGT_VLAN20_IP} 255.255.255.0
+        set allowaccess ping https http telnet ssh snmp
+        set status up
+        config ipv6
+            set ip6-address ${FGT_VLAN20_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh snmp
+        end
+    next
+#config interface for back door
+    edit "${FGT_VLAN10_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGT_VLAN10_IP} 255.255.255.0
+        set allowaccess ping https http telnet ssh snmp
+        set status up
+        config ipv6
+            set ip6-address ${FGT_VLAN10_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh snmp
+        end    
+end
+
+##add router to Internet
+config router static
+	purge
+    edit ${FGT_STATIC_ROUTER_ID_TO_OA}
+		set gateway ${FGT_VLAN30_GATEWAY}
+		set device ${FGT_VLAN30_INTERFACE}
+end
+config router static6
+	purge
+    edit ${FGT_STATIC_ROUTER_ID_TO_OA_IPV6}
+        set gateway ${FGT_VLAN30_GATEWAY_V6}
+		set device ${FGT_VLAN30_INTERFACE}
+    next
+end
+
+
+execute log delete-all

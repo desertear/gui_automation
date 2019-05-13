@@ -1,0 +1,505 @@
+# This is a general purge file for initializing autotest after factory reset, please use 'include' to include it in [FGT_X] sections in your initializing scripts
+comment Version information: 2016.11.14
+# CLI is wrotten based on v5.4 by RAIN, any question or issue, please contact: rainxiao@fortinet.com, phone: 6421
+
+comment Start to purge settings on FGT by purge.txt
+
+config system dhcp server
+    purge
+end
+
+config router static
+    purge
+end
+
+config firewall policy
+    purge
+end
+
+config firewall vip
+    purge
+end
+
+config firewall sniffer
+    purge
+end
+
+config firewall address
+    purge
+end
+
+config vpn ipsec concentrator
+    purge
+end 
+
+config vpn ipsec phase2-interface
+    purge
+end
+
+config vpn ipsec phase1-interface
+    purge
+end
+
+config vpn ipsec phase2
+    purge
+end
+
+config vpn ipsec phase1
+    purge
+end
+
+config vpn ipsec manualkey-interface
+    purge
+end
+
+config vpn ipsec manualkey
+    purge
+end
+
+config user group
+    purge
+end
+
+config user local
+    purge
+end
+
+config user radius
+    purge
+end
+
+config user ldap
+    purge
+end
+
+config user tacacs+
+    purge
+end
+
+config system ha
+    unset mode
+end
+
+config system dns
+    unset primary
+    unset secondary
+end
+
+config system console
+    set output standard
+end
+
+get sys status 
+setvar -e "(?n)^Version: (.*?) v" -to PLATFORM_TYPE
+
+<if $PLATFORM_TYPE eq FortiGate-3240C>
+    config system interface
+        edit "mgmt"
+            unset ip
+            unset dedicated-to
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGateRugged-60D>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next
+    end
+    config system virtual-switch
+        purge
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-80D>
+    config system interface
+        edit "port1"
+            set mode static
+            unset ip
+        next        
+    end   
+
+<elseif $PLATFORM_TYPE eq FortiGate-90D-POE>
+    
+    config system virtual-switch
+        purge
+    end
+
+    sleep 5
+
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip 
+        next
+        edit "wan2"
+            set mode static
+            unset ip 
+        next
+        edit "internalA"
+            set mode static
+            unset ip 
+        next
+        edit "internalB"
+            set mode static
+            unset ip 
+        next
+        edit "internalC"
+            set mode static
+            unset ip 
+        next
+        edit "internalD"
+            set mode static
+            unset ip 
+        next
+    end    
+
+<elseif $PLATFORM_TYPE eq FortiGate-94D-POE>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip            
+        next
+        edit "wan2"
+            set mode static
+            unset ip            
+        next
+        edit "dmz1"
+            unset ip
+        next
+        edit "dmz2"
+            unset ip
+        next
+    end
+
+    config system virtual-switch
+        purge
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-100D>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next
+        edit "mgmt"
+            unset ip
+            unset dedicated-to
+        next
+        edit "dmz"
+            unset ip 
+        next
+    end
+
+    config system virtual-switch
+        purge
+    end 
+
+<elseif $PLATFORM_TYPE eq FortiGate-140D>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next
+        edit "mgmt"
+            unset ip
+            unset dedicated-to
+        next
+        edit "dmz1"
+            unset ip 
+        next
+    end
+
+    config system virtual-switch
+        purge
+    end 
+
+<elseif $PLATFORM_TYPE eq FortiGate-280D-POE>
+    config system interface
+        edit "dmz1"
+            unset ip
+        next
+        edit "mgmt"
+            unset ip
+            unset dedicated-to
+        next
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next        
+    end   
+    config system virtual-switch
+        delete lan1
+    end 
+
+<elseif $PLATFORM_TYPE eq FortiGate-300D>
+    config system interface
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+        edit "port1"
+            unset ip
+        next
+        edit "port4"
+            set ips-sniffer-mode disable
+        next
+        edit "port8"
+            set ips-sniffer-mode disable
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-400D>
+    config system interface
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+        edit "port1"
+            unset ip
+        next
+        edit "port5"
+            set ips-sniffer-mode disable
+        next
+        edit "port6"
+            set ips-sniffer-mode disable
+        next
+        edit "port13"
+            set ips-sniffer-mode disable
+        next
+        edit "port14"
+            set ips-sniffer-mode disable
+        next        
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-500D>
+    config system interface
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+        edit "port1"
+            unset ip
+        next
+        edit "port5"
+            set ips-sniffer-mode disable
+        next
+        edit "port6"
+            set ips-sniffer-mode disable
+        next
+        edit "port13"
+            set ips-sniffer-mode disable
+        next
+        edit "port14"
+            set ips-sniffer-mode disable
+        next
+    end
+
+    config system virtual-wire-pair
+        purge
+    end 
+
+<elseif $PLATFORM_TYPE eq FortiGate-800D>
+    config system interface
+        edit "port1"
+            unset ip
+        next
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next        
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-900D>
+    config system interface
+        edit "port1"
+            unset ip
+        next
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end    
+
+<elseif $PLATFORM_TYPE eq FortiGate-1000D>
+    config system interface
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-3200D>
+    config system interface
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end 
+
+<elseif $PLATFORM_TYPE eq FortiCarrier-3700DX>
+    config system interface
+        edit "port1"
+            unset ip
+        next
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-3800D>
+    config system interface
+        edit "port1"
+            unset ip
+        next
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiGate-2500E>
+    config system interface
+        edit "port1"
+            unset ip
+        next
+        edit "mgmt1"
+            unset ip
+            unset dedicated-to
+        next
+        edit "mgmt2"
+            unset ip
+            unset dedicated-to
+        next
+    end
+
+<elseif $PLATFORM_TYPE eq FortiWiFi-61E>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next
+        edit "dmz"
+            unset ip
+        next
+    end
+    config system switch-interface
+        purge
+    end
+
+    sleep 5
+
+    config system virtual-switch
+        purge
+    end
+
+    sleep 5
+    
+    config wireless-controller wtp
+        edit FWF61E-WIFI0
+            unset wtp-profile
+        next
+    end
+    config wireless-controller vap-group
+        purge
+    end
+    config wireless-controller vap
+        purge
+    end
+<elseif $PLATFORM_TYPE eq FortGate-60E>
+    config system interface
+        edit "wan1"
+            set mode static
+            unset ip
+        next
+        edit "wan2"
+            set mode static
+            unset ip
+        next
+        edit "dmz"
+            unset ip
+        next
+    end
+    config system switch-interface
+        purge
+    end
+
+    sleep 5
+
+    config system virtual-switch
+        purge
+    end
+
+    sleep 5
+
+<else>
+
+<fi>
+
+sleep 5
+

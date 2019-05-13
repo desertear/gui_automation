@@ -1,0 +1,720 @@
+get system status
+execute log delete-all
+
+config system console
+    set output standard
+end
+
+config system global
+    set vdom-mode multi-vdom
+end
+##import certificate for HTTPS connection
+config global
+    config certificate local
+        edit "${FGT_HTTPS_CERTIFICATE_NAME}"
+            set password 123456
+            		set private-key "-----BEGIN ENCRYPTED PRIVATE KEY-----
+MIIFHDBOBgkqhkiG9w0BBQ0wQTApBgkqhkiG9w0BBQwwHAQIcKDM+pf37X4CAggA
+MAwGCCqGSIb3DQIJBQAwFAYIKoZIhvcNAwcECHFLNhhUHxoZBIIEyEHLSrCW38bj
+JtlileyMlWZX6laV8W2V0KsKoiZUdInA8aO92NqkeSqjD7KCvGExkoo3mrYsK/ua
+B3s3E1KMUN3GNhdYGSjA1wkJ0Ir4wPzv+cUbTGjw4Vzx5dIP16V6Q2E6A5oNNFgr
+HVAizpWaz9e4Vu5UDiJmQbnhqWaKxNItNIZ3uHudFG03DH3an8vMHBCwmoGnR9zG
+bLkBSkGpHsh1smQX80v+wzpT07AQgf1ZYoC66tPoZUlnSptBaPYspWdabd+uSPSy
+I3liPuLXV/c1FfZNvWdG9kDPhKj11UfwyJuutSVGyD2yRYA3wNuGVTsJb7l65+Pr
+y8MBWTODTn5i61lnYWbWfHzsUIGO5hPyMiL8bmEm8W5E7Z9RKqd4D+G+VMvvM85H
+B9DVDnLC47bt3lLWDHKQrY/FfwUMBV7R8+gmroWw/5fHeFHUViY90l7jnuHbsFof
+ERXgP23enrnrPlFTCahN73cGP7iBAyzZme5v3kgmaybLDYqve1B/bpwr33BWNOf0
+c9HmcdiixkDmoxGM52HQ6JW4cvQcLEQLatNa38UgqHqj7NUYgqnAlXLmyCtVA6sU
+TOwuf+wqYzblncZZXJUnNnkzsFU9UFZ2DXATyzOUcypComkGuME8umtb1W0zBJmH
+oIa8n2Iu6GSKzXXcnT+JB31a0JRD+x0UgC35HNTY8SvmUWKUBRstc4jzD68WPRxv
+nm3Sf4CNye0qlSGQxhf9wsCrhySLoBrvTmQrVNwM2DJvuLXAGS0R4KKD2NwsY+db
+5h1RvOxklFFChr9CkNjyxEwuEzAlzgoT07HE5J7l8oTtJlQslhv10L46Zv8Eo5FT
+VQaJ+FAq4KJwfmr+FnuAc5u/xiffG/LbSjpd9soTrfooXYKbtUYMH3JN9yy/dat0
+08IUwrJn8RWpDLDeyN8zhch42w8aeA2auhy9KqTA2DtoL6pEe8C68IR/YvipMXe0
+K3xoYFsiB43c8gQHb7wsPzoncOqKmAitzF+tpx9xTXlMcQUdNSsP0pe6aG/+vnTY
+JB1RlRyV+dWC9kwgolxwVUNCp+p9AuPhw5nn2ueMfuVR3eAFlYxt7uYPdg98e9C3
+qu/4ZMCBZawtzwcx8zbl11AceGi8YjyCngyVywzhQtEMfOFY8FV6C1DyE0QbsFg1
+0jb3Vv5t0Maph9zpPLl2kliTVh4tRmC++uWLwK2BuJbqXrNd1ZEurUSbd0L81eit
+ZfV2e1WHzTP8gkPito07aOPYpMfIb5OPP+OrFzhGUkPee85VgPm3U0WRvenGzr2n
++F5QPOEb/bL5fFFt5cV4uzQ4W+3Lb76+9fjXoICC0EK8StZAlb8LDA6tidRdU+iJ
+6PGPGAHOs5fkZj9HwsoxDLmxyYCMce5xKnKH4Z+MfXu6Od179LFLzG2JBz17Yag6
+vIqto3ov3HDUaKImCXfzZMjB2/DGViPoAFnzAHnabUnwx/y4KYvciLjcKsYVQMMD
+1QA8FhGaCClaOIm+btxhyZQzrLYc+vMAW/dgTbnvoA99ccLQ/FMfdIpYiC/GT1rt
+CYYUG6lmqrvtQrU2tWrjEvkTYCaAjL0Ljx676NV49F2iryiRgdYC+FyxbNYcj3CT
+pIZca6f5MLjVHBfgizej/w==
+-----END ENCRYPTED PRIVATE KEY-----"
+		        set certificate "-----BEGIN CERTIFICATE-----
+MIIFajCCBFKgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwgZExCzAJBgNVBAYTAkNB
+MQswCQYDVQQIDAJCQzEQMA4GA1UEBwwHQnVybmFieTEMMAoGA1UECgwDRk9TMQ4w
+DAYDVQQLDAVGT1NRQTEjMCEGA1UEAwwaRk9TIEdVSSBBdXRvbWF0aW9uIFJvb3Qg
+Q0ExIDAeBgkqhkiG9w0BCQEWEXh5YW5AZm9ydGluZXQuY29tMB4XDTE4MTAxMDAw
+NDIzOVoXDTI4MTAwNzAwNDIzOVoweTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgMAkJD
+MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsMBUZPU1FBMR0wGwYDVQQDDBQqLmZvcy5h
+dXRvbWF0aW9uLmNvbTEgMB4GCSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC6jrTE4qv/T5+abTYGKk/K
+jcL9JVxjjBPOQyUV3BnDQdcxH16oN6yDlrIouIZMP6GewnbPBmLuNlTYCjzyY1S7
+UtgPsAwvtKO5Ix+dGzFMgohcDEVJDq6zsGDhNW/VSXep+IE9jWZHCI2yWNOXKxs1
+T0uagu8+Rp++HqsIhxTH8I77hKMGAMiBl0oQy2nt4POef03uk+deisnv331EHiuK
+jYT3Lbc0VF6EQm36WWv/ulelJWWORWYwCZXAW0VYO5Cy/jQ94BziBk0zp9D7Edhh
+Jfuvv0f0OpcOBDhc41k/3UZT9cecLfVKvl75e+L/6lg0V1V0r6gfIpT8aoplNHEh
+AgMBAAGjggHhMIIB3TAJBgNVHRMEAjAAMBEGCWCGSAGG+EIBAQQEAwIF4DAzBglg
+hkgBhvhCAQ0EJhYkT3BlblNTTCBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRl
+MB0GA1UdDgQWBBSBCE+a3/KGRyPjgjvcdgR0Y7tmUTCBxgYDVR0jBIG+MIG7gBQ3
+GcJBHSXJKLJDgLJCTAFdpgoNF6GBl6SBlDCBkTELMAkGA1UEBhMCQ0ExCzAJBgNV
+BAgMAkJDMRAwDgYDVQQHDAdCdXJuYWJ5MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsM
+BUZPU1FBMSMwIQYDVQQDDBpGT1MgR1VJIEF1dG9tYXRpb24gUm9vdCBDQTEgMB4G
+CSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb22CCQCYFrnkBZPsIDAOBgNVHQ8B
+Af8EBAMCBaAwJwYDVR0lBCAwHgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcD
+BDBnBgNVHREEYDBeghQqLmZvcy5hdXRvbWF0aW9uLmNvbYcErBDIAYcECgYeAYcE
+CgFkAYcQIAAAEAABAQAAAAAAAAAAAYcQIAAAEAAGADAAAAAAAAAAAYcQIAABcgAW
+AgAAAAAAAAAAATANBgkqhkiG9w0BAQsFAAOCAQEAdceqUe5OI40cSXNgPKZV5Guv
+ZRZ9/lVr5D0dDHCRYjzTp0jAcdKxj/I9EwMMdNwIuQlcmmezp4dPCQmtZ8P3Qn8p
+DVJ3YHMuPGBCtuMKt7M1ZyXbtQAB7Uona5pJgTldcvlL2cfqGdqe9ThiE01Vf3wQ
+lk0huCefdbfOaOsC8grfzw6fu82rsRW65XdAtJ+0nX2uc10L2O2AebC+fpNIOqCI
+PfLfEyOdTrogMJcLVPbygNzGEwwodLApioe1MPcon79N8Fj9vcK5tnuKpCljkjnf
+xSOLYZDjvbHFmWf/8cEkdkdryU3uXn4Y5YK8BGq8jTGTm9DoMiu38dwoJyQG6A==
+-----END CERTIFICATE-----"
+    end
+##import CA certificate
+    config certificate ca
+        edit "${FGT_PKI_PEER_CA_NAME}"
+            set ca "-----BEGIN CERTIFICATE-----
+MIIECjCCAvKgAwIBAgIJAJgWueQFk+wgMA0GCSqGSIb3DQEBCwUAMIGRMQswCQYD
+VQQGEwJDQTELMAkGA1UECAwCQkMxEDAOBgNVBAcMB0J1cm5hYnkxDDAKBgNVBAoM
+A0ZPUzEOMAwGA1UECwwFRk9TUUExIzAhBgNVBAMMGkZPUyBHVUkgQXV0b21hdGlv
+biBSb290IENBMSAwHgYJKoZIhvcNAQkBFhF4eWFuQGZvcnRpbmV0LmNvbTAeFw0x
+ODEwMDkyMzEyMDBaFw0yODEwMDYyMzEyMDBaMIGRMQswCQYDVQQGEwJDQTELMAkG
+A1UECAwCQkMxEDAOBgNVBAcMB0J1cm5hYnkxDDAKBgNVBAoMA0ZPUzEOMAwGA1UE
+CwwFRk9TUUExIzAhBgNVBAMMGkZPUyBHVUkgQXV0b21hdGlvbiBSb290IENBMSAw
+HgYJKoZIhvcNAQkBFhF4eWFuQGZvcnRpbmV0LmNvbTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAL1F9EFZDEnSRwFkJMJlaKfgI5vDW+gFiU5OpKagy6fQ
+WoN/rjtQ7BR2EJhwntyDX/qcJlnVlnIdbOGSXEMLK7bWHKvaiKcYUvOQVklAR/+4
+aR7Jah+JJ90piXFjy3zeyiS//8mgeUFWPXESQACPAwoHIbnEAw6a+WdEtCKnjvej
+hhS3RQQqFjxOCk8/QWyS9HOxl9LXD/Nj1B9PpeLHOAYGOBWHUvJWoFUKuJmJF7F6
+Guu5YFHY/2/TZtzlo/j0yDRdCaDvrx0Zp+ZRSsgg9Gy5xRQFOOG8LtGmMwfpehBI
+pXMYeKu0TTMfN2ZBEOILloPJKffyJuq8hIQSCYAkW8sCAwEAAaNjMGEwHQYDVR0O
+BBYEFDcZwkEdJckoskOAskJMAV2mCg0XMB8GA1UdIwQYMBaAFDcZwkEdJckoskOA
+skJMAV2mCg0XMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMA0GCSqG
+SIb3DQEBCwUAA4IBAQAXe80iAcmPGlH9TFQlBsdYMbx+EIrlvgj1kEuTecb1bK/V
+r/+3RJ5AQ6drmXrTGXR95ZlcAkBKoP3998ZbksjjBrikdpIjCU3Wbtg/nobCC2Fv
+jM/UG7IvYPNmHYXy/8feQqydiwY+y6L5v4Rq2FUUZWvdn40f3xtAsNR9zU1wEQdX
+XxBveQGhyhZmRTOECm+Cv4+eAVijG0E9DQek0Fd4Q/UcFUg+r5F6XMCpA8SpluH4
+HEi9/HHFjhGbMdQWVJcHS6PWs+W9ArN5TFpwG8Plp8sKH3/I+t1d6KM7Ms0r07SM
+/of3e0FiHnJX+bj/9rkkv6KmqHVQyC0354KDPS6z
+-----END CERTIFICATE-----"
+    end
+    ##enable featuers on GUI and extend timeout
+    config system global
+        set gui-ipv6 enable
+        set gui-wireless-opensecurity enable
+        set admintimeout 480
+        set admin-server-cert "${FGT_HTTPS_CERTIFICATE_NAME}"
+    end
+end
+
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_root}"
+        config system settings
+            set gui-traffic-shaping enable
+            set gui-multiple-interface-policy enable
+            set gui-sslvpn-realms enable
+            set gui-nat46-64 enable
+            set gui-dns-database enable
+            set gui-load-balance enable
+            set gui-multicast-policy enable
+            set gui-voip-profile enable
+            set gui-local-in-policy enable
+            set gui-policy-based-ipsec enable
+            set gui-endpoint-control-advanced enable
+            set gui-allow-unnamed-policy enable
+            set gui-email-collection enable
+            set gui-domain-ip-reputation enable
+            set gui-local-reports enable
+            set gui-sslvpn-personal-bookmarks enable
+            set gui-sslvpn-realms enable 
+        end
+    next
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config system settings
+            set gui-traffic-shaping enable
+            set gui-multiple-interface-policy enable
+            set gui-sslvpn-realms enable
+            set gui-nat46-64 enable
+            set gui-dns-database enable
+            set gui-load-balance enable
+            set gui-multicast-policy enable
+            set gui-voip-profile enable
+            set gui-local-in-policy enable
+            set gui-policy-based-ipsec enable
+            set gui-endpoint-control-advanced enable
+            set gui-allow-unnamed-policy enable
+            set gui-email-collection enable
+            set gui-domain-ip-reputation enable
+            set gui-local-reports enable
+            set gui-sslvpn-personal-bookmarks enable
+            set gui-sslvpn-realms enable 
+        end
+    next
+    edit "${FIPSCC_TEST_VDOM_NAME_2}"    
+        config system settings
+            set gui-traffic-shaping enable
+            set gui-multiple-interface-policy enable
+            set gui-sslvpn-realms enable
+            set gui-nat46-64 enable
+            set gui-dns-database enable
+            set gui-load-balance enable
+            set gui-multicast-policy enable
+            set gui-voip-profile enable
+            set gui-local-in-policy enable
+            set gui-policy-based-ipsec enable
+            set gui-endpoint-control-advanced enable
+            set gui-allow-unnamed-policy enable
+            set gui-email-collection enable
+            set gui-domain-ip-reputation enable
+            set gui-local-reports enable
+            set gui-sslvpn-personal-bookmarks enable
+            set gui-sslvpn-realms enable 
+        end
+    next
+    edit "${FIPSCC_TEST_VDOM_NAME_TP}"
+        config system settings
+            set opmode transparent
+            set manageip ${FIPSCC_TP_MANAGE_IP}/255.255.255.0
+            set gui-traffic-shaping enable
+            set gui-multiple-interface-policy enable
+            set gui-sslvpn-realms enable
+            set gui-nat46-64 enable
+            set gui-dns-database enable
+            set gui-load-balance enable
+            set gui-multicast-policy enable
+            set gui-voip-profile enable
+            set gui-local-in-policy enable
+            set gui-policy-based-ipsec enable
+            set gui-endpoint-control-advanced enable
+            set gui-allow-unnamed-policy enable
+            set gui-email-collection enable
+            set gui-domain-ip-reputation enable
+            set gui-local-reports enable
+            set gui-sslvpn-personal-bookmarks enable
+            set gui-sslvpn-realms enable 
+        end
+    next    
+end
+config global
+    config system global    
+        set gui-ipv6 enable
+        set management-vdom "${FIPSCC_TEST_VDOM_NAME_1}"
+    end
+end
+
+config global
+    config system interface     
+        edit "${FGT_VLAN30_INTERFACE}"
+            set vdom "${FIPSCC_TEST_VDOM_NAME_1}"
+            set ip ${FGT_VLAN30_IP} 255.255.255.0
+            set allowaccess ping https ssh
+            set status up
+            config ipv6
+                set ip6-address ${FGT_VLAN30_IP_V6}/64
+                set ip6-allowaccess ping https ssh
+            end
+        next     
+        edit "${FGT_VLAN20_INTERFACE}"
+            set vdom "${FIPSCC_TEST_VDOM_NAME_1}"
+            set ip ${FGT_VLAN20_IP} 255.255.255.0
+            set allowaccess ping https ssh
+            set status up
+            config ipv6
+                set ip6-address ${FGT_VLAN20_IP_V6}/64
+                set ip6-allowaccess ping https ssh
+            end
+        next             
+        edit "${FGT_VLAN10_INTERFACE}"
+            set vdom "${FIPSCC_TEST_VDOM_NAME_1}"
+            set ip ${FGT_VLAN10_IP} 255.255.255.0
+            set allowaccess ping https ssh
+            set status up
+            config ipv6
+                set ip6-address ${FGT_VLAN10_IP_V6}/64
+                set ip6-allowaccess ping https ssh
+            end
+        next
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config router static
+            purge
+            edit ${FGT_STATIC_ROUTER_ID_TO_OA}
+                set gateway ${FGT_VLAN30_GATEWAY}
+                set device "${FGT_VLAN30_INTERFACE}"
+            next
+        end
+        config router static6
+	        purge
+            edit ${FGT_STATIC_ROUTER_ID_TO_OA_IPV6}
+                set gateway ${FGT_VLAN30_GATEWAY_V6}
+		        set device ${FGT_VLAN30_INTERFACE}
+            next
+        end
+    next
+end  
+
+#add test service and service group to vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"  
+        config firewall service custom
+            edit "${FIPSCC_TEST_SERVICE_1}"
+                set tcp-portrange 3000-3002 4000-4002                
+                set color 27
+            next
+            edit "${FIPSCC_TEST_SERVICE_2}"
+                set category "Web Access"
+                set protocol IP
+                set protocol-number 17
+                set color 28
+            next
+            edit "${FIPSCC_TEST_SERVICE_3}"
+                set category "Network Services"
+                set fqdn "www.fortinet.com"
+                set tcp-portrange 13000-13002:5000-5100
+                set udp-portrange 3000-30002:4000-4001
+                set sctp-portrange 500-502:6000-6600                
+                set color 29
+            next
+            edit "${FIPSCC_TEST_SERVICE_4}"
+                set category "Remote Access"
+                set protocol ICMP6
+                set icmptype 8
+                set icmpcode 0
+                set color 30
+            next            
+            edit "${FIPSCC_TEST_SERVICE_5}"
+                set category "Remote Access"
+                set protocol ICMP
+                set icmptype 0
+                set icmpcode 0                
+                set color 31
+            next
+        end
+        config firewall service group
+            edit "${FIPSCC_TEST_SERVICE_GROUP_1}"
+                set member "${FIPSCC_TEST_SERVICE_1}" "${FIPSCC_TEST_SERVICE_2}"                
+                set color 32
+            next            
+            edit "${FIPSCC_TEST_SERVICE_GROUP_2}"
+                set member "${FIPSCC_TEST_SERVICE_3}" "Email Access" "${FIPSCC_TEST_SERVICE_GROUP_1}"                
+                set color 0
+            next                        
+            edit "${FIPSCC_TEST_SERVICE_GROUP_3}"
+                set member "${FIPSCC_TEST_SERVICE_4}"                                
+                set color 1
+            next
+        end
+    next
+end
+
+#add test address and address group to vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall address
+            edit "${FIPSCC_TEST_ADDR_1}"
+                set type iprange
+                set start-ip 10.1.100.6
+                set end-ip 10.1.100.10
+                set color 2
+            next
+            edit "${FIPSCC_TEST_ADDR_2}"
+                set type geography
+                set country "CA"
+                set color 3
+            next
+            edit "${FIPSCC_TEST_ADDR_3}"
+                set type fqdn
+                set fqdn "www.fortinet.com"
+                set color 4
+            next
+            edit "${FIPSCC_TEST_ADDR_4}"
+                set type ipmask
+                set subnet 10.1.100.8 255.255.255.252
+                set color 5
+            next
+        end
+        config firewall addrgrp
+            edit "${FIPSCC_TEST_ADDR_GROUP_1}"              
+                set member "${FIPSCC_TEST_ADDR_1}" "${FIPSCC_TEST_ADDR_2}"
+                set color 6
+            next
+            edit "${FIPSCC_TEST_ADDR_GROUP_2}"              
+                set member "${FIPSCC_TEST_ADDR_GROUP_1}" "${FIPSCC_TEST_ADDR_3}"
+                set color 7
+            next            
+            edit "${FIPSCC_TEST_ADDR_GROUP_3}"              
+                set member "${FIPSCC_TEST_ADDR_4}"
+                set color 8
+            next
+            edit "${FIPSCC_TEST_ADDRESS_W_FQDN_GROUP1}"
+                set member ${FIPSCC_TEST_ADDRESS_W_FQDN_DROPBOX}
+            next
+            edit "${FIPSCC_TEST_ADDRESS_W_FQDN_GROUP2}"
+                set member "${FIPSCC_TEST_ADDRESS_W_FQDN_DROPBOX}" "${FIPSCC_TEST_ADDR_1}" "${FIPSCC_TEST_ADDR_2}"
+            next
+        end
+        config firewall address6-template
+            edit "${FIPSCC_TEST_ADDR6_TEMPLATE_1}"
+                set ip6 2000:10:1:100::/64
+                set subnet-segment-count 6
+            next
+            edit "${FIPSCC_TEST_ADDR6_TEMPLATE_2}"
+                set ip6 2000:10:1:101:2000::/80
+                set subnet-segment-count 6
+                config subnet-segment
+                    edit 1
+                        set name "country"
+                        set bits 4
+                    next
+                    edit 2
+                        set name "state"
+                        set bits 2
+                    next
+                    edit 3
+                        set name "city"
+                        set bits 4
+                    next
+                    edit 4
+                        set name "site"
+                        set bits 4
+                    next
+                    edit 5
+                        set name "street"
+                        set bits 4
+                    next
+                    edit 6
+                        set name "number"
+                        set bits 4
+                    next
+                end
+            next            
+        end
+        config firewall address6
+            edit "${FIPSCC_TEST_ADDR6_1}"
+                set ip6 2000:10:1:100:1::/80                
+                set color 9
+            next
+            edit "${FIPSCC_TEST_ADDR6_2}"
+                set type template
+                set template "${FIPSCC_TEST_ADDR6_TEMPLATE_2}"
+                config subnet-segment
+                    edit "country"
+                        set type specific
+                        set value "0xa"
+                    next
+                    edit "state"
+                        set type specific
+                        set value "0b11"
+                    next
+                    edit "city"
+                        set type specific
+                        set value "0xb"
+                    next
+                    edit "site"
+                        set type specific
+                        set value "0xc"
+                    next
+                    edit "street"
+                        set type specific
+                        set value "0xd"
+                    next
+                    edit "number"
+                        set type specific
+                        set value "0xe"
+                    next
+                end                
+                set color 10
+            next
+            edit "${FIPSCC_TEST_ADDR6_3}"
+                set type fqdn
+                set fqdn "www.google.ca"                
+                set color 11
+            next            
+            edit "${FIPSCC_TEST_ADDR6_4}"
+                set type iprange
+                set start-ip 2000:10:1:100::1
+                set end-ip 2000:10:1:100::10                
+                set color 12
+            next
+        end
+        config firewall addrgrp6
+            edit "${FIPSCC_TEST_ADDR6_GROUP_1}"
+                set member "${FIPSCC_TEST_ADDR6_1}" "${FIPSCC_TEST_ADDR6_2}"
+                set color 13
+            next
+            edit "${FIPSCC_TEST_ADDR6_GROUP_2}"
+                set member "${FIPSCC_TEST_ADDR6_GROUP_1}" "${FIPSCC_TEST_ADDR6_3}"
+                set color 14
+            next
+            edit "${FIPSCC_TEST_ADDR6_GROUP_3}"
+                set member "${FIPSCC_TEST_ADDR6_4}"                
+                set color 15
+            next
+        end        
+    next
+end
+
+#add wildcard FQDN in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall wildcard-fqdn group
+            edit "${FIPSCC_TEST_W_FQDN_GROUP_1}"
+                set member "${FIPSCC_TEST_W_FQDN_FORTINET}" "${FIPSCC_TEST_W_FQDN_ITUNE}"
+            next
+        end
+    next
+end
+
+#add schedule in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall schedule recurring
+            edit "${FIPSCC_TEST_SCHEDULE_1}"
+                set start 06:00
+                set end 20:00
+                set day monday tuesday wednesday thursday friday
+                set color 16
+            next
+            
+        end
+        config firewall schedule onetime
+            edit "${FIPSCC_TEST_SCHEDULE_ONE_TIME_1}"
+                set start 08:00 2018/11/01
+                set end 20:00 2020/11/30
+                set color 17
+            next
+        end
+        config firewall schedule group
+            edit "${FIPSCC_TEST_SCHEDULE_GROUP_1}"
+                set member "${FIPSCC_TEST_SCHEDULE_1}"                
+                set color 18
+            next
+        end
+    next
+end
+
+#add vip in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall vip
+            edit "${FIPSCC_TEST_VIP_1}"
+                set extip 172.16.202.1
+                set extintf "any"
+                set mappedip "10.1.102.1"
+                set color 19
+            next
+        end        
+        config firewall vip6
+            edit "${FIPSCC_TEST_VIP6_1}"
+                set extip 2000:172:16:202::1
+                set mappedip 2000:10:1:102::1
+                set color 20
+            next
+        end
+        config firewall vip46
+            edit "${FIPSCC_TEST_VIP46_1}"
+                set extip 10.250.250.1-10.250.250.200
+                set mappedip 2000:10:250:250::1-2000:10:250:250::c8                
+                set color 21
+            next
+        end
+        config firewall vip64
+            edit "${FIPSCC_TEST_VIP64_1}"
+                set extip 2000:172:16:202::4
+                set mappedip 10.1.102.4                
+                set color 22
+            next
+        end
+        config firewall vipgrp
+            edit "${FIPSCC_TEST_VIP_GROUP_1}"
+                set interface "any"
+                set member "${FIPSCC_TEST_VIP_1}"                
+                set color 23
+            next
+        end
+        config firewall vipgrp6
+            edit "${FIPSCC_TEST_VIP6_GROUP_1}"
+                set member "${FIPSCC_TEST_VIP6_1}"
+                set color 24                
+            next
+        end
+        config firewall vipgrp46
+            edit "${FIPSCC_TEST_VIP46_GROUP_1}"
+                set member "${FIPSCC_TEST_VIP46_1}"
+                set color 25
+            next
+        end         
+        config firewall vipgrp64
+            edit "${FIPSCC_TEST_VIP64_GROUP_1}"
+                set member "${FIPSCC_TEST_VIP64_1}"
+                set color 26
+            next
+        end        
+    next
+end    
+
+#add ip pools in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall ippool
+            edit "${FIPSCC_TEST_IP_POOLS_1}"
+                set startip 10.1.100.150
+                set endip 10.1.100.150
+            next
+            edit "${FIPSCC_TEST_IP_POOLS_2}"
+                set type one-to-one
+                set startip 10.1.100.151
+                set endip 10.1.100.160
+            next
+            edit "${FIPSCC_TEST_IP_POOLS_3}"
+                set type fixed-port-range
+                set startip 172.16.201.1
+                set endip  172.16.201.1
+                set source-startip 10.1.101.1 
+                set source-endip 10.1.101.1
+            next     
+            edit "${FIPSCC_TEST_IP_POOLS_4}"
+                set type port-block-allocation
+                set startip 172.16.201.2
+                set endip 172.16.201.2
+            next       
+        end
+        config firewall ippool6
+            edit "${FIPSCC_TEST_IP_POOLS6_1}"
+                set startip 2000:10:1:100::71
+                set endip 2000:10:1:100::71
+            next
+            edit "${FIPSCC_TEST_IP_POOLS6_2}"
+                set startip 2000:10:1:100::72
+                set endip 2000:10:1:100::72
+            next
+        end
+    next
+end
+
+#add user and user group to vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config user ldap
+            edit "${FIPSCC_TEST_LDAP_SERVER}"
+                set server "${FGT_LDAP_SERVER_IP}"
+                set cnid "uid"
+                set dn "ou=users,dc=qa,dc=fortinet,dc=com"
+            next
+        end
+        config user tacacs+
+            edit "${FIPSCC_TEST_TACACS_P_SERVER}"
+                set server "${FGT_TACACS_SERVER_IP}"
+                set key 123456
+            next
+        end
+        config user radius
+            edit "${FIPSCC_TEST_RADIUS_SERVER}"
+                set server "${FGT_RADIUS_SERVER_IP}"
+                set secret 123456 
+                config accounting-server
+                    edit 1
+                        set status enable
+                        set server "${FGT_RADIUS_SERVER_IP}"
+                        set secret 123456
+                    next
+                end
+            next
+        end
+        config user local        
+            edit "${FIPSCC_TEST_LDAP_USER}"
+                set type ldap
+                set ldap-server "${FIPSCC_TEST_LDAP_SERVER}"
+            next
+            edit "${FIPSCC_TEST_TACACS_P_USER}"
+                set type tacacs+
+                set tacacs+-server "${FIPSCC_TEST_TACACS_P_SERVER}"
+            next
+            edit "${FIPSCC_TEST_RADIUS_USER}"
+                set type radius
+                set radius-server "${FIPSCC_TEST_RADIUS_SERVER}"
+            next
+            edit "${FIPSCC_TEST_LOCAL_USER_1}"
+                set type password
+                set email-to "tester123456@fortinet.com"                
+                set passwd 12345678
+            next
+            edit "${FIPSCC_TEST_LOCAL_USER_2}"
+                set type password              
+                set passwd 12345678
+            next            
+        end
+        config user group
+            edit "${FIPSCC_TEST_LDAP_USER_GROUP}"
+                set member "${FIPSCC_TEST_LDAP_SERVER}"
+            next
+            edit "${FIPSCC_TEST_RADIUS_USER_GROUP}"
+                set member "${FIPSCC_TEST_RADIUS_SERVER}"
+            next
+            edit "${FIPSCC_TEST_TACACS_USER_GROUP}"
+                set member "${FIPSCC_TEST_TACACS_P_SERVER}"
+            next
+            edit "${FIPSCC_TEST_USER_GROUP_1}"
+                set member "${FIPSCC_TEST_LOCAL_USER_1}"
+            next
+            edit "${FIPSCC_TEST_USER_GROUP_2}"
+                set member "${FIPSCC_TEST_LOCAL_USER_2}" "${FIPSCC_TEST_LDAP_USER}" "${FIPSCC_TEST_TACACS_P_USER}" "${FIPSCC_TEST_RADIUS_USER}"
+            next 
+            edit "${FIPSCC_TEST_USER_GROUP_3}"
+                set member "${FIPSCC_TEST_RADIUS_USER}" "${FIPSCC_TEST_TACACS_P_USER}" "${FIPSCC_TEST_LDAP_USER}"
+            next
+            edit "${FIPSCC_TEST_USER_GROUP_4}"
+                set member "${FIPSCC_TEST_LDAP_SERVER}" "${FIPSCC_TEST_TACACS_P_SERVER}" "${FIPSCC_TEST_RADIUS_SERVER}" "${FIPSCC_TEST_RADIUS_USER}"
+            next
+        end
+    next
+end
+
+#add device and device group in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config user device
+            edit "${FIPSCC_TEST_CUSTOM_DEVICE_1}"
+                set mac 00:55:55:55:55:55
+                set type other-network-device
+            next
+            edit "${FIPSCC_TEST_CUSTOM_DEVICE_2}"
+                set mac 00:56:55:55:55:55
+                set type iphone
+            next
+        end
+        config user device-group
+            edit "${FIPSCC_TEST_DEVICE_GROUP_1}"
+                set member "${FIPSCC_TEST_CUSTOM_DEVICE_1}"
+            next
+            edit "${FIPSCC_TEST_DEVICE_GROUP_2}" 
+                set member "${FIPSCC_TEST_CUSTOM_DEVICE_1}" "${FIPSCC_TEST_DEVICE_GROUP_PREDEFINED_1}" "${FIPSCC_TEST_DEVICE_GROUP_PREDEFINED_2}"
+            next
+        end
+    next
+end
+
+#add traffic shaper in vdom 1
+config vdom
+    edit "${FIPSCC_TEST_VDOM_NAME_1}"
+        config firewall shaper per-ip-shaper
+            edit "${FIPSCC_TEST_SHAPER_PER_IP_1}"
+                set max-bandwidth 10000
+                set max-concurrent-session 1
+                set diffserv-forward enable
+                set diffserv-reverse enable
+                set diffservcode-forward 111000
+                set diffservcode-rev 000111
+            next
+        end
+    next
+end

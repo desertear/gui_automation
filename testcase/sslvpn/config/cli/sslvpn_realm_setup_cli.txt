@@ -1,0 +1,9 @@
+config vpn ssl settings
+  config authentication-rule
+      edit 1
+          set groups "ssl-web-group"
+          set portal "testportal"
+          set realm "test"
+      next
+  end
+end

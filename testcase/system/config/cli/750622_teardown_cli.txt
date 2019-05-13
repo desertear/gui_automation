@@ -1,0 +1,6 @@
+##Verify GUI can change administrator's password
+config global
+        config system admin
+            delete "750622"
+        end
+end

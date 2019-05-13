@@ -1,0 +1,7 @@
+###Verify admin-lockout-threshold function works for GUI login
+config global
+    config system global
+        set admin-lockout-threshold 3
+        set admin-lockout-duration  60
+    end
+end

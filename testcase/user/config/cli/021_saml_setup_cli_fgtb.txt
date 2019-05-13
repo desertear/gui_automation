@@ -1,0 +1,197 @@
+#Before this CLI is run, FGT should be configured  an interface with http/https and telnet access right.
+##import certificate for HTTPS connection
+config vpn certificate local
+    edit "${FGTB_HTTPS_CERTIFICATE_NAME}"
+        set password 123456
+        set private-key "-----BEGIN ENCRYPTED PRIVATE KEY-----
+MIIFHDBOBgkqhkiG9w0BBQ0wQTApBgkqhkiG9w0BBQwwHAQIDMww2FRW5U4CAggA
+MAwGCCqGSIb3DQIJBQAwFAYIKoZIhvcNAwcECLiqrwx+Yl0uBIIEyHZzQQWcEqCL
+3EdLqYA/4ir1IYpjMeszuFrCA5uzFq1y/nvtE+tvJ2+msBvpo4lBNgrxDQ+juYss
+x3ukglYKcxbiQbeN3t+xo1FLv6C98J0DDNYBnpacFZmj6qQnd2e+r8NgtXT0fWam
+jipoZ9vEHZ7VQ+vEVALoKQPBVQiGDtZfpLdz4aLcdf7C3MbQcEzSXqQlk2J5pJH3
+byQy0G5hC7/RmLqM8er8Wlz0QLutaAP7BMaEtVedjE6vlmsg9DbzZtYD7C+rKL5t
+zhF6k7CgDjjstfkv6qZiW8IpYvADgRx7OaozN1/CETnYqwLK1dwCDeJklWeXHkNi
+9FNV8hhoZ/+roF6HZhhaJo2QXS+HngC+GnNMBjd4aQ5HSejqxcbQwzbRmBMwOejI
+ohFdSKPjHG3ysN46YxXyrGsQIXSBHoe4ALh6exdLSrLIJ+qqdEsZShAhEQYpuQxo
+or4odY5klbEfa1V34ZliVyxJHH1TEpVtn8DY9jveS4RxIKtxd0rHVjdfvCPtLcqS
+ZXzwgz5ebVAmEUef4cpxpUH7yNwdBsyJXlIWtRCgiow/sUuxnLMhPtpqJyEQvkRt
+Y7ejCOSPmPNFCC4nORRz2P8mNBSCSJ8czvsztzZTkkd1ePTVNVztBZfudddmhR5+
+6MeRvlji5zrJ1q0396Oehky01jkuawnJwvxz2Cp+GOxt6GNg13dSDu0eEUN45jbs
+y2D9SHTRMcI+yr68WmaIzwGSYHfpR26HajxYhS9adGYH/lb+YrNLiJyyry/wouEH
+skwgUOMW2w+zsvC+yauwlRQJKxb1eBQUV2DFEWXB07gp4gbgxkUEDBT/GcsIvBBI
+cf6WwTK257iv9U5d/dCYkQatHZW/kvl+pq5BBSUSgjXmZuJ8hOIk+DoPx7DY7p4+
+sUsH+G1FK4ZXtKGofBQohDTPSsFLFXZSMduNKFOjdYIjI9Ya11z1ukXvagLFUcSW
+ST+ZEA1TV/Hozq6CpIRMhQpBzoDy/yLUjPNh7k/b7SrMb6e1t02yyHpTXZdmO8Kl
+y3Dkg01G22glCDYr0/LmNzuDzNGsa+/6VMvQSgbk7L563XMQXvce3odHaJ6pb0gM
+BclZAdaeoemU5r6kHB/9Do/McREEkvxgO+w2g/EnzeP54dKFcCXInJwPmq4Op2vf
+U3Fk9nuC1bnAgtgQrQUlIZiG8NpOwITwBqtKix7KiFU7BQOW8R2Nd1UZHtiC+BfP
+FetZNaF4K/Ri0/NKqHkqu1OrN++OeaQxCxdRL3Qub/6oLcHcgG6VqHyO8u+wm/ov
+KejG++34G9RWkwpPBzWInXARG6Jw5SxilcCDA0ciaZU/Gefeszee/WUamceHdi2p
+swofMf6fL5pSFuHqU6W2lgz9XSyZdAROPbI2Xyyod1xdQk0Mq1jaGARZ5kB/wrfv
+n1KkYtdrXSQazqM8WwPtCBvIpns+6ZZMOAaj4b9oXKTlBrZ8q3A6dgOFoz0/066M
+MAtUsQoiuWfnnAcd6fxP47olzSfYC/BWZBlgT5jRlWlDpAfyT4VeYTR2scsQrF8W
+Jwjk01zTkBVdXRgaFTIzpXxIQZcLUY7MUlcpSR5vE4hYw7wMiL+kkzlfbgHu00Tf
+NSj136A/pLUBR8NLglGKVg==
+-----END ENCRYPTED PRIVATE KEY-----"
+        set certificate "-----BEGIN CERTIFICATE-----
+MIIFNjCCBB6gAwIBAgICEAUwDQYJKoZIhvcNAQELBQAwgZExCzAJBgNVBAYTAkNB
+MQswCQYDVQQIDAJCQzEQMA4GA1UEBwwHQnVybmFieTEMMAoGA1UECgwDRk9TMQ4w
+DAYDVQQLDAVGT1NRQTEjMCEGA1UEAwwaRk9TIEdVSSBBdXRvbWF0aW9uIFJvb3Qg
+Q0ExIDAeBgkqhkiG9w0BCQEWEXh5YW5AZm9ydGluZXQuY29tMB4XDTE5MDUxMDIx
+MDIxM1oXDTI5MDUwNzIxMDIxM1oweTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgMAkJD
+MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsMBUZPU1FBMR0wGwYDVQQDDBQqLmZvcy5h
+dXRvbWF0aW9uLmNvbTEgMB4GCSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDMKKMys18oP08/hoIUpuYf
+r98/3KJYtM9/bz+CtOhAYXtNMDO9Y2Z+h2HHWxtNqU9FP21B+2MT+fWyWJHWCCWI
+wJlYGgegk7zCdwlVMjLchLu2g5NrNt/dQiPqSqljyO8iuej+AhpINf5XpyGOBsth
+SxHHEheVfxerYcqBl9YfRe+wawzkxRwf4VgJ81nD5HjYG4ph2UtK04nKJyuPHbT+
+JaaPVNjUKkx4/O96Ja/6JfglEY3Socl0lOKXe838rzNrn/HE3cNb+7fYB/qeJZEE
+m6iLaOMPf4QPPkiDGoPh2WgAFSSMbMEe+gc5IYnk1FsJVEJ/uR4U/XU3/8f/p+WL
+AgMBAAGjggGtMIIBqTAJBgNVHRMEAjAAMB0GA1UdDgQWBBRa+/1sYMfUUX1ivG/R
+R+PQpVK9ZDCBxgYDVR0jBIG+MIG7gBQ3GcJBHSXJKLJDgLJCTAFdpgoNF6GBl6SB
+lDCBkTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgMAkJDMRAwDgYDVQQHDAdCdXJuYWJ5
+MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsMBUZPU1FBMSMwIQYDVQQDDBpGT1MgR1VJ
+IEF1dG9tYXRpb24gUm9vdCBDQTEgMB4GCSqGSIb3DQEJARYReHlhbkBmb3J0aW5l
+dC5jb22CCQCYFrnkBZPsIDAOBgNVHQ8BAf8EBAMCBaAwJwYDVR0lBCAwHgYIKwYB
+BQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHREEdDByghQqLmZvcy5hdXRv
+bWF0aW9uLmNvbYISZm9zLmF1dG9tYXRpb24uY29thwSsEMgChwQKBh4ChwQKAWQC
+hxAgAAAQAAEBAAAAAAAAAAAChxAgAAAQAAYAMAAAAAAAAAAChxAgAAFyABYCAAAA
+AAAAAAACMA0GCSqGSIb3DQEBCwUAA4IBAQBFwqLZyIW/l1T5VivK2l0UPbycXWtG
+cPVG8zsB5YDrIIRM7dVhWZhDinxXYQR7LSrTmSKOqwGXuiBvG4SJDGf+PVkjAb4V
+/TIBcHbNTuY8jYqMuCqI2/pdD2Br3gXz0ylXyBGOX/p0rt6UNy+WXFR91FFFpLvA
+p3Jyi5xa0gnaHhOjWwhfBGv281hSTG/scXHFMRxS1RtyyzF5z9UhgtHcku9Gdn10
+2a23bk3PSisM8Ik4dS0zRgwcuUZZs4m8CqwFFzOsES1YUDgr/D7nhHEFwQAotghA
+DW7owY0rU7QVXZFxCrK4qwHaumvYe1PWZwY7eZ9hS1v3jDdlGJaE9+i2
+-----END CERTIFICATE-----"
+end
+
+config vpn certificate remote
+    edit "${SP_IDP_CERTIFICATE}"
+        set remote "-----BEGIN CERTIFICATE-----
+MIIFajCCBFKgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwgZExCzAJBgNVBAYTAkNB
+MQswCQYDVQQIDAJCQzEQMA4GA1UEBwwHQnVybmFieTEMMAoGA1UECgwDRk9TMQ4w
+DAYDVQQLDAVGT1NRQTEjMCEGA1UEAwwaRk9TIEdVSSBBdXRvbWF0aW9uIFJvb3Qg
+Q0ExIDAeBgkqhkiG9w0BCQEWEXh5YW5AZm9ydGluZXQuY29tMB4XDTE4MTAxMDAw
+NDIzOVoXDTI4MTAwNzAwNDIzOVoweTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgMAkJD
+MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsMBUZPU1FBMR0wGwYDVQQDDBQqLmZvcy5h
+dXRvbWF0aW9uLmNvbTEgMB4GCSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC6jrTE4qv/T5+abTYGKk/K
+jcL9JVxjjBPOQyUV3BnDQdcxH16oN6yDlrIouIZMP6GewnbPBmLuNlTYCjzyY1S7
+UtgPsAwvtKO5Ix+dGzFMgohcDEVJDq6zsGDhNW/VSXep+IE9jWZHCI2yWNOXKxs1
+T0uagu8+Rp++HqsIhxTH8I77hKMGAMiBl0oQy2nt4POef03uk+deisnv331EHiuK
+jYT3Lbc0VF6EQm36WWv/ulelJWWORWYwCZXAW0VYO5Cy/jQ94BziBk0zp9D7Edhh
+Jfuvv0f0OpcOBDhc41k/3UZT9cecLfVKvl75e+L/6lg0V1V0r6gfIpT8aoplNHEh
+AgMBAAGjggHhMIIB3TAJBgNVHRMEAjAAMBEGCWCGSAGG+EIBAQQEAwIF4DAzBglg
+hkgBhvhCAQ0EJhYkT3BlblNTTCBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRl
+MB0GA1UdDgQWBBSBCE+a3/KGRyPjgjvcdgR0Y7tmUTCBxgYDVR0jBIG+MIG7gBQ3
+GcJBHSXJKLJDgLJCTAFdpgoNF6GBl6SBlDCBkTELMAkGA1UEBhMCQ0ExCzAJBgNV
+BAgMAkJDMRAwDgYDVQQHDAdCdXJuYWJ5MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsM
+BUZPU1FBMSMwIQYDVQQDDBpGT1MgR1VJIEF1dG9tYXRpb24gUm9vdCBDQTEgMB4G
+CSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb22CCQCYFrnkBZPsIDAOBgNVHQ8B
+Af8EBAMCBaAwJwYDVR0lBCAwHgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcD
+BDBnBgNVHREEYDBeghQqLmZvcy5hdXRvbWF0aW9uLmNvbYcErBDIAYcECgYeAYcE
+CgFkAYcQIAAAEAABAQAAAAAAAAAAAYcQIAAAEAAGADAAAAAAAAAAAYcQIAABcgAW
+AgAAAAAAAAAAATANBgkqhkiG9w0BAQsFAAOCAQEAdceqUe5OI40cSXNgPKZV5Guv
+ZRZ9/lVr5D0dDHCRYjzTp0jAcdKxj/I9EwMMdNwIuQlcmmezp4dPCQmtZ8P3Qn8p
+DVJ3YHMuPGBCtuMKt7M1ZyXbtQAB7Uona5pJgTldcvlL2cfqGdqe9ThiE01Vf3wQ
+lk0huCefdbfOaOsC8grfzw6fu82rsRW65XdAtJ+0nX2uc10L2O2AebC+fpNIOqCI
+PfLfEyOdTrogMJcLVPbygNzGEwwodLApioe1MPcon79N8Fj9vcK5tnuKpCljkjnf
+xSOLYZDjvbHFmWf/8cEkdkdryU3uXn4Y5YK8BGq8jTGTm9DoMiu38dwoJyQG6A==
+-----END CERTIFICATE-----"
+end
+
+##enable featuers on GUI and extend timeout
+config system global
+    set gui-ipv6 enable
+    set gui-wireless-opensecurity enable
+    set admintimeout 480
+    set admin-server-cert "${FGTB_HTTPS_CERTIFICATE_NAME}"
+end
+##enable features on GUI
+config system settings
+    set gui-icap enable
+    set gui-nat46-64 enable
+    set gui-dns-database enable
+    set gui-load-balance enable
+    set gui-multicast-policy enable
+    set gui-voip-profile enable
+    set gui-local-in-policy enable
+    set gui-local-reports enable
+    set gui-explicit-proxy enable
+    set gui-dlp enable
+    set gui-sslvpn-personal-bookmarks enable
+    set gui-sslvpn-realms enable
+    set gui-policy-based-ipsec enable
+    set gui-spamfilter enable
+    set gui-endpoint-control-advanced enable
+    set gui-waf-profile enable
+    set gui-allow-unnamed-policy enable
+    set gui-email-collection enable
+    set gui-domain-ip-reputation enable
+    set gui-multiple-interface-policy enable
+end
+
+config system global
+   set admintimeout 480
+end
+#config interface for OA access
+config system interface
+    edit "${FGTB_VLAN30_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGTB_VLAN30_IP} 255.255.255.0
+        set allowaccess ping https ssh http telnet
+        set type physical
+        config ipv6
+            set ip6-address ${FGTB_VLAN30_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh
+        end
+    next
+end
+#config interface for GUI access
+config system interface
+    edit "${FGTB_VLAN20_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGTB_VLAN20_IP} 255.255.255.0
+        set allowaccess ping https ssh http telnet
+        config ipv6
+            set ip6-address ${FGTB_VLAN20_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh
+        end
+end
+
+##add router to Internet
+config router static
+	purge
+    edit ${FGTB_STATIC_ROUTER_ID_TO_OA}
+		set gateway ${FGTB_VLAN30_GATEWAY}
+		set device ${FGTB_VLAN30_INTERFACE}
+end
+config router static6
+	purge
+    edit ${FGTB_STATIC_ROUTER_ID_TO_OA_IPV6}
+        set gateway ${FGTB_VLAN30_GATEWAY_V6}
+		set device ${FGTB_VLAN30_INTERFACE}
+    next
+end
+
+config firewall policy
+    purge
+end
+
+config firewall policy6
+    purge
+end
+
+config system saml
+    set status enable
+    set default-login-page ${SP_DEFAULT_LOGIN_PAGE}
+    set default-profile ${SP_DEFAULT_PROFILE}
+    set cert "${SP_CERTIFICATE}"
+    set idp-entity-id "http://${IDP_SERVER_ADDRESS}:${IDP_SERVER_PORT}/saml-idp/${SP_PREFIX}/metadata/"
+    set idp-single-sign-on-url "https://${IDP_SERVER_ADDRESS}:${IDP_SERVER_PORT}/saml-idp/${SP_PREFIX}/login/"
+    set idp-single-logout-url "https://${IDP_SERVER_ADDRESS}:${IDP_SERVER_PORT}/saml-idp/${SP_PREFIX}/logout/"
+    set idp-cert "${SP_IDP_CERTIFICATE}"
+    set server-address "${SP_SERVER_ADDRESS}:${SP_SERVER_PORT}"
+end

@@ -1,0 +1,29 @@
+config user ldap
+    edit ${USER_LDAP1_NAME}
+        set server "${USER_LDAP1_SERVER_ADDR}"
+        set cnid "${USER_LDAP1_CNID}"
+        set dn ${USER_LDAP1_DN}
+        set type regular
+        set username "${USER_LDAP1_USERNAME}"
+        set password ${USER_LDAP1_PASSWORD}
+        set secure ldaps
+        set ssl-min-proto-version TLSv1
+        set ca-cert "${FGT_CA_NAME}"
+        set port 636
+        set password-renewal enable
+    next
+end
+config user group
+    edit "${remote_group}"
+        set member ${USER_LDAP1_NAME}
+    next
+end
+config system admin
+    edit "${remote_admin}"
+        set remote-auth enable
+        set accprofile "${remote_admin_profile}"
+        set vdom "root"
+        set wildcard enable
+        set remote-group "${remote_group}"
+    next
+end

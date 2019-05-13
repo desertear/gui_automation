@@ -1,0 +1,15 @@
+### To verify that an administrator could be created for each vdom
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system admin
+            delete "181539_vdom1"
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_2}"
+        config system admin
+            delete "181539_root"
+        end
+end
+

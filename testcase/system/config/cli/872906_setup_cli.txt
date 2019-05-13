@@ -1,0 +1,8 @@
+### Verify GUI can start/delete/download scripts result on System->Advanced page after config auto-scripts by cli 
+config global  
+    config system auto-script
+        edit 872906
+        set start auto
+        set script "get sys status"
+    end
+end

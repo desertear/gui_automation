@@ -1,0 +1,4 @@
+#cli teardown for case 730229
+config system dns-database
+    delete "730229"
+end

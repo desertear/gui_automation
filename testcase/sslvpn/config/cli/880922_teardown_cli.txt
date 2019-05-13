@@ -1,0 +1,13 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set split-tunneling enable
+        set split-tunneling-routing-address  "vlan30"
+     next
+end
+
+config firewall policy
+    edit 1
+        set dstaddr "vlan30"
+    next
+end
+

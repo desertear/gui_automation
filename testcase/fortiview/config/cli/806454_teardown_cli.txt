@@ -1,0 +1,6 @@
+config system admin
+    del "fortiviewadmin"
+end
+config system accprofile
+    del "fortiview_access_profile"
+end

@@ -1,0 +1,8 @@
+config global
+    config system sso-admin
+        delete ${sso_admin_name}  
+    end
+    config sys admin
+        delete ${admin_name}
+    end
+end

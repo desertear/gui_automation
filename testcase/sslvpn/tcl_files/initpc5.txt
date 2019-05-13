@@ -1,0 +1,17 @@
+# SSL VPN topology 1
+#
+#
+#
+#    PC1----------FGT_A-----PC5
+#
+#
+#
+#
+# Resetting the fortigate first
+
+[PC_05]
+	ip addr add 2000:172:16:200::55/64 dev eth1
+	vncserver -kill :1
+	vncserver
+	
+	report topology1

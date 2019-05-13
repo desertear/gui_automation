@@ -1,0 +1,56 @@
+###[GUI] Verify DDNSmode doesn't be supported on pure TP, set FGT to TP mode first
+config system console
+  set output standard
+end
+
+config firewall policy
+    purge
+end
+
+config system dhcp server
+    purge
+end
+
+config system virtual-switch
+    purge
+end
+
+config system interface
+    edit mgmt
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt1
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt2
+        set  dedicated-to none
+end
+
+config system global
+    set vdom-mode multi-vdom
+end
+
+config global
+  config system interface
+    edit  npu0_vlink0
+      set status down
+  end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_2}"
+    config system settings
+       set opmode transparent
+       set manageip  "${FGT_IP_ADDRESS}" 255.255.255.0
+    end
+    config system interface
+      edit "${SYSTEM_TEST_INTF_2}"
+        set allowaccess http https
+        set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+    end
+end
+

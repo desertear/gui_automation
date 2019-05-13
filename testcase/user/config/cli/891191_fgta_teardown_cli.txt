@@ -1,0 +1,3 @@
+config system admin
+    delete "${admin_username}"
+end

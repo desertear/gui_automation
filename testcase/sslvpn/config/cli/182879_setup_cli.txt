@@ -1,0 +1,44 @@
+config system replacemsg sslvpn "sslvpn-login"
+    set buffer "<!DOCTYPE html>
+<html lang=\\"en\\" class=\\"main-app\\">
+    <head>
+        <meta charset=\\"UTF-8\\">
+        <meta http-equiv=\\"X-UA-Compatible\\" content=\\"IE=8; IE=EDGE\\">
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\">
+        <meta name=\\"apple-itunes-app\\" content=\\"app-id=525600370\\">
+        <link href=\\"/css/main-blue.css\\" rel=\\"stylesheet\\" type=\\"text/css\\">
+        <title>Please Login</title>
+    </head>
+    <body>
+        <div class=\\"view-container\\">
+            <form class=\\"prompt\\" action=\\"%%SSL_ACT%%\\" method=\\"%%SSL_METHOD%%\\" name=\\"f\\" autocomplete=\\"off\\">
+                <div class=\\"content with-header\\">
+                    <div class=\\"header\\">
+                        <f-icon class=\\"ftnt-fortinet-grid icon-xl\\"></f-icon>
+                        <div>sslvpn replace message testing</div>
+                    </div>
+                    <div class=\\"sub-content\\">
+                        <div class=\\"wide-inputs\\">
+                            %%SSL_LOGIN%%
+                        </div>
+                        <div class=\\"button-actions wide\\">
+                            <button class=\\"primary\\" type=\\"button\\" name=\\"login_button\\" id=\\"login_button\\" onClick=\\"try_login()\\">
+                                Login
+                            </button>
+                            <button id=\\"launch-forticlient-button\\" type=\\"button\\" onClick=\\"launchFortiClient()\\">
+                                <f-icon class=\\"ftnt-forticlient\\"></f-icon>
+                                <span>Launch FortiClient</span>
+                            </button>
+                            <iframe id=\\"launch-forticlient-iframe\\" style=\\"display:none\\"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+    %%SSL_HIDDEN%%
+</html>
+"
+    set header http
+    set format html
+end

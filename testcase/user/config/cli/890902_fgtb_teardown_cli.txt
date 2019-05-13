@@ -1,0 +1,3 @@
+config system sso-admin
+    delete "${pki_admin_fgtb}"
+end

@@ -1,0 +1,30 @@
+config vpn ssl settings
+    config authentication-rule
+        delete 1002
+        delete 1003
+    end
+end
+config firewall policy
+    delete ${policy_id_1}
+    delete ${policy_id_2}
+end
+
+config user group
+    delete "${group1}"
+end
+config user group
+    delete "${group2}"
+end
+config user local
+    delete "${user1}"
+end
+config user local
+    delete "${user2}"
+end
+
+config firewall service custom
+    edit "VNC"
+        set category "Remote Access"
+        set tcp-portrange 5900
+    next
+end

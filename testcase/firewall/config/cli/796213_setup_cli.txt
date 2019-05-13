@@ -1,0 +1,37 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall schedule onetime
+            edit "${expired_schedule}"
+                set start 00:00 2018/10/01
+                set end 00:00 2018/11/01
+            next
+        end
+        config firewall schedule group
+            edit "${expired_schedule_group}"
+                set member "${expired_schedule}" "${FW_TEST_SCHEDULE_ONE_TIME_1}"
+            next
+        end        
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${expired_schedule}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${expired_schedule}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+        end
+    next    
+end    

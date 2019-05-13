@@ -1,0 +1,14 @@
+#Verify NPU_vdom_link and it's vlan show correctly on GUI at Global/Vdom level when vdom is enabled
+config vdom
+    edit vdom1
+        config firewall address
+            delete "732425 address"
+        end
+end
+
+config vdom
+    edit vdom1
+        config system interface
+            delete "732425"
+        end
+end

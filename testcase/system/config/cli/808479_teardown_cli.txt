@@ -1,0 +1,13 @@
+#### Verify GUI prompt a warning message when IP conflict between static and dhcp interfaces, clear data after test
+config global
+     config system interface
+        edit  ${FGT_PORT3_INTERFACE} 
+             set mode static
+             set ip 0.0.0.0/0.0.0.0
+        next
+        edit  ${FGT_PORT4_INTERFACE} 
+             set ip 0.0.0.0/0.0.0.0
+        next
+    end
+end
+    

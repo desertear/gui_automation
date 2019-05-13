@@ -1,0 +1,208 @@
+
+#Before this CLI is run, FGT should be configured  an interface with http/https and telnet access right.
+##import certificate for HTTPS connection
+config vpn certificate local
+    edit "${FGT_HTTPS_CERTIFICATE_NAME}"
+        set password 123456
+        set private-key "-----BEGIN ENCRYPTED PRIVATE KEY-----
+MIIFHDBOBgkqhkiG9w0BBQ0wQTApBgkqhkiG9w0BBQwwHAQIcKDM+pf37X4CAggA
+MAwGCCqGSIb3DQIJBQAwFAYIKoZIhvcNAwcECHFLNhhUHxoZBIIEyEHLSrCW38bj
+JtlileyMlWZX6laV8W2V0KsKoiZUdInA8aO92NqkeSqjD7KCvGExkoo3mrYsK/ua
+B3s3E1KMUN3GNhdYGSjA1wkJ0Ir4wPzv+cUbTGjw4Vzx5dIP16V6Q2E6A5oNNFgr
+HVAizpWaz9e4Vu5UDiJmQbnhqWaKxNItNIZ3uHudFG03DH3an8vMHBCwmoGnR9zG
+bLkBSkGpHsh1smQX80v+wzpT07AQgf1ZYoC66tPoZUlnSptBaPYspWdabd+uSPSy
+I3liPuLXV/c1FfZNvWdG9kDPhKj11UfwyJuutSVGyD2yRYA3wNuGVTsJb7l65+Pr
+y8MBWTODTn5i61lnYWbWfHzsUIGO5hPyMiL8bmEm8W5E7Z9RKqd4D+G+VMvvM85H
+B9DVDnLC47bt3lLWDHKQrY/FfwUMBV7R8+gmroWw/5fHeFHUViY90l7jnuHbsFof
+ERXgP23enrnrPlFTCahN73cGP7iBAyzZme5v3kgmaybLDYqve1B/bpwr33BWNOf0
+c9HmcdiixkDmoxGM52HQ6JW4cvQcLEQLatNa38UgqHqj7NUYgqnAlXLmyCtVA6sU
+TOwuf+wqYzblncZZXJUnNnkzsFU9UFZ2DXATyzOUcypComkGuME8umtb1W0zBJmH
+oIa8n2Iu6GSKzXXcnT+JB31a0JRD+x0UgC35HNTY8SvmUWKUBRstc4jzD68WPRxv
+nm3Sf4CNye0qlSGQxhf9wsCrhySLoBrvTmQrVNwM2DJvuLXAGS0R4KKD2NwsY+db
+5h1RvOxklFFChr9CkNjyxEwuEzAlzgoT07HE5J7l8oTtJlQslhv10L46Zv8Eo5FT
+VQaJ+FAq4KJwfmr+FnuAc5u/xiffG/LbSjpd9soTrfooXYKbtUYMH3JN9yy/dat0
+08IUwrJn8RWpDLDeyN8zhch42w8aeA2auhy9KqTA2DtoL6pEe8C68IR/YvipMXe0
+K3xoYFsiB43c8gQHb7wsPzoncOqKmAitzF+tpx9xTXlMcQUdNSsP0pe6aG/+vnTY
+JB1RlRyV+dWC9kwgolxwVUNCp+p9AuPhw5nn2ueMfuVR3eAFlYxt7uYPdg98e9C3
+qu/4ZMCBZawtzwcx8zbl11AceGi8YjyCngyVywzhQtEMfOFY8FV6C1DyE0QbsFg1
+0jb3Vv5t0Maph9zpPLl2kliTVh4tRmC++uWLwK2BuJbqXrNd1ZEurUSbd0L81eit
+ZfV2e1WHzTP8gkPito07aOPYpMfIb5OPP+OrFzhGUkPee85VgPm3U0WRvenGzr2n
++F5QPOEb/bL5fFFt5cV4uzQ4W+3Lb76+9fjXoICC0EK8StZAlb8LDA6tidRdU+iJ
+6PGPGAHOs5fkZj9HwsoxDLmxyYCMce5xKnKH4Z+MfXu6Od179LFLzG2JBz17Yag6
+vIqto3ov3HDUaKImCXfzZMjB2/DGViPoAFnzAHnabUnwx/y4KYvciLjcKsYVQMMD
+1QA8FhGaCClaOIm+btxhyZQzrLYc+vMAW/dgTbnvoA99ccLQ/FMfdIpYiC/GT1rt
+CYYUG6lmqrvtQrU2tWrjEvkTYCaAjL0Ljx676NV49F2iryiRgdYC+FyxbNYcj3CT
+pIZca6f5MLjVHBfgizej/w==
+-----END ENCRYPTED PRIVATE KEY-----"
+        set certificate "-----BEGIN CERTIFICATE-----
+MIIFajCCBFKgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwgZExCzAJBgNVBAYTAkNB
+MQswCQYDVQQIDAJCQzEQMA4GA1UEBwwHQnVybmFieTEMMAoGA1UECgwDRk9TMQ4w
+DAYDVQQLDAVGT1NRQTEjMCEGA1UEAwwaRk9TIEdVSSBBdXRvbWF0aW9uIFJvb3Qg
+Q0ExIDAeBgkqhkiG9w0BCQEWEXh5YW5AZm9ydGluZXQuY29tMB4XDTE4MTAxMDAw
+NDIzOVoXDTI4MTAwNzAwNDIzOVoweTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgMAkJD
+MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsMBUZPU1FBMR0wGwYDVQQDDBQqLmZvcy5h
+dXRvbWF0aW9uLmNvbTEgMB4GCSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb20w
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC6jrTE4qv/T5+abTYGKk/K
+jcL9JVxjjBPOQyUV3BnDQdcxH16oN6yDlrIouIZMP6GewnbPBmLuNlTYCjzyY1S7
+UtgPsAwvtKO5Ix+dGzFMgohcDEVJDq6zsGDhNW/VSXep+IE9jWZHCI2yWNOXKxs1
+T0uagu8+Rp++HqsIhxTH8I77hKMGAMiBl0oQy2nt4POef03uk+deisnv331EHiuK
+jYT3Lbc0VF6EQm36WWv/ulelJWWORWYwCZXAW0VYO5Cy/jQ94BziBk0zp9D7Edhh
+Jfuvv0f0OpcOBDhc41k/3UZT9cecLfVKvl75e+L/6lg0V1V0r6gfIpT8aoplNHEh
+AgMBAAGjggHhMIIB3TAJBgNVHRMEAjAAMBEGCWCGSAGG+EIBAQQEAwIF4DAzBglg
+hkgBhvhCAQ0EJhYkT3BlblNTTCBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRl
+MB0GA1UdDgQWBBSBCE+a3/KGRyPjgjvcdgR0Y7tmUTCBxgYDVR0jBIG+MIG7gBQ3
+GcJBHSXJKLJDgLJCTAFdpgoNF6GBl6SBlDCBkTELMAkGA1UEBhMCQ0ExCzAJBgNV
+BAgMAkJDMRAwDgYDVQQHDAdCdXJuYWJ5MQwwCgYDVQQKDANGT1MxDjAMBgNVBAsM
+BUZPU1FBMSMwIQYDVQQDDBpGT1MgR1VJIEF1dG9tYXRpb24gUm9vdCBDQTEgMB4G
+CSqGSIb3DQEJARYReHlhbkBmb3J0aW5ldC5jb22CCQCYFrnkBZPsIDAOBgNVHQ8B
+Af8EBAMCBaAwJwYDVR0lBCAwHgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcD
+BDBnBgNVHREEYDBeghQqLmZvcy5hdXRvbWF0aW9uLmNvbYcErBDIAYcECgYeAYcE
+CgFkAYcQIAAAEAABAQAAAAAAAAAAAYcQIAAAEAAGADAAAAAAAAAAAYcQIAABcgAW
+AgAAAAAAAAAAATANBgkqhkiG9w0BAQsFAAOCAQEAdceqUe5OI40cSXNgPKZV5Guv
+ZRZ9/lVr5D0dDHCRYjzTp0jAcdKxj/I9EwMMdNwIuQlcmmezp4dPCQmtZ8P3Qn8p
+DVJ3YHMuPGBCtuMKt7M1ZyXbtQAB7Uona5pJgTldcvlL2cfqGdqe9ThiE01Vf3wQ
+lk0huCefdbfOaOsC8grfzw6fu82rsRW65XdAtJ+0nX2uc10L2O2AebC+fpNIOqCI
+PfLfEyOdTrogMJcLVPbygNzGEwwodLApioe1MPcon79N8Fj9vcK5tnuKpCljkjnf
+xSOLYZDjvbHFmWf/8cEkdkdryU3uXn4Y5YK8BGq8jTGTm9DoMiu38dwoJyQG6A==
+-----END CERTIFICATE-----"
+end
+##import CA certificate
+config vpn certificate ca
+edit "${FGT_PKI_PEER_CA_NAME}"
+        set ca "-----BEGIN CERTIFICATE-----
+MIIECjCCAvKgAwIBAgIJAJgWueQFk+wgMA0GCSqGSIb3DQEBCwUAMIGRMQswCQYD
+VQQGEwJDQTELMAkGA1UECAwCQkMxEDAOBgNVBAcMB0J1cm5hYnkxDDAKBgNVBAoM
+A0ZPUzEOMAwGA1UECwwFRk9TUUExIzAhBgNVBAMMGkZPUyBHVUkgQXV0b21hdGlv
+biBSb290IENBMSAwHgYJKoZIhvcNAQkBFhF4eWFuQGZvcnRpbmV0LmNvbTAeFw0x
+ODEwMDkyMzEyMDBaFw0yODEwMDYyMzEyMDBaMIGRMQswCQYDVQQGEwJDQTELMAkG
+A1UECAwCQkMxEDAOBgNVBAcMB0J1cm5hYnkxDDAKBgNVBAoMA0ZPUzEOMAwGA1UE
+CwwFRk9TUUExIzAhBgNVBAMMGkZPUyBHVUkgQXV0b21hdGlvbiBSb290IENBMSAw
+HgYJKoZIhvcNAQkBFhF4eWFuQGZvcnRpbmV0LmNvbTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAL1F9EFZDEnSRwFkJMJlaKfgI5vDW+gFiU5OpKagy6fQ
+WoN/rjtQ7BR2EJhwntyDX/qcJlnVlnIdbOGSXEMLK7bWHKvaiKcYUvOQVklAR/+4
+aR7Jah+JJ90piXFjy3zeyiS//8mgeUFWPXESQACPAwoHIbnEAw6a+WdEtCKnjvej
+hhS3RQQqFjxOCk8/QWyS9HOxl9LXD/Nj1B9PpeLHOAYGOBWHUvJWoFUKuJmJF7F6
+Guu5YFHY/2/TZtzlo/j0yDRdCaDvrx0Zp+ZRSsgg9Gy5xRQFOOG8LtGmMwfpehBI
+pXMYeKu0TTMfN2ZBEOILloPJKffyJuq8hIQSCYAkW8sCAwEAAaNjMGEwHQYDVR0O
+BBYEFDcZwkEdJckoskOAskJMAV2mCg0XMB8GA1UdIwQYMBaAFDcZwkEdJckoskOA
+skJMAV2mCg0XMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMA0GCSqG
+SIb3DQEBCwUAA4IBAQAXe80iAcmPGlH9TFQlBsdYMbx+EIrlvgj1kEuTecb1bK/V
+r/+3RJ5AQ6drmXrTGXR95ZlcAkBKoP3998ZbksjjBrikdpIjCU3Wbtg/nobCC2Fv
+jM/UG7IvYPNmHYXy/8feQqydiwY+y6L5v4Rq2FUUZWvdn40f3xtAsNR9zU1wEQdX
+XxBveQGhyhZmRTOECm+Cv4+eAVijG0E9DQek0Fd4Q/UcFUg+r5F6XMCpA8SpluH4
+HEi9/HHFjhGbMdQWVJcHS6PWs+W9ArN5TFpwG8Plp8sKH3/I+t1d6KM7Ms0r07SM
+/of3e0FiHnJX+bj/9rkkv6KmqHVQyC0354KDPS6z
+-----END CERTIFICATE-----"
+end
+
+##enable featuers on GUI and extend timeout
+config system global
+    set gui-ipv6 enable
+    set gui-wireless-opensecurity enable
+    set admintimeout 480
+    set admin-server-cert "${FGT_HTTPS_CERTIFICATE_NAME}"
+end
+##enable features on GUI
+config system settings
+    set gui-multiple-interface-policy enable
+    set gui-sslvpn-realms enable
+    set gui-nat46-64 enable
+    set gui-dns-database enable
+    set gui-load-balance enable
+    set gui-multicast-policy enable
+    set gui-voip-profile enable
+    set gui-local-in-policy enable
+    set gui-policy-based-ipsec enable
+    set gui-endpoint-control-advanced enable
+    set gui-allow-unnamed-policy enable
+    set gui-email-collection enable
+    set gui-domain-ip-reputation enable
+    set gui-local-reports enable
+    set gui-sslvpn-personal-bookmarks enable
+    set gui-sslvpn-realms enable 
+end
+
+config system global
+   set admintimeout 480
+end
+#config interface for OA access
+config system interface
+    edit "${FGT_VLAN30_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGT_VLAN30_IP} 255.255.255.0
+        set allowaccess ping https ssh http telnet
+        set type physical
+        config ipv6
+            set ip6-address ${FGT_VLAN30_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh
+        end
+    next
+end
+#config interface for GUI access
+config system interface
+    edit "${FGT_VLAN20_INTERFACE}"
+        set vdom "root"
+        set mode static
+        set ip ${FGT_VLAN20_IP} 255.255.255.0
+        set allowaccess ping https ssh http telnet
+        config ipv6
+            set ip6-address ${FGT_VLAN20_IP_V6}/64
+            set ip6-allowaccess ping https http telnet ssh
+        end
+end
+
+##add router to Internet
+config router static
+	purge
+    edit ${FGT_STATIC_ROUTER_ID_TO_OA}
+		set gateway ${FGT_VLAN30_GATEWAY}
+		set device ${FGT_VLAN30_INTERFACE}
+end
+config router static6
+	purge
+    edit ${FGT_STATIC_ROUTER_ID_TO_OA_IPV6}
+        set gateway ${FGT_VLAN30_GATEWAY_V6}
+		set device ${FGT_VLAN30_INTERFACE}
+    next
+end
+
+config firewall policy
+    purge
+end
+
+config firewall policy6
+    purge
+end
+
+# config user and user group
+config user local
+    edit ${SSLVPN_GUI_USERNAME}
+        set type password
+        set passwd ${SSLVPN_GUI_PASSWORD}
+    next
+    edit ${SSLVPN_GUI_USERNAME2}
+        set type password
+        set passwd ${SSLVPN_GUI_PASSWORD2}
+    next
+end
+
+config user group
+    edit  ${FGT_USER_GROUP_NAME}
+        set member ${SSLVPN_GUI_USERNAME} ${SSLVPN_GUI_USERNAME2}
+    next
+end
+
+# config firewall address
+
+config firewall address
+    edit ${FGT_ADDRESS_NAME}
+        set subnet ${FGT_ADDRESS_SUBNET}
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        purge
+    end
+end

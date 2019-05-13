@@ -1,0 +1,102 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config firewall policy
+            edit ${FW_TEST_V4_POLICY_ID_1} 
+                set name "test_${FW_TEST_V4_POLICY_ID_1}"     
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic disable
+                set action accept
+                set nat enable  
+                set status disable
+            next
+            edit ${FW_TEST_V4_POLICY_ID_2}
+                set name "test_${FW_TEST_V4_POLICY_ID_2}"              
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit ${FW_TEST_V4_POLICY_ID_3} 
+                set name "test_${FW_TEST_V4_POLICY_ID_3}"     
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_1}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"                
+                set action accept
+                set logtraffic all
+                set nat enable  
+            next
+            edit ${FW_TEST_V4_POLICY_ID_4}            
+                set name "test_${FW_TEST_V4_POLICY_ID_4}"              
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "g-default"
+                set ssl-ssh-profile "certificate-inspection"
+            next            
+        end
+        config firewall policy6
+            edit ${FW_TEST_V6_POLICY_ID_1}
+                set name "test_${FW_TEST_V6_POLICY_ID_1}"        
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set nat enable  
+            next
+            edit ${FW_TEST_V6_POLICY_ID_2}
+                set name "test_${FW_TEST_V6_POLICY_ID_2}"         
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "g-default"
+                set ssl-ssh-profile "certificate-inspection"
+            next            
+            edit ${FW_TEST_V6_POLICY_ID_3}
+                set name "test_${FW_TEST_V6_POLICY_ID_3}"        
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_1}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic disable
+                set nat enable  
+            next
+            edit ${FW_TEST_V6_POLICY_ID_4}
+                set name "test_${FW_TEST_V6_POLICY_ID_4}"         
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action deny
+            next              
+        end         
+    next 
+end    

@@ -1,0 +1,4 @@
+#Verify that the FGT backs up and restore the system configuration to usb key via GUI NAT/TP and gui works fine
+config global
+    exec usb-disk list
+end

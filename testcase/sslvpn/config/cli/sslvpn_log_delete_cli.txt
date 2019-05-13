@@ -1,0 +1,13 @@
+execute log delete-all
+##logtraffic all
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set logtraffic all
+    next
+end
+##ipv6 policy
+config firewall policy6
+    edit ${FGT_POLICY6_ID_FOR_SSLVPN}
+        set logtraffic all
+    next
+end

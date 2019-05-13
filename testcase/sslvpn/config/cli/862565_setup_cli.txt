@@ -1,0 +1,9 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set os-check enable
+        config os-check-list "windows-10"
+            set action deny
+        end
+        set skip-check-for-browser disable
+     next
+end

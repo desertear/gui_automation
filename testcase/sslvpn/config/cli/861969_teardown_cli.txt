@@ -1,0 +1,4 @@
+config vpn ssl settings
+    unset idle-timeout
+    unset auth-timeout
+end

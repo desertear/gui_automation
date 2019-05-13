@@ -1,0 +1,7 @@
+#Verify embedded console can be connected and working with a vdom admin
+config vdom
+    edit vdom1
+        config system admin
+            delete "590374"
+        end
+end

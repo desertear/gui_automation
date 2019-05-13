@@ -1,0 +1,13 @@
+###To verify after re-enable the vdom, vdom admin is able to login again
+config global
+    config system global
+         set management-vdom  "${SYSTEM_TEST_VDOM_NAME_1}"
+    end
+end
+
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_2}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+    end
+end

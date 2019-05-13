@@ -1,0 +1,6 @@
+##GUI:Verify “Enable Password Expiration” for password policy
+config global
+    config system admin
+        delete 712983
+    end
+end

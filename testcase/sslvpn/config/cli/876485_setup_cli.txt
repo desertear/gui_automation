@@ -1,0 +1,28 @@
+config user ldap
+    edit "${FGT_LDAP_SERVER_NAME}"
+        set server "${FGT_LDAP_SERVER_IP}"
+        set cnid "${FGT_LDAP_CNID}"
+        set dn "${FGT_LDAP_DN}"
+    next
+end
+
+config user group
+    edit "${FGT_LDAP_GROUP_NAME}"
+        set member "${FGT_LDAP_SERVER_NAME}"
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        edit 1003
+            set groups "${FGT_LDAP_GROUP_NAME}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        append groups "${FGT_LDAP_GROUP_NAME}"
+    next
+end

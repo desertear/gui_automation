@@ -1,0 +1,7 @@
+## Verify Captive Portal can be configured and dispaly well in GUi
+config global
+    config system interface
+        edit ${SYSTEM_TEST_INTF_4}
+            set vdom ${SYSTEM_TEST_VDOM_NAME_TP}
+    end
+end

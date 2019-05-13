@@ -1,0 +1,7 @@
+###Verify GUI can change http/https to other port and still work after change
+config global
+    config system global
+        set admin-port 80
+        set admin-sport ${FGT_PORT}
+    end
+end

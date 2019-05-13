@@ -1,0 +1,9 @@
+{
+  "platformName": "Android",
+  "platformVersion": "9",
+  "deviceName": "emulator-5554",
+  "automationName": "UiAutomator2",
+  "appPackage": "com.fortinet.android.ftm",
+  "appActivity": "com.fortinet.android.ftm.StartActivity",
+  "noReset": true
+}

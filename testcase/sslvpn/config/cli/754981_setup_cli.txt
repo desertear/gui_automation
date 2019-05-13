@@ -1,0 +1,4 @@
+config vpn ssl settings
+     set port 443
+     set port-precedence enable
+end

@@ -1,0 +1,15 @@
+#### Verify DHCP server Additional Option section in GUI page
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system dhcp server
+            purge
+        end
+end
+
+config vdom
+    config system interface
+        edit ${SYSTEM_TEST_INTF_3}
+            set 0.0.0.0 0.0.0.0
+    end
+end
+    

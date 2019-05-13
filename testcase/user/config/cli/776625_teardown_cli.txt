@@ -1,0 +1,6 @@
+config user local
+    delete ${USER_LDAP2_USER1}
+end
+config user ldap
+    delete "${ldap_name}"
+end

@@ -1,0 +1,13 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings
+            set ngfw-mode profile-based
+        end
+end
+
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall policy
+            delete "${FW_TEST_V4_POLICY_ID_1}"
+        end
+end    

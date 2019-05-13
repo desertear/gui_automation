@@ -1,0 +1,4 @@
+config vpn ssl settings
+     set port 1443
+     unset port-precedence
+end

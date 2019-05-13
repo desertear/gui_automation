@@ -1,0 +1,9 @@
+##Verify GUI main dashboard and interface page works well when login with super admin
+config global
+        config system admin
+            delete "863361"
+        end
+        config system accprofile
+            delete "863361"
+        end
+end

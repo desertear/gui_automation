@@ -1,0 +1,16 @@
+#Verify FGT system information,embedded console,system resource,unit operation are correct on status page with a vdom admin.
+config vdom
+    edit vdom1
+        config system admin
+            delete "590368"
+        end
+end
+
+config global
+    config system accprofile
+        edit prof_admin
+            set scope vdom
+    end
+end
+
+

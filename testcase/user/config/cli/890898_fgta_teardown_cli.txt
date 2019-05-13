@@ -1,0 +1,9 @@
+config system admin
+    delete "${remote_admin}"
+end
+config user group
+    delete "${remote_group}"
+end
+config user ldap
+    delete ${USER_LDAP1_NAME}
+end

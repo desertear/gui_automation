@@ -1,0 +1,7 @@
+execute log filter reset
+execute log filter device memory
+execute log filter category traffic
+execute log filter field subtype forward
+execute log filter field vpntype sslvpn
+execute log filter field service HTTPS
+execute log display

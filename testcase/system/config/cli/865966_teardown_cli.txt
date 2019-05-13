@@ -1,0 +1,33 @@
+####  Verify Virtual Wire Pair can use aggregate interface as pair member
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system virtual-wire-pair
+            delete "865966"
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall policy
+            delete 1
+        end
+end
+
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+            delete "865966A address"
+            delete "865966B address"
+        end
+end
+
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            delete "865966A"
+            delete "865966B"
+        end
+end
+

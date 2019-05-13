@@ -1,0 +1,3 @@
+diagnose debug application sslvpn -1
+diagnose debug enable
+diagnose vpn ssl list

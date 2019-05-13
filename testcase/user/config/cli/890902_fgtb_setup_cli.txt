@@ -1,0 +1,6 @@
+config system sso-admin
+    edit "${pki_admin_fgtb}"
+        set accprofile "${pki_admin_profile_fgtb}"
+        set vdom "root"
+    next
+end

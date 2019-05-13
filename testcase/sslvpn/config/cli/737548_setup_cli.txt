@@ -1,0 +1,18 @@
+config firewall profile-protocol-options
+    edit "fortinet-bar"
+        config http
+            set ports 80
+            unset options
+            unset post-lang
+            set fortinet-bar enable
+            set fortinet-bar-port 8022
+        end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set utm-status enable
+        set av-profile "default"
+        set profile-protocol-options "fortinet-bar"
+    next
+end

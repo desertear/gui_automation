@@ -1,0 +1,119 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system settings
+            set gui-multicast-policy enable
+        end
+        config system interface
+            edit ${zone_intf}
+                set interface "${FW_TEST_INTF_1}"
+                set type vlan
+                set vlanid 20
+                set vdom ${FW_TEST_VDOM_NAME_1}
+            next
+        end
+    next
+end
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system zone
+            edit ${zone_name}
+                set interface ${zone_intf}
+            next
+        end
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set name 8576511
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+                set schedule always
+                set service ALL
+            next         
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set name 8576512
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+                set schedule always
+                set service ALL
+            next         
+        end
+        config firewall policy46
+            edit "${FW_TEST_POLICY46_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr ${vip_46}
+                set action accept
+                set schedule always
+                set service ALL
+            next         
+        end
+        config firewall policy64
+            edit "${FW_TEST_POLICY64_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+                set schedule always
+                set service ALL
+            next         
+        end
+        confi firewall multicast-policy
+            edit "${FW_TEST_MULTICAST_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+            next
+        end
+        config firewall acl
+            edit ${acl_id}
+                set interface ${FW_TEST_INTF_1} 
+                set srcaddr none
+                set dstaddr none
+                set service ALL
+            next
+        end
+        config firewall acl6
+            edit ${ipv6_acl_id}
+                set interface ${FW_TEST_INTF_1} 
+                set srcaddr none
+                set dstaddr none
+                set service ALL
+            next
+        end
+        config firewall shaping-policy
+            edit ${shape_id}
+                set srcaddr login.windows.net
+                set dstaddr gmail.com
+                set service ALL
+                set dstintf ${FW_TEST_INTF_1} 
+            next
+        end
+        config firewall DoS-policy
+            edit ${dos_id}
+                set interface ${FW_TEST_INTF_1} 
+                set srcaddr none
+                set dstaddr none
+                set service ALL
+            next
+        end
+        config firewall DoS-policy6
+            edit ${ipv6_dos_id}
+                set interface ${FW_TEST_INTF_1} 
+                set srcaddr none
+                set dstaddr none
+                set service ALL
+            next
+        end
+    next
+end    

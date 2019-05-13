@@ -1,0 +1,8 @@
+config user local
+    delete "${username1}"
+    delete "${username2}"
+    delete "${username3}"
+end
+config user ldap
+    delete ${USER_LDAP1_NAME}
+end

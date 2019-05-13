@@ -1,0 +1,11 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    delete "${bookmark_name}"
+                end
+            next
+        end
+    next
+end

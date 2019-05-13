@@ -1,0 +1,192 @@
+#config global
+#    config system global    
+#        unset gui-ipv6
+#    end
+#end
+
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings
+            unset gui-traffic-shaping            
+            unset gui-nat46-64
+        end
+    next
+    edit ${FW_TEST_VDOM_NAME_2}   
+        config system settings
+            unset gui-traffic-shaping
+        end
+    next
+end
+
+
+#delete test service and service group to vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall service group
+            delete "${FW_TEST_SERVICE_GROUP_2}"
+            delete "${FW_TEST_SERVICE_GROUP_1}"
+            delete "${FW_TEST_SERVICE_GROUP_3}"
+        end  
+        config firewall service custom
+            delete "${FW_TEST_SERVICE_1}"
+            delete "${FW_TEST_SERVICE_2}"
+            delete "${FW_TEST_SERVICE_3}"
+            delete "${FW_TEST_SERVICE_4}"       
+            delete "${FW_TEST_SERVICE_5}"
+        end
+    next
+end
+
+#delete test address and address group on vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall addrgrp6
+            delete "${FW_TEST_ADDR6_GROUP_2}"
+            delete "${FW_TEST_ADDR6_GROUP_1}"            
+            delete "${FW_TEST_ADDR6_GROUP_3}"
+        end 
+        config firewall address6
+            delete "${FW_TEST_ADDR6_1}"
+            delete "${FW_TEST_ADDR6_2}"            
+            delete "${FW_TEST_ADDR6_3}"           
+            delete "${FW_TEST_ADDR6_4}"             
+        end
+        config firewall address6-template
+            delete "${FW_TEST_ADDR6_TEMPLATE_1}"
+            delete "${FW_TEST_ADDR6_TEMPLATE_2}"
+        end
+        config firewall addrgrp
+            delete "${FW_TEST_ADDR_GROUP_2}"              
+            delete "${FW_TEST_ADDR_GROUP_1}"             
+            delete "${FW_TEST_ADDR_GROUP_3}"
+            delete "${FW_TEST_ADDRESS_W_FQDN_GROUP1}"
+            delete "${FW_TEST_ADDRESS_W_FQDN_GROUP2}"
+        end
+        config firewall address
+            delete "${FW_TEST_ADDR_1}"
+            delete "${FW_TEST_ADDR_2}"
+            delete "${FW_TEST_ADDR_3}"
+            delete "${FW_TEST_ADDR_4}"
+        end
+    next
+end
+
+#delete wildcard FQDN in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall wildcard-fqdn group
+            delete "${FW_TEST_W_FQDN_GROUP_1}"
+        end
+    next
+end
+
+#delete schedule in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"    
+        config firewall schedule group
+            delete "${FW_TEST_SCHEDULE_GROUP_1}"
+        end
+        config firewall schedule recurring
+            delete "${FW_TEST_SCHEDULE_1}"
+        end        
+        config firewall schedule onetime
+            delete "${FW_TEST_SCHEDULE_ONE_TIME_1}"
+        end
+    next
+end
+
+#delete user and user group on vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config user group
+            delete "${FW_TEST_USER_GROUP_4}"
+            delete "${FW_TEST_USER_GROUP_3}"
+            delete "${FW_TEST_USER_GROUP_2}"
+            delete "${FW_TEST_USER_GROUP_1}"
+            delete "${FW_TEST_LDAP_USER_GROUP}"
+            delete "${FW_TEST_RADIUS_USER_GROUP}"
+            delete "${FW_TEST_TACACS_USER_GROUP}"
+        end
+        config user local        
+            delete "${FW_TEST_LDAP_USER}"
+            delete "${FW_TEST_TACACS_P_USER}"
+            delete "${FW_TEST_RADIUS_USER}"
+            delete "${FW_TEST_LOCAL_USER_1}"
+            delete "${FW_TEST_LOCAL_USER_2}"        
+        end
+        config user ldap
+            delete "${FW_TEST_LDAP_SERVER}"
+        end
+        config user tacacs+
+            delete "${FW_TEST_TACACS_P_SERVER}"
+        end
+        config user radius
+            delete "${FW_TEST_RADIUS_SERVER}"
+        end
+    next
+end
+
+#delete device and device group on vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config user device
+            delete "${FW_TEST_CUSTOM_DEVICE_1}"
+            delete "${FW_TEST_CUSTOM_DEVICE_2}"
+        end
+    next
+end
+
+#delete vip in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall vipgrp
+            delete "${FW_TEST_VIP_GROUP_1}"
+        end
+        config firewall vipgrp6
+            delete "${FW_TEST_VIP6_GROUP_1}"
+        end
+        config firewall vipgrp46
+            delete "${FW_TEST_VIP46_GROUP_1}"
+        end         
+        config firewall vipgrp64
+            delete "${FW_TEST_VIP64_GROUP_1}"
+        end
+        config firewall vip
+            delete "${FW_TEST_VIP_1}"
+        end        
+        config firewall vip6
+            delete "${FW_TEST_VIP6_1}"
+        end
+        config firewall vip46
+            delete "${FW_TEST_VIP46_1}"
+        end
+        config firewall vip64
+            delete "${FW_TEST_VIP64_1}"
+        end
+    next
+end
+
+#delete ip pools in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall ippool
+            delete "${FW_TEST_IP_POOLS_1}"
+            delete "${FW_TEST_IP_POOLS_2}"
+            delete "${FW_TEST_IP_POOLS_3}"    
+            delete "${FW_TEST_IP_POOLS_4}"   
+        end
+        config firewall ippool6
+            delete "${FW_TEST_IP_POOLS6_1}"
+            delete "${FW_TEST_IP_POOLS6_2}"
+        end
+    next
+end
+
+#delete traffic shaper in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall shaper per-ip-shaper
+            delete "${FW_TEST_SHAPER_PER_IP_1}"
+        end
+    next
+end

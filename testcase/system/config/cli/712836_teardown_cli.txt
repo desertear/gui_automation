@@ -1,0 +1,15 @@
+###Verify read-only user can't backup configure file via GUI
+config global
+    config system admin
+        delete "712836"
+    end
+end
+
+config global
+    config system accprofile
+        delete "712836"
+    end
+end
+
+
+

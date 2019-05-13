@@ -1,0 +1,6 @@
+## Verified create Multi-VDOM Admin user GUI
+config global
+    config system admin
+        delete 729817
+    end
+end

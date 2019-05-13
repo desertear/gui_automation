@@ -1,0 +1,3 @@
+## factoryreset for VM
+config global  
+    execute factoryreset keepvmlicense

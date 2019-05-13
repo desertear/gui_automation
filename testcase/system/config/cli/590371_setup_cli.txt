@@ -1,0 +1,16 @@
+#Verify FGT System information,serial,time,version etc are correct on status page with a vdom admin
+config global
+    config system accprofile
+        edit prof_admin
+            set scope global
+    end
+end
+
+config global
+    config system admin
+        edit 590371
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+            set password 123
+            set accprofile prof_admin
+    end
+end

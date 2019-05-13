@@ -1,0 +1,16 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    edit "${bookmark_name}"
+                        set description "this is http bookmark"
+                        set url "${https_url}"
+                        set sso auto
+                        set sso-credential sslvpn-login
+                    next
+                end
+            next
+        end
+    next
+end

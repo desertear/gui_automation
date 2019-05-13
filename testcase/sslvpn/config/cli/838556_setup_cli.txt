@@ -1,0 +1,6 @@
+config vpn ssl web portal
+    edit ${PORTAL_NAME}
+    	set web-mode disable
+    	unset forticlient-download
+    next
+end

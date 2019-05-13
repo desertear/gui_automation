@@ -1,0 +1,6 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+       unset auto-connect
+       unset save-password
+    next
+end

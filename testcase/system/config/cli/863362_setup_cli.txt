@@ -1,0 +1,25 @@
+config global
+    config system accprofile
+        edit 863362
+            set scope vdom
+            set secfabgrp read
+            set ftviewgrp read
+            set authgrp read
+            set sysgrp read
+            set netgrp read
+            set loggrp read
+            set fwgrp read
+            set vpngrp read
+            set utmgrp read
+            set wifi read
+    end
+end
+
+config global
+    config system admin
+        edit "863362"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+            set password 123
+            set accprofile 863362
+    end
+end

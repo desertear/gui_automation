@@ -1,0 +1,6 @@
+####  [GUI]  Verify DDNS will display  DDNS setting and function works on GUI
+config global
+    config system ddns
+        delete 1
+    end
+end

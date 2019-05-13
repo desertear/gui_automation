@@ -1,0 +1,67 @@
+config user local
+    edit "${user1}"
+        set type password
+        set passwd ${password1}
+    next
+end
+config user local
+    edit "${user2}"
+        set type password
+        set passwd ${password2}
+    next
+end
+config user group
+    edit "${group1}"
+        set member ${user1}
+end
+config user group
+    edit "${group2}"
+        set member ${user2}
+end
+
+config firewall service custom
+    edit "VNC"
+        set category "Remote Access"
+        set tcp-portrange ${SSLVPN_VNC_PORT}
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        edit 1002
+            set groups "${group1}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+        edit 1003
+            set groups "${group2}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+
+config firewall policy
+    edit ${policy_id_1}
+        set name "${policy_id_1}"
+        set srcintf "ssl.root"
+        set dstintf "${FGT_SSLVPN_OUTGOING_INTERFACE_NAME}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "RDP"
+        set groups "${group1}"
+        set nat enable
+    next
+    edit ${policy_id_2}
+        set name "${policy_id_2}"
+        set srcintf "ssl.root"
+        set dstintf "${FGT_SSLVPN_OUTGOING_INTERFACE_NAME}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "VNC"
+        set groups "${group2}"
+        set nat enable
+    next
+end

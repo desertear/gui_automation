@@ -1,0 +1,36 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system interface     
+            edit "${FW_TEST_INTF_1}"
+                set alias "${intf_alias_1}"      
+            next     
+            edit "${FW_TEST_INTF_2}"                
+                set alias "${intf_alias_2}"
+            next   
+        end
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set name 178352_1
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next            
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set name 178352_2
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+        end
+    next    
+end    

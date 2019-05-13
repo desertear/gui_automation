@@ -1,0 +1,7 @@
+#### To verify a zone could be created and deleted under a virtual domain in GUI.
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system zone
+            delete "181601"
+        end
+ end

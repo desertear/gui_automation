@@ -1,0 +1,27 @@
+##GUI:Verify Hide VDOM field when not in VDOM mode
+config global
+  exec factoryreset
+end
+
+config system interface     
+   edit "${SYSTEM_TEST_INTF_1}"
+      set mode static
+      set ip ${FGT_VLAN30_IP} 255.255.255.0
+      set allowaccess https ping http telnet fgfm ssh
+end
+
+config system interface     
+   edit "${SYSTEM_TEST_INTF_2}"
+      set mode static
+      set ip ${FGT_VLAN20_IP} 255.255.255.0
+      set allowaccess https ping http telnet fgfm ssh
+   next
+end
+
+config system global
+   set admin-sport ${FGT_PORT}
+end
+
+config system console
+        set output standard
+end

@@ -1,0 +1,5 @@
+config global
+    config system global
+        set timezone 12
+    end
+end 

@@ -1,0 +1,7 @@
+config system settings
+    set gui-wanopt-cache enable
+end
+
+config wanopt profile
+    purge
+end

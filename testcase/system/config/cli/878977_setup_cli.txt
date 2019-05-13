@@ -1,0 +1,58 @@
+### To Verify GUI main dashboard and interface page works well when login with readonly admin after enable split vdom
+config global  
+    execute factoryreset 
+end
+
+config system console
+    set output standard
+end
+
+config system interface
+    edit mgmt
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt1
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt2
+        set  dedicated-to none
+end
+
+config system global
+    set vdom-mode split-vdom
+end
+ 
+config global
+    config system interface     
+        edit "${SYSTEM_TEST_INTF_1}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TRAFFIC}"
+            set mode static
+            set ip ${FGT_VLAN30_IP} 255.255.255.0
+            set allowaccess https ping http telnet fgfm ssh
+            config ipv6
+                set ip6-address ${FGT_VLAN30_IP_V6}/64
+                set ip6-allowaccess ping https http
+            end
+        next     
+        edit "${SYSTEM_TEST_INTF_2}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TRAFFIC}"
+            set mode static
+            set ip ${FGT_VLAN20_IP}  255.255.255.0
+            set allowaccess ping https http telnet ssh fgfm
+        next           
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TRAFFIC}"
+        next             
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TRAFFIC}"
+        next                
+    end
+end
+
+config system global
+    set admin-sport ${FGT_PORT}
+end

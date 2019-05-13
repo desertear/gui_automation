@@ -1,0 +1,20 @@
+config vpn ssl settings
+    config authentication-rule
+        delete 1002
+    end
+end
+
+config firewall policy6
+    edit ${FGT_POLICY6_ID_FOR_SSLVPN}
+        unselect groups "${FGT_RADIUS_GROUP_NAME}"
+    next
+end
+
+config user group
+    delete "${FGT_RADIUS_GROUP_NAME}"
+end
+
+config user radius
+    delete "${FGT_RADIUS_SERVER_NAME}"
+end
+

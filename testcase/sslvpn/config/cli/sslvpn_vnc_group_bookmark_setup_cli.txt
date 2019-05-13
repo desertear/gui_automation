@@ -1,0 +1,12 @@
+config vpn ssl web user-group-bookmark
+    edit "${FGT_USER_GROUP_NAME}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set apptype vnc
+                set host "${host}"
+                set port "${port}"
+                set logon-password ${password}
+            next
+        end
+    next
+end

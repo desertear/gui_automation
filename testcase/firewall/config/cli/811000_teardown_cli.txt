@@ -1,0 +1,22 @@
+
+config vdom 
+    edit "${FW_TEST_VDOM_NAME_1}"       
+        config system virtual-wan-link
+            config members
+                delete 1
+                delete 2
+            end            
+            set status disable
+        end
+    next    
+end  
+config global
+    config system interface     
+        edit "${FW_TEST_INTF_3}"
+            set vdom ${FW_TEST_VDOM_NAME_root}
+        next     
+        edit "${FW_TEST_INTF_4}"                
+            set vdom ${FW_TEST_VDOM_NAME_root}
+        next   
+    end
+end  

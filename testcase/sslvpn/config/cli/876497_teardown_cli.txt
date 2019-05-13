@@ -1,0 +1,19 @@
+config log memory setting
+    unset status
+end
+
+config log disk setting
+    unset status
+end
+
+config log fortiguard setting
+    unset status
+end
+
+config log fortianalyzer setting
+    unset status
+end
+
+config log setting
+    unset user-anonymize
+end

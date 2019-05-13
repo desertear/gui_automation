@@ -1,0 +1,33 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"    
+        config system settings
+            set gui-allow-unnamed-policy enable 
+        end
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set name 875375_1
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set nat enable
+            next
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set name 875375_2
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set nat enable
+            next
+        end
+    next    
+end    

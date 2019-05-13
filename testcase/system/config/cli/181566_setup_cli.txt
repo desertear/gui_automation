@@ -1,0 +1,7 @@
+## To verify VLAN interface could be bound and unbound to a zone in GUI.
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TP}"
+    end
+end

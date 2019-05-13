@@ -1,0 +1,153 @@
+###configure FGT before case running
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set tunnel-mode enable
+        set ipv6-tunnel-mode enable
+        set web-mode enable
+        set ip-pools "${FGT_SSLVPN_CLIENT_ADDRESS_RANGE}"
+        set ipv6-pools "${FGT_SSLVPN_CLIENT_IPV6_ADDRESS_RANGE}"
+        set split-tunneling disable
+        set ipv6-split-tunneling disable
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    edit "bookmark_http"
+                        set description "this is http/https bookmark"
+                        set url "www.google.ca"
+                        set sso static
+                        config form-data
+                            edit "key1"
+                                set value "1"
+                            next
+                            edit "key2"
+                                set value "2"
+                            next
+                        end
+                        set sso-credential alternative
+                        set sso-username "httpuser"
+                        set sso-password 123456
+                    next
+                    edit "bookmark_ftp"
+                        set apptype ftp
+                        set description "this is ftp bookmark"
+                        set folder "${SSLVPN_FTP_HOST}"
+                        set sso auto
+                        set sso-credential alternative
+                        set sso-username "${SSLVPN_FTP_USERNAME}"
+                        set sso-password ${SSLVPN_FTP_PASSWORD}
+                    next
+                    edit "bookmark_smb"
+                        set apptype smb
+                        set description "this is smb bookmark"
+                        set folder "${SSLVPN_SMB_HOST}"
+                        set sso auto
+                        set sso-credential alternative
+                        set sso-username "${SSLVPN_SMB_USERNAME}"
+                        set sso-password ${SSLVPN_SMB_PASSWORD}
+                    next
+                    edit "bookmark_rdp"
+                        set apptype rdp
+                        set description "this is rdp bookmark"
+                        set host "${SSLVPN_RDP_HOST}"
+                        set security nla
+                        set port ${SSLVPN_RDP_PORT}
+                        set logon-user "${SSLVPN_RDP_USERNAME}"
+                        set logon-password ${SSLVPN_RDP_PASSWORD}
+                    next
+                    edit "bookmark_ssh"
+                        set apptype ssh
+                        set description "this is ssh bookmark"
+                        set host "${SSLVPN_SSH_HOST}"
+                    next
+                    edit "bookmark_telnet"
+                        set apptype telnet
+                        set description "this is telnet bookmark"
+                        set host "${SSLVPN_TELNET_HOST}"
+                    next
+                    edit "bookmark_vnc"
+                        set apptype vnc
+                        set description "this is vnc bookmark"
+                        set host "${SSLVPN_VNC_HOST}"
+                        set port ${SSLVPN_VNC_PORT}
+                        set logon-password ${SSLVPN_VNC_PASSWORD}
+                    next
+                end
+            next
+        end
+        set heading "${FGT_SSLVPN_PORTAL_NAME}"
+        set theme red
+        config split-dns
+            edit 1
+                set domains "${FGT_SSLVPN_SPLIT_DNS_DOMAIN}"
+                set dns-server1 ${FGT_SSLVPN_SPLIT_DNS_SERVER1}
+                set dns-server2 ${FGT_SSLVPN_SPLIT_DNS_SERVER2}
+                set ipv6-dns-server1 ${FGT_SSLVPN_SPLIT_DNS_SERVER1_IPV6}
+                set ipv6-dns-server2 ${FGT_SSLVPN_SPLIT_DNS_SERVER2_IPV6}
+            next
+        end
+    next
+end
+
+config vpn ssl settings
+    set servercert "${FGT_SSLVPN_SERVER_CERTIFICATE}"
+    set idle-timeout 3600
+    set tunnel-ip-pools "${FGT_SSLVPN_CLIENT_ADDRESS_RANGE}"
+    set tunnel-ipv6-pools "${FGT_SSLVPN_CLIENT_IPV6_ADDRESS_RANGE}"
+    set dns-server1 ${FGT_DNS_SERVER1}
+    set dns-server2 ${FGT_DNS_SERVER2}
+    set ipv6-dns-server1 ${FGT_DNS_SERVER1_IPV6}
+    set ipv6-dns-server2 ${FGT_DNS_SERVER2_IPV6}
+    set port ${SSLVPN_PORT}
+    set source-interface "${FGT_SSLVPN_INCOMING_INTERFACE_NAME}"
+    set source-address "all"
+    set source-address6 "all"
+    set default-portal "full-access"
+    config authentication-rule
+        edit 1
+            set groups "${FGT_USER_GROUP_NAME}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+##ipv4 policy
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set name "${FGT_POLICY_NAME_FOR_SSLVPN}"
+        set srcintf "ssl.root"
+        set dstintf "${FGT_SSLVPN_OUTGOING_INTERFACE_NAME}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set groups "${FGT_USER_GROUP_NAME}"
+        set nat enable
+        set logtraffic all
+    next
+end
+##ipv6 policy
+config firewall policy6
+    edit ${FGT_POLICY6_ID_FOR_SSLVPN}
+        set name "${FGT_POLICY6_NAME_FOR_SSLVPN}"
+        set srcintf "ssl.root"
+        set dstintf "${FGT_SSLVPN_OUTGOING_INTERFACE_NAME}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set groups "${FGT_USER_GROUP_NAME}"
+        set nat enable
+        set logtraffic all
+    next
+end
+
+config log memory setting
+    set status enable
+end
+config log memory filter
+    set severity information
+end
+
+execute fortiguard-log login ${FGT_FGD_ACCOUNT} ${FGT_FGD_PASSWORD}

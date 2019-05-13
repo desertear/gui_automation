@@ -1,0 +1,21 @@
+##### Verify admin without packet-capture permission can not sniffer packets
+config global
+     exec disconnect-admin-session   769768
+end
+
+config vdom
+       edit "${SYSTEM_TEST_VDOM_NAME_1}"
+       config system admin
+            delete "769768"
+        end
+        config firewall sniffer
+            purge
+            next     
+        end
+end
+
+config global
+     config system accprofile
+        delete "769768"
+      end
+end

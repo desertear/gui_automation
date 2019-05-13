@@ -1,0 +1,11 @@
+config global
+    config system admin
+        delete ${admin_name}
+    end
+    config system saml
+        config service-providers
+            delete "FGT_A"
+        end
+        set status disable
+    end
+end

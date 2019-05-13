@@ -1,0 +1,5 @@
+config vpn ssl web portal
+    edit ${PORTAL_NAME}
+    	set web-mode enable
+    next
+end

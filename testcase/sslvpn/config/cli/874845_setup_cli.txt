@@ -1,0 +1,5 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+       set host-check fw
+    next
+end

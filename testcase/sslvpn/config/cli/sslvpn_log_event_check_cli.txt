@@ -1,0 +1,6 @@
+execute log filter reset
+execute log filter device memory
+execute log filter category event
+execute log filter field subtype vpn
+execute log filter field msg "${message}"
+execute log display

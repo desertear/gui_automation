@@ -1,0 +1,5 @@
+execute log filter device disk
+execute log delete-all
+
+execute log filter device memory
+execute log delete-all

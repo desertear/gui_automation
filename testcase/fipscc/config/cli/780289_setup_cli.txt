@@ -1,0 +1,5 @@
+config global
+    config system admin
+        edit admin
+            set password ${new_password} ${FGT_CLI_PASSWORD}
+        end

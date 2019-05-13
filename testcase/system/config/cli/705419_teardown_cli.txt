@@ -1,0 +1,11 @@
+##Verify the redundant interface can be created and deleted in CLI and GUI in TP mode
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+        next
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+        next
+    end
+end

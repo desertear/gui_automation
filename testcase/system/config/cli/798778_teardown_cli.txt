@@ -1,0 +1,6 @@
+###remove gui-display-hostname in cli after gui hostname in login page testing
+config global
+    config system  global
+       set gui-display-hostname disable
+    end
+end

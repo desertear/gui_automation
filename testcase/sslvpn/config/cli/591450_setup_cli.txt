@@ -1,0 +1,19 @@
+config vpn ssl web user-bookmark
+    edit "${sslvpn_username}#${sslvpn_user_group}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set url "${https_url}"
+                set sso static
+                config form-data
+                    edit "${key1}"
+                        set value "${value1}"
+                    next
+                    edit "${key2}"
+                        set value "${value2}"
+                    next
+                end
+                set sso-credential alternative
+            next
+        end
+    next
+end

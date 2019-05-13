@@ -1,0 +1,1 @@
+appium --chromedriver-executable /home/auto/automation/script/trunk/gui_automation/tools/browser_drivers/android/chromedriver

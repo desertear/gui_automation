@@ -1,0 +1,6 @@
+config log memory setting
+    unset status
+end
+config log disk setting
+    unset status
+end

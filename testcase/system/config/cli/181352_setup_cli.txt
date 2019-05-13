@@ -1,0 +1,4 @@
+#Verify that the FGT backs up and restore the encrypted system configuration to usb key via GUI NAT/TP
+config global
+    exec usb-disk list
+end

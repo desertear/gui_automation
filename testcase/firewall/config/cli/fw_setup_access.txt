@@ -1,0 +1,61 @@
+config system global
+    set admintimeout 480
+    set hostname "${FGT_HOSTNAME}"
+    set vdom-mode multi-vdom
+end
+
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+    next
+    edit "${FW_TEST_VDOM_NAME_2}"
+    next
+    edit "${FW_TEST_VDOM_NAME_TP}"
+        config system settings
+            set opmode transparent
+            set manageip ${FGT_MANAGE_IP_ADDRESS}/255.255.255.0
+        end
+    next    
+end
+
+config global
+    config system global
+        set management-vdom "${FW_TEST_VDOM_NAME_1}"
+    end
+end
+
+config global
+    config system interface     
+        edit "${FW_TEST_INTF_1}"
+            set mode static
+            set vdom "${FW_TEST_VDOM_NAME_1}"
+            set ip ${FGT_CLI_SSH_CONNECTION_IP} 255.255.255.0
+            set allowaccess ping https ssh http telnet
+            config ipv6
+                set ip6-address ${FGT_VLAN30_IP_ADDRESS_V6}/64
+                set ip6-allowaccess ping
+            end
+        next 
+        edit "${FW_TEST_INTF_2}"
+            set mode static
+            set vdom "${FW_TEST_VDOM_NAME_1}"
+            set ip ${FGT_IP_ADDRESS} 255.255.255.0
+            set allowaccess ping https ssh http telnet
+            config ipv6
+                set ip6-address ${FGT_IP_ADDRESS_V6}/64
+                set ip6-allowaccess ping
+            end
+        next            
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config router static
+            edit 1
+                set gateway 172.16.200.254
+                set device "${FW_TEST_INTF_1}"
+            next
+        end
+    next
+end  

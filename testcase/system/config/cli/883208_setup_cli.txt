@@ -1,0 +1,12 @@
+##GUI:Verify Outbreak protection server and Web Filtering server values in GUI and get dynamically updated
+config vdom
+    edit vdom12345678901234567890
+        config firewall policy
+            edit 1
+                set av-profile "g-default"
+                set webfilter-profile "g-default"
+                set dnsfilter-profile "default"
+                set application-list "g-default"
+                set ssl-ssh-profile "certificate-inspection"
+        end
+end

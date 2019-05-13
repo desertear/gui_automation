@@ -1,0 +1,4 @@
+config vpn ssl settings
+    set idle-timeout 60
+end
+

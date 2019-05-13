@@ -1,0 +1,8 @@
+#### Verify interfaces in TP vdom cannot set role GUI
+config global
+    config system interface
+        edit ${FGT_PORT3_INTERFACE}
+             set vdom "${SYSTEM_TEST_VDOM_NAME_TP}"
+    end
+end
+    

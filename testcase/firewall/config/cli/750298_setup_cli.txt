@@ -1,0 +1,155 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system settings
+            set gui-dynamic-profile-display enable
+            set gui-allow-unnamed-policy enable 
+        end
+        config firewall profile-group
+            edit "${FW_TEST_UTM_PROFILE_GROUP_1}"
+                set av-profile "g-default"
+                set webfilter-profile "g-sniffer-profile"
+                set application-list "g-default"
+                set ssl-ssh-profile "certificate-inspection"
+            next
+            edit "${FW_TEST_UTM_PROFILE_GROUP_2}"
+                set av-profile "g-sniffer-profile"
+                set webfilter-profile "g-sniffer-profile"
+                set dnsfilter-profile "default"
+                set ips-sensor "g-wifi-default"
+                set application-list "g-default"
+                set ssl-ssh-profile "deep-inspection"
+            next
+        end
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"                
+                set name 750298_1
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_1}" "${FW_TEST_ADDR_GROUP_1}"
+                set dstaddr "${FW_TEST_ADDR_2}" "${FW_TEST_ADDR_3}" "${FW_TEST_ADDR_GROUP_2}"
+                set action accept
+                set status disable
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set utm-status enable                
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit "${FW_TEST_V4_POLICY_ID_2}"
+                set name 750298_2
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_1}"
+                set dstaddr "${FW_TEST_ADDR_2}"
+                set users "${FW_TEST_LOCAL_USER_2}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set logtraffic all
+                set nat enable 
+                set utm-status enable                
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_2}"
+            next
+            edit "${FW_TEST_V4_POLICY_ID_3}"
+                set name 750298_3
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_GROUP_1}"
+                set dstaddr "${FW_TEST_ADDR_GROUP_2}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set utm-status enable                 
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit "${FW_TEST_V4_POLICY_ID_4}"
+                set name 750298_4
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_3}" "${FW_TEST_ADDR_GROUP_2}"
+                set dstaddr "${FW_TEST_ADDR_1}" "${FW_TEST_ADDR_GROUP_1}"
+                set users "${FW_TEST_LOCAL_USER_1}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_1}" "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_4}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set nat enable
+                set utm-status enable
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_2}"
+
+            next
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set name 750298_6_1
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_1}" "${FW_TEST_ADDR6_GROUP_1}"
+                set dstaddr "${FW_TEST_ADDR6_2}" "${FW_TEST_ADDR6_3}" "${FW_TEST_ADDR6_GROUP_2}"
+                set action accept
+                set status disable
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set utm-status enable                
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit "${FW_TEST_V6_POLICY_ID_2}"
+                set name 750298_6_2
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_GROUP_2}"
+                set dstaddr "${FW_TEST_ADDR6_GROUP_1}"
+                set users "${FW_TEST_LOCAL_USER_2}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_3}" 
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set logtraffic all
+                set nat enable 
+                set utm-status enable                
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_2}"
+            next
+            edit "${FW_TEST_V6_POLICY_ID_3}"
+                set name 750298_6_3
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_1}"
+                set dstaddr "${FW_TEST_ADDR6_2}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set utm-status enable                 
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit "${FW_TEST_V6_POLICY_ID_4}"
+                set name 750298_6_4
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_3}" "${FW_TEST_ADDR6_GROUP_2}"
+                set dstaddr "${FW_TEST_ADDR6_1}" "${FW_TEST_ADDR6_GROUP_1}"
+                set users "${FW_TEST_LOCAL_USER_1}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_1}" "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_4}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set logtraffic all
+                set nat enable
+                set utm-status enable
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_2}"
+            next
+        end
+    next    
+end    

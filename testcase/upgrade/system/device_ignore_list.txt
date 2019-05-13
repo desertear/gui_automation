@@ -1,0 +1,5 @@
+##This file defines devices that don't support feature of current directory.
+##All other devices that are not specified in this file will be used by Jenkins.
+##The device name cannot got from "get system status"
+FortiGate-300D
+FortiGateRugged-60D

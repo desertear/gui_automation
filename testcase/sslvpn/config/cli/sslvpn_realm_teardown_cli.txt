@@ -1,0 +1,13 @@
+config vpn ssl settings
+	config authentication-rule
+	    edit 1
+	        set groups "ssl-web-group"
+	        set portal "testportal"
+	        unset realm
+	    next
+	end
+end
+
+config vpn ssl web realm
+    delete "test"
+end

@@ -1,0 +1,4 @@
+
+config log disk setting
+    unset status
+end

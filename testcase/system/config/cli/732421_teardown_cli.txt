@@ -1,0 +1,24 @@
+#Verify ethernet type vdom-link interface works for NAT and TP vdom, GUI
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_TP}"
+        config firewall policy
+            delete 1
+            delete 2
+        end
+end
+
+config global
+    config system vdom-link
+        delete "732421"
+    end
+end
+
+
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom  "${SYSTEM_TEST_VDOM_NAME_1}"
+    end
+end
+
+

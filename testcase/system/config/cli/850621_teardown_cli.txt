@@ -1,0 +1,21 @@
+#### Verify Vlan range filter on virtual wire pair can be enabled/disabled on GUI
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall policy
+            purge
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+            purge
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system virtual-wire-pair
+            delete "850621"
+        end
+end

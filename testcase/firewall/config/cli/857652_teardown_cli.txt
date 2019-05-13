@@ -1,0 +1,47 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system virtual-wan-link
+            config members
+                delete 1
+            end
+            set status disable
+        end
+        config firewall policy
+            delete "${FW_TEST_V4_POLICY_ID_1}"
+        end
+        config firewall policy6
+            delete "${FW_TEST_V6_POLICY_ID_1}"
+        end
+        config firewall policy46
+            delete "${FW_TEST_POLICY46_ID_1}"                
+        end
+        config firewall policy64
+            delete "${FW_TEST_POLICY64_ID_1}"         
+        end
+        confi firewall multicast-policy
+            delete "${FW_TEST_MULTICAST_POLICY_ID_1}"
+        end
+        config firewall acl
+            delete ${acl_id}
+        end
+        config firewall acl6
+            delete ${ipv6_acl_id}
+        end
+        config firewall shaping-policy
+            delete ${shape_id}
+        end
+        config firewall DoS-policy
+            delete ${dos_id}
+        end
+        config firewall DoS-policy6
+            delete ${ipv6_dos_id}
+        end
+    next
+end    
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system interface
+            delete ${sdwan_intf}
+        end
+    next
+end    

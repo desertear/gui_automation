@@ -1,0 +1,202 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings
+            set gui-dynamic-profile-display enable
+            set gui-allow-unnamed-policy enable 
+        end
+        config firewall profile-group
+            edit "${FW_TEST_UTM_PROFILE_GROUP_1}"
+                set av-profile "g-default"
+                set webfilter-profile "g-sniffer-profile"
+                set application-list "g-default"
+                set ssl-ssh-profile "certificate-inspection"
+            next
+        end
+        config vpn ssl settings
+            set servercert "Fortinet_Factory"
+            set tunnel-ip-pools "SSLVPN_TUNNEL_ADDR1"
+            set tunnel-ipv6-pools "SSLVPN_TUNNEL_IPv6_ADDR1"
+            set port 1443
+            set source-interface "${FW_TEST_INTF_2}"
+            set source-address "all"
+            set source-address6 "all"
+            set default-portal "full-access"
+        end
+        config firewall address
+            edit "ipsec_range"
+                set type iprange
+                set start-ip 3.3.3.3
+                set end-ip 3.3.3.10
+            next
+        end
+        config firewall address6
+            edit "ipsec_range_6"
+                set type iprange
+                set start-ip 2000:3:3:3::1
+                set end-ip 2000:3:3:3::10
+            next
+        end
+
+        config vpn ipsec phase1-interface
+            edit "ipsec"
+                set type dynamic
+                set interface "${FW_TEST_INTF_2}"
+                set mode aggressive
+                set peertype any
+                set net-device enable
+                set mode-cfg enable
+                set proposal aes128-sha256 aes256-sha256 aes128-sha1 aes256-sha1
+                set dpd on-idle
+                set wizard-type dialup-forticlient
+                set xauthtype auto
+                set authusrgrp "ldap_user_group"
+                set ipv4-start-ip 3.3.3.3
+                set ipv4-end-ip 3.3.3.10
+                set dns-mode auto
+                set save-password enable
+                set psksecret 123456
+                set dpd-retryinterval 60
+            next
+        end
+        config vpn ipsec phase2-interface
+            edit "ipsec"
+                set phase1name "ipsec"
+                set proposal aes128-sha1 aes256-sha1 aes128-sha256 aes256-sha256 aes128gcm aes256gcm chacha20poly1305
+            next
+        end
+        config firewall policy
+            edit ${FW_TEST_V4_POLICY_ID_1}
+                set name 178800_1
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "any"
+                set srcaddr "${FW_TEST_ADDR_1}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set logtraffic all
+                set utm-status enable
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit ${FW_TEST_V4_POLICY_ID_2}       
+                set name 178800_2
+                set srcintf "any"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_3}"
+                set schedule "${FW_TEST_SCHEDULE_1}"
+                set service "${FW_TEST_SERVICE_1}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+            edit ${FW_TEST_V4_POLICY_ID_3}       
+                set name 178800_3
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set users "${FW_TEST_LOCAL_USER_2}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action deny
+            next
+            edit ${FW_TEST_V4_POLICY_ID_4}
+                set name "178800_sslvpn"
+                set srcintf ssl.${FW_TEST_VDOM_NAME_1}
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_4}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set groups "${FW_TEST_USER_GROUP_1}"
+                set nat enable
+            next
+            edit ${FW_TEST_V4_POLICY_ID_5}
+                set name "178800_ipsec"
+                set srcintf "ipsec"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "ipsec_range"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set nat enable
+            next
+        end
+        config firewall policy6
+            edit ${FW_TEST_V6_POLICY_ID_1}
+                set name 178800_6_1
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "any"
+                set srcaddr "${FW_TEST_ADDR6_1}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set logtraffic all
+                set utm-status enable                
+                set profile-type group
+                set profile-group "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            next
+            edit ${FW_TEST_V6_POLICY_ID_2}       
+                set name 178800_6_2
+                set srcintf "any"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+            edit ${FW_TEST_V6_POLICY_ID_3}       
+                set name 178800_6_3
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set users "${FW_TEST_LOCAL_USER_2}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+                set groups "${FW_TEST_USER_GROUP_2}" "${FW_TEST_USER_GROUP_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action deny
+            next
+            edit ${FW_TEST_V6_POLICY_ID_4}       
+                set name 178800_6_sslvpn
+                set srcintf ssl.${FW_TEST_VDOM_NAME_1}
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_1}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set groups "${FW_TEST_USER_GROUP_1}"
+                set nat enable
+            next
+            edit ${FW_TEST_V6_POLICY_ID_5}
+                set name "178800_6_ipsec"
+                set srcintf "ipsec"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "ipsec_range_6"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set nat enable
+            next
+        end
+    next    
+end    

@@ -1,0 +1,23 @@
+config vdom
+    edit ${FIPSCC_TEST_VDOM_NAME_1}
+        config user peer
+            edit "${FGT_PKI_PEER_NAME}"
+                set ca "${FGT_PKI_PEER_CA_NAME}"
+                set cn "${FGT_PKI_PEER_CN}"
+            next
+        end
+        config user group
+            edit "${FGT_PKI_USER_GROUP}"
+                set member "${FGT_PKI_PEER_NAME}"
+            next
+        end
+        config system admin
+            edit ${FGT_PKI_ADMIN_NAME}
+                set peer-auth enable
+                set accprofile "super_admin"
+                set vdom ${FIPSCC_TEST_VDOM_NAME_1}
+                set peer-group ${FGT_PKI_USER_GROUP}
+            next
+        end
+    next
+end

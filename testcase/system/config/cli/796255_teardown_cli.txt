@@ -1,0 +1,80 @@
+### To verify vdom admin can view interfaces/dns pages without error when vdom not enabled
+config system admin
+    delete "796255"
+end
+
+config system global
+    set vdom-mode multi-vdom
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_TP}"
+         config system settings
+            set opmode transparent
+            set manageip 172.16.200.200/255.255.255.0
+        end
+end
+
+config vdom
+    edit    "${SYSTEM_TEST_VDOM_NAME_1}"
+end
+   
+config global
+    config system interface     
+        edit "${SYSTEM_TEST_INTF_1}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+            set mode static
+            set ip ${FGT_VLAN30_IP} 255.255.255.0
+            set allowaccess https ping http telnet fgfm ssh
+            config ipv6
+                set ip6-address ${FGT_VLAN30_IP_V6}/64
+                set ip6-allowaccess ping https http
+            end
+        next     
+        edit "${SYSTEM_TEST_INTF_2}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+            set mode static
+            set ip ${FGT_VLAN20_IP}  255.255.255.0
+            set allowaccess ping https http telnet ssh fgfm
+            config ipv6
+                set ip6-address ${FGT_VLAN20_IP_V6}/64
+                set ip6-allowaccess ping
+            end
+        next           
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+        next             
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+        next                
+        #edit  ${SYSTEM_TEST_VDOM_NAME_2_interface}
+        #    set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+        #next
+    end
+end
+
+config global
+    config system global
+         set management-vdom  "${SYSTEM_TEST_VDOM_NAME_1}"
+         set admin-sport ${FGT_PORT}
+         set gui-ipv6 enable
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config router static
+            edit 1
+                set gateway "${FGT_VLAN30_GATEWAY}"
+                set device "${SYSTEM_TEST_INTF_1}"
+            next
+        end
+    next
+end  
+
+config global
+    config system console
+        set output standard
+    end
+end

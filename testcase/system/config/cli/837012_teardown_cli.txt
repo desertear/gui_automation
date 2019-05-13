@@ -1,0 +1,32 @@
+##Verify api-user must have at least one trusthost entry 
+config global
+        config system admin
+            delete "837012"
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system api-user
+            edit "837012_REST"
+                config trusthost
+                    purge
+                end
+        end
+end
+
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system api-user
+            delete "837012_REST"
+        end
+end
+
+config global
+    config system accprofile
+        delete "837012_REST"
+    end
+end
+
+

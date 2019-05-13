@@ -1,0 +1,3 @@
+config system sso-admin
+    delete "${sso_admin_fgtb}"
+end

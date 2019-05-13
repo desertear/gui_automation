@@ -1,0 +1,7 @@
+##GUI:Verify the values obtained as DNS latency time in GUI and get dynamically updated for ipv4
+config global
+    config system dns
+        set primary "${FGTB_VLAN30_IP}"
+        set secondary  10.10.10.10
+    end
+end

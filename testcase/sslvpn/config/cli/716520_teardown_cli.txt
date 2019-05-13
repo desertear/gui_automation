@@ -1,0 +1,9 @@
+config firewall address
+    delete "vlan30"
+end
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set split-tunneling disable
+     next
+end

@@ -1,0 +1,7 @@
+## Verify Captive Portal can be configured and dispaly well in GUi
+config global
+    config system global
+        set pre-login-banner enable
+        set post-login-banner enable
+    end
+end

@@ -1,0 +1,13 @@
+##GUI:Verify the values obtained as DNS latency time in GUI and get dynamically updated for ipv6
+config global
+    config system dns
+        set ip6-primary "${FGT_DNS_SERVER1_IPV6}"
+        set ip6-secondary "${FGT_DNS_SERVER2_IPV6}"
+    end
+end
+
+config global
+    config system global
+        set gui-ipv6 enable
+    end
+end

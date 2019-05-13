@@ -1,0 +1,6 @@
+## Verified Multi-VDOM Admin user works with Trusted hosts GUI
+config global
+    config system admin
+        delete 729830
+    end
+end

@@ -1,0 +1,6 @@
+###To verify confirmation msg pops up when switching management vdom from gui
+config global
+    config system global
+         set management-vdom  "${SYSTEM_TEST_VDOM_NAME_1}"
+    end
+end

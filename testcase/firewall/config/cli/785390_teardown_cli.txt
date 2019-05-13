@@ -1,0 +1,14 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config firewall policy
+            delete ${FW_TEST_V4_POLICY_ID_4}
+            delete ${policy_id_paste_above}
+            delete ${policy_id_paste_below}
+        end
+        config firewall policy6
+            delete ${FW_TEST_V6_POLICY_ID_4}
+            delete ${policy_id_paste_above}
+            delete ${policy_id_paste_below}
+        end
+    next    
+end    

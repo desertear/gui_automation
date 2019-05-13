@@ -1,0 +1,22 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"  
+        config firewall service custom
+            edit "${FW_TEST_SERVICE_1}"
+                set visibility disable
+            next
+            edit "${FW_TEST_SERVICE_2}"
+                set visibility disable
+            next
+            edit "${FW_TEST_SERVICE_3}"
+                set visibility disable
+            next
+            edit "${FW_TEST_SERVICE_4}"
+                set visibility disable
+            next            
+            edit "${FW_TEST_SERVICE_5}"
+                set visibility disable
+            next
+        end
+    next
+end
+    

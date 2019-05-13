@@ -1,0 +1,34 @@
+#Verify Captive-portal authenticated user can be deleted from GUI
+config vdom
+    edit vdom1
+        config user group
+            edit "741879"
+            unset member
+        end
+end
+
+config vdom
+    edit vdom1
+        config user local
+            edit "741879"
+                set type password
+                set passwd 123
+        end
+end
+
+config vdom
+    edit vdom1
+        config user group
+            edit "741879"
+                set member "741879"
+        end
+end
+
+#config vdom
+ #   edit vdom1
+  #      config system interface
+   #         edit "port2"
+    #            set security-mode captive-portal
+     #           set security-groups "741879"
+      #  end
+#end

@@ -1,0 +1,4 @@
+
+python -m robot --timestampoutputs --loglevel TRACE:TRACE -v VERSION:6.2 -v FGT_BROWSER:chrome -v SSLVPN_BROWSER:chrome -v FGT_ENV:env.sslvpn_19B_FGT_2500E.robot -v SSLVPN_ENV:sslvpn_env.robot -l ./log/log.html -r ./report/report.html -o ./output/output.xml -e norun --suite "100 Win10 Chrome" ./
+python -m robot --timestampoutputs --loglevel TRACE:TRACE -v VERSION:6.2 -v FGT_BROWSER:firefox -v SSLVPN_BROWSER:firefox -v FGT_ENV:env.sslvpn_19B_FGT_2500E.robot -v SSLVPN_ENV:sslvpn_env.robot -l ./log/log.html -r ./report/report.html -o ./output/output.xml -e norun --suite "110 Win10 FF" ./
+python -m robot --timestampoutputs --loglevel TRACE:TRACE -v VERSION:6.2 -v FGT_BROWSER:firefox -v SSLVPN_BROWSER:edge -v IF_CONFIG_SSLVPN_ON_FGT_FIRSTLY:CLI -v FGT_ENV:env.sslvpn_19B_FGT_2500E.robot -v SSLVPN_ENV:sslvpn_env.robot -l ./log/log.html -r ./report/report.html -o ./output/output.xml -e norun --suite "120 Win10 Edge" ./

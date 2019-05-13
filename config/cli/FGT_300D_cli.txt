@@ -1,0 +1,22 @@
+config firewall sniffer
+    purge
+end
+config system interface
+    edit "mgmt1"
+        unset dedicated-to
+        unset role
+    next
+    edit "mgmt2"
+        unset dedicated-to
+        unset role
+    next
+    edit "port4"
+        unset ips-sniffer-mode
+    next
+    edit "port8"
+        unset ips-sniffer-mode
+    next
+end
+config router static
+    purge
+end

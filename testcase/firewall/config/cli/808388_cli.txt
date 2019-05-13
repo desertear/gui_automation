@@ -1,0 +1,7 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system virtual-wire-pair
+            delete "${virtual_wirepair_intf}"
+        end
+    next    
+end    

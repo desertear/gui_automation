@@ -1,0 +1,54 @@
+##reset saml settings
+config system saml
+    unset status
+end
+
+##delete router
+config router static
+	purge
+end
+config router static6
+	purge
+end
+
+##recover features' visibility on GUI
+config system settings
+    unset gui-icap
+    unset gui-nat46-64
+    unset gui-dns-database
+    unset gui-load-balance
+    unset gui-multicast-policy
+    unset gui-voip-profile
+    unset gui-local-in-policy
+    unset gui-local-reports
+    unset gui-explicit-proxy
+    unset gui-dlp
+    unset gui-sslvpn-personal-bookmarks
+    unset gui-sslvpn-realms
+    unset gui-policy-based-ipsec
+    unset gui-spamfilter
+    unset gui-endpoint-control-advanced
+    unset gui-waf-profile
+    unset gui-allow-unnamed-policy
+    unset gui-email-collection
+    unset gui-domain-ip-reputation
+    unset gui-multiple-interface-policy
+end
+
+##recover featuers' visibility on GUI and extend timeout
+config system global
+	unset gui-ipv6
+    unset gui-wireless-opensecurity
+    unset admintimeout
+    unset admin-server-cert
+end
+config vpn certificate remote
+    delete "${SP_IDP_CERTIFICATE}"
+end
+
+##delete local certificate
+config vpn certificate local
+	delete "${FGTB_HTTPS_CERTIFICATE_NAME}"
+end
+
+execute log delete-all

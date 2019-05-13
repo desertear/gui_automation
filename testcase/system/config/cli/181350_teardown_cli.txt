@@ -1,0 +1,5 @@
+#Verify that the FGT backs up and restore the system configuration to usb key via GUI NAT/TP and gui works fine
+config global
+    exec usb-disk delete 181350_nat.conf
+    exec usb-disk delete 181350_tp.conf
+end

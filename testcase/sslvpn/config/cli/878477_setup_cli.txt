@@ -1,0 +1,16 @@
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set display-bookmark disable  
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    edit "${bookmark_name}"
+                        set description "this is http bookmark"
+                        set url "${http_url}"
+                    next
+                end
+            next
+        end
+    next
+end

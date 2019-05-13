@@ -1,0 +1,98 @@
+###################
+## Add the following lines in the beginning of setupvm.txt
+## [FGT_A]
+##
+## include	testcase/v540/foc/FGT-A-KeyCheck.txt
+##
+##
+###################
+
+#set up FGT-A to FGT
+
+[FGT_A]
+
+    conf global
+    conf sys console
+        set output standard
+    end
+    get system status
+
+    setvar -e "(?n)^Version: (.*?) v" -to PLATFORM_TYPE
+
+    <if $PLATFORM_TYPE eq FortiCarrier-3240C>
+        #Key for 3240C FG3K2C3Z16800013 FGT
+        ## FG3K2C3Z16800013           v5FGT: KWQZ-5XLM-5Y23-EZWJ-HZCR-O7ZO-ZI    v5FOC: 7YL2-4YU7-D3M2-UL3G-VY3N-NL3I-KE             
+	## FG3K2C3Z16800015           v5FGT: 2RPO-F5K7-AFCF-6BQR-ABU4-LQ6R-YI     v5FOC: CO2U-NTTU-J3KF-NNFL-NWW6-37RD-6A 
+	## FG3K2C3Z11800028           v5FGT: 3T22-LUOM-DEA5-ORPD-M4KE-DF34-UA     v5FOC: QN4N-BLBW-C3II-5GBF-FBBY-XOVW-EQ   
+	## FG3K2C3Z14800344           v5FGT: SHON-OAGL-CBSD-7CL6-3FF5-37J4-XY     v5FOC: KMLB-OD2V-LER4-LDBS-ICIB-ST2Y-QI   
+	## FG3K2C3Z14800493           v5FGT: LM67-RJTJ-YRQS-LOPQ-S5RB-V3SM-5Q     v5FOC: 5G6I-BMXL-IGPF-DIZM-ANOR-HHZN-O4  
+	## FG3K2C3Z13800152           v5FGT: LT4Y-BW5E-TGLR-JCMT-PZXY-RSTO-I4     v5FOC: 2PXZ-7H2P-RXOV-E3M2-AE2K-TGRG-LI  
+         
+        exec forticarrier-license KWQZ-5XLM-5Y23-EZWJ-HZCR-O7ZO-ZI
+        sleep 3
+        exec forticarrier-license 2RPO-F5K7-AFCF-6BQR-ABU4-LQ6R-YI
+        sleep 3
+        exec forticarrier-license 3T22-LUOM-DEA5-ORPD-M4KE-DF34-UA
+        sleep 3
+        exec forticarrier-license SHON-OAGL-CBSD-7CL6-3FF5-37J4-XY
+        sleep 3
+        exec forticarrier-license LM67-RJTJ-YRQS-LOPQ-S5RB-V3SM-5Q
+        sleep 3
+        exec forticarrier-license LT4Y-BW5E-TGLR-JCMT-PZXY-RSTO-I4
+        sleep 3
+
+
+    <elseif $PLATFORM_TYPE eq FortiCarrier-3200D>
+        #Key for 3200D FG3K2D3Z16800024 FGT
+	## FG3K2D3Z16800024           v5FGT: AXOZ-DH25-X3OL-5TVB-I35D-FZZ2-JE    v5FOC: 5IDR-RT2N-R57O-54RN-RCWV-5RXP-WI  
+	## FG3K2D3Z16800037           v5FGT: RVNL-RUN3-SHVW-IQKT-PUPK-C7IN-ZM    v5FOC: G2FI-CXTV-Z4HQ-72WS-EWIB-TTJD-SA  
+	## FG3K2D3Z16800042           v5FGT: EJWL-GQRK-RMEB-K6EC-24NM-XTGQ-KU    v5FOC: KTF3-BLGF-U3TR-STDJ-GUFS-JCFZ-N4 
+	## FG3K2D3Z16800079           v5FGT: I7YH-4SGL-GJQ5-NT2K-HSDT-PNTI-JQ    v5FOC: YXNU-QRLS-WZRR-Y7L2-HGRF-XVB4-AA 
+        
+	exec forticarrier-license AXOZ-DH25-X3OL-5TVB-I35D-FZZ2-JE
+	sleep 3
+	exec forticarrier-license RVNL-RUN3-SHVW-IQKT-PUPK-C7IN-ZM
+	sleep 3
+	exec forticarrier-license EJWL-GQRK-RMEB-K6EC-24NM-XTGQ-KU
+	sleep 3
+	exec forticarrier-license I7YH-4SGL-GJQ5-NT2K-HSDT-PNTI-JQ
+	sleep 3
+	
+
+    <elseif $PLATFORM_TYPE eq FortiCarrier-3700DX>
+        #Key for 3700DX FG37DX4615800011 FGT
+	## FG37DX4615800011           v5FGT: RI73-JSCV-P4E2-BY2I-YVCA-BU4J-EY    v5FOC: GLYL-WDLY-2J7N-XU6H-4PYI-RKWI-PY 
+	## FG37DX4Q15800027           v5FGT: 7P2N-O3TH-V6BG-ZK6E-ZAN7-SULL-5Y    v5FOC: T4LU-6NSM-KKYU-UKOA-DYYB-OX65-IU 
+	## FG37DX4615800016           v5FGT: DQOK-HPHI-N7E4-P3QT-RQV7-VADS-YM    v5FOC: QMRR-RK6L-HBP4-QOGD-2XJR-LSBL-WY 
+	## FG37DX4Q15800029           v5FGT: WIWR-WV33-CULK-TVJC-N4R2-PAEF-QM    v5FOC: CSRS-EGOE-I3N4-JVFB-SQMI-B3JF-QM 
+
+        exec forticarrier-license RI73-JSCV-P4E2-BY2I-YVCA-BU4J-EY
+        sleep 3
+        exec forticarrier-license 7P2N-O3TH-V6BG-ZK6E-ZAN7-SULL-5Y
+        sleep 3
+        exec forticarrier-license DQOK-HPHI-N7E4-P3QT-RQV7-VADS-YM
+        sleep 3
+        exec forticarrier-license WIWR-WV33-CULK-TVJC-N4R2-PAEF-QM
+        sleep 3
+
+
+    <elseif $PLATFORM_TYPE eq FortiCarrier-3800D>
+        #Key for 3800D FG380D3916800067 FGT
+        ## FG380D3916800067           v5FGT: FNHH-EM2J-JBEG-V3HD-2PMW-JRRT-LI    v5FOC: 3HJK-DDV2-WHWU-R5ZB-BHM7-J7A2-DI
+	## FG380D3916800039           v5FGT: W6EA-4L5D-ENKU-ZNVD-4VXA-N556-N4    v5FOC: TTGR-HEFX-K2U6-J5JF-P2YF-KJOA-KY
+	## FG380D3916800053           v5FGT: BD3H-YZLQ-PT5F-MDEL-TGWL-U2UR-TU    v5FOC: OUU4-LH67-UE6B-JAWL-VJ3R-X24L-EM 
+	## FG380D3916800052           v5FGT: BVLK-3KQM-EMRD-AQ7K-F4FX-6VMJ-RI    v5FOC: OQ3J-BWXZ-RV7W-WUIR-BUAX-JSCI-4Y 
+	
+        exec forticarrier-license FNHH-EM2J-JBEG-V3HD-2PMW-JRRT-LI
+        sleep 3
+        exec forticarrier-license W6EA-4L5D-ENKU-ZNVD-4VXA-N556-N4
+        sleep 3
+        exec forticarrier-license BD3H-YZLQ-PT5F-MDEL-TGWL-U2UR-TU
+        sleep 3
+        exec forticarrier-license BVLK-3KQM-EMRD-AQ7K-F4FX-6VMJ-RI
+        sleep 3
+        
+
+    <else>
+
+    <fi>

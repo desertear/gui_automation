@@ -1,0 +1,124 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config firewall policy        
+            edit ${policy_id_1}   
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR_ALL}
+                set dstaddr ${FW_TEST_ADDR_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+            next 
+            edit ${policy_id_2} 
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR_ALL}
+                set dstaddr ${FW_TEST_ADDR_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set logtraffic all                
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+            next
+            edit ${FW_TEST_V4_POLICY_ID_4}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR_ALL}
+                set dstaddr ${FW_TEST_ADDR_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set logtraffic all
+            next            
+            edit ${policy_id_3}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR_ALL}
+                set dstaddr ${FW_TEST_ADDR_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+            next         
+            edit ${policy_id_4}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR_ALL}
+                set dstaddr ${FW_TEST_ADDR_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+                set status disable
+            next
+        end
+        config firewall policy6
+            edit ${policy_id_1}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR6_ALL}
+                set dstaddr ${FW_TEST_ADDR6_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+            next
+            edit ${policy_id_2}   
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR6_ALL}
+                set dstaddr ${FW_TEST_ADDR6_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set status disable
+            next
+            edit ${FW_TEST_V6_POLICY_ID_4}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR6_ALL}
+                set dstaddr ${FW_TEST_ADDR6_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action deny
+                set logtraffic all
+            next
+            edit ${policy_id_3}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR6_ALL}
+                set dstaddr ${FW_TEST_ADDR6_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+                set status disable
+            next
+            edit ${policy_id_4}
+                set srcintf ${FW_TEST_INTF_1}
+                set dstintf ${FW_TEST_INTF_2}
+                set srcaddr ${FW_TEST_ADDR6_ALL}
+                set dstaddr ${FW_TEST_ADDR6_ALL}
+                set schedule ${FW_TEST_SCHEDULE_ALWAYS}
+                set service ${FW_TEST_SERVICE_ALL}
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+            next
+        end
+    next    
+end    

@@ -1,0 +1,13 @@
+config user ldap
+    edit "${ldap_name}"
+        set server "${ldap_address}"
+        set cnid "${ldap_cn}"
+        set dn "${ldap_dn}"
+        set type regular
+        set username "${ldap_username}"
+        set password ${ldap_password}
+        set secure ldaps
+        set ca-cert ${FGT_CA_NAME}
+        set port ${ldap_port}
+    next
+end

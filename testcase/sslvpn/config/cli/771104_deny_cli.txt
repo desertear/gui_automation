@@ -1,0 +1,12 @@
+config vpn ssl web host-check-software
+    edit "win-defender-av"
+        set guid "D68DDC3A-831F-4FAE-9E44-DA132C1ACF47"
+    next
+end
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+       set host-check custom 
+       set host-check-policy win-defender-av
+    end
+end

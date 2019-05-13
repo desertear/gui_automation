@@ -1,0 +1,42 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system interface     
+            edit "${FW_TEST_INTF_1}"
+                unset alias
+            next     
+            edit "${FW_TEST_INTF_2}"                
+                unset alias
+            next     
+            edit "${FW_TEST_INTF_3}"                
+                unset alias
+            next   
+        end
+        config firewall policy
+            delete "${FW_TEST_V4_POLICY_ID_1}"
+            delete "${FW_TEST_V4_POLICY_ID_2}"
+            delete "${FW_TEST_V4_POLICY_ID_3}"
+            delete "${FW_TEST_V4_POLICY_ID_4}" 
+            delete "${POLICY_ID_5}" 
+            delete "${POLICY_ID_6}"         
+        end
+        config firewall policy6
+            delete "${FW_TEST_V6_POLICY_ID_1}"
+            delete "${FW_TEST_V6_POLICY_ID_2}"
+            delete "${FW_TEST_V6_POLICY_ID_3}"
+            delete "${FW_TEST_V6_POLICY_ID_4}" 
+            delete "${POLICY_ID_5}" 
+            delete "${POLICY_ID_6}"
+        end
+    next    
+end 
+
+config global
+    config system interface       
+        edit "${FW_TEST_INTF_3}"
+            set vdom "${FW_TEST_VDOM_NAME_2}"
+        next             
+        edit "${FW_TEST_INTF_4}"
+            set vdom "${FW_TEST_VDOM_NAME_2}"
+        next                
+    end
+end

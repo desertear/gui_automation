@@ -1,0 +1,187 @@
+config system global
+    set vdom-mode multi-vdom
+end
+config system global
+    set gui-ipv6 enable
+end
+config vdom
+    edit "${APP_TEST_VDOM_NAME_1}"
+        config system settings
+            set inspection-mode proxy
+            set gui-explicit-proxy enable
+        end
+        config user local
+            edit "localuser"
+                set type password
+                set passwd 111111
+            next
+        end
+        config user group
+            edit "localgroup"
+                set member "localuser"
+            next
+        end
+    next
+end
+
+config global
+    config system global    
+        set gui-ipv6 enable
+        set management-vdom "${APP_TEST_VDOM_NAME_1}"
+    end
+end
+
+config global
+    config system interface     
+        edit "${APP_TEST_INTF_1}"
+            set vdom "${APP_TEST_VDOM_NAME_1}"
+            set ip 172.16.200.1/24
+            set allowaccess ping https ssh http telnet
+            config ipv6
+                set ip6-address 2001:172:16:200::1/64
+                set ip6-allowaccess ping https ssh http telnet
+            end
+        next     
+        edit "${APP_TEST_INTF_2}"
+            set vdom "${APP_TEST_VDOM_NAME_1}"
+            set ip 10.1.100.1/24
+            set allowaccess ping https ssh http telnet
+            set explicit-web-proxy enable
+            config ipv6
+                set ip6-address 2001:10:1:100::1/64
+                set ip6-allowaccess ping https ssh http telnet
+            end
+        next                           
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${APP_TEST_VDOM_NAME_1}"
+        config router static
+            edit 1
+                set gateway 172.16.200.254
+                set device "${APP_TEST_INTF_1}"
+            next
+        end
+    next
+end  
+
+#add policies and utm to vdom 1
+config vdom
+    edit "${APP_TEST_VDOM_NAME_1}"  
+        config firewall policy
+            edit 1 
+                set name test
+                set srcintf "${APP_TEST_INTF_2}"
+                set dstintf "${APP_TEST_INTF_1}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set action accept
+                set schedule "always"
+                set service "ALL"
+                set nat enable
+                set utm-status enable
+                unset application-list
+                set profile-protocol-options "default"
+            next
+        end
+
+        config firewall policy6
+            edit 1
+                set srcintf "${APP_TEST_INTF_2}"
+                set dstintf "${APP_TEST_INTF_1}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set action accept
+                set schedule "always"
+                set service "ALL"
+                set nat enable
+                set utm-status enable
+                set profile-protocol-options "default"
+            next
+        end
+        config web-proxy explicit
+            set status enable
+            set ipv6-status enable 
+        end
+        config firewall proxy-policy
+            edit 1
+                set proxy explicit-web
+                set dstintf "${APP_TEST_INTF_1}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set srcaddr6 all
+                set dstaddr6 all
+                set service webproxy
+                set schedule always
+                set action accept
+                set utm-status enable
+                set profile-protocol-options "default"
+             next
+        end
+        config application list
+            edit "app-list-11"
+                set p2p-black-list edonkey bittorrent
+                config entries
+                    edit 1
+                        set application 15832 31077 15886 15817
+                    next
+                    edit 2
+                        set action reset
+                        set application 18094 15879
+                        set category 19 21 8 12 1 5 15 2 6 7 23 22 17 3 25
+                     next
+                    edit 3
+                        set action pass
+                        set application 15896 16337
+                        set category 19 21 8 12 1 5 15 2 6 7 23 22 17 3 25
+                        set shaper "guarantee-100kbps"
+                        set shaper-reverse "guarantee-100kbps"
+                    next
+                    edit 4
+                        set action pass
+                        set application 24818
+                    next
+                    edit 5
+                        set category 2
+                    next
+                end
+            next
+        end        
+        config application list
+            edit "default"
+                set comment "Monitor all applications."
+                config entries
+                    edit 1
+                        set action pass
+                    next
+                end
+            next
+        end
+        config firewall ssl-ssh-profile
+            edit "${APP_TEST_SSL_SSH_PROFILE_DEEP}"
+                set comment "Deep inspection."
+                config https
+                    set ports 443
+                end
+                config ftps
+                    set ports 990
+                end
+                config imaps
+                        set ports 993
+                end
+                config pop3s
+                        set ports 995
+                end
+                config smtps
+                        set ports 465
+                end
+                config ssl-exempt
+                        purge
+                end
+            next
+        end
+        diag sys session clear
+    next
+end

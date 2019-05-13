@@ -1,0 +1,41 @@
+#config global
+#    config system global    
+#        unset gui-ipv6
+#    end
+#end
+
+#config global
+    #config system interface     
+        #edit ${DLP_TEST_CLIENT_INTF}
+            #unset ip
+        #next     
+        #edit ${DLP_TEST_SERVER_INTF}
+           # unset ip
+        #next                            
+    #end
+#end
+
+#delete static route from vdom 1
+#config vdom
+    #edit "${DLP_TEST_VDOM_NAME_1}"
+        #config router static
+            #purge
+       # end
+   # next
+#end  
+
+#config global
+    #config system global    
+        #unset management-vdom
+    #end
+#end
+
+#delete vdoms
+#config vdom
+    #delete "${DLP_TEST_VDOM_NAME_1}"
+
+#end
+#config global
+    #config system global
+        #set vdom-mode no-vdom
+#end

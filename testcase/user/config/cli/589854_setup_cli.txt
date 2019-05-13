@@ -1,0 +1,24 @@
+config system global
+    set vdom-mode multi-vdom
+end
+config vdom
+    edit root
+        config router static
+            delete ${FGT_STATIC_ROUTER_ID_TO_OA}
+        end
+        config router static6
+            delete ${FGT_STATIC_ROUTER_ID_TO_OA_IPV6}
+        end    
+    next
+    edit ${FGT_VDOM_NAME_1}
+        config system interface
+            edit ${FGT_VLAN30_INTERFACE}
+                set vdom ${FGT_VDOM_NAME_1}
+        end
+        config router static
+            purge
+            edit ${FGT_STATIC_ROUTER_ID_TO_OA}
+                set gateway ${FGT_VLAN30_GATEWAY}
+                set device ${FGT_VLAN30_INTERFACE}
+        end
+end

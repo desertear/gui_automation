@@ -1,0 +1,9 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        config os-check-list "windows-10"
+            unset action 
+        end
+        unset skip-check-for-browser
+        unset os-check
+     next
+end

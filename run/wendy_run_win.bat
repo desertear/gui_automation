@@ -1,0 +1,2 @@
+::python -m robot --timestampoutputs --loglevel TRACE:TRACE -v FGT_ENV:env_Wendy.robot -v WEBFILTER_ENV:webfilter_env.robot -l ./log/log.html -r ./report/report.html -o ./output/output.xml -i 716659 --dryrun ./
+python -m robot --timestampoutputs --loglevel TRACE:TRACE -v FGT_ENV:env_Wendy.robot -v WEBFILTER_ENV:webfilter_env.robot -l ./log/log.html -r ./report/report.html -o ./output/output.xml -i 716659 ./

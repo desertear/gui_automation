@@ -1,0 +1,10 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall address
+            edit ${test_wildfqdn_name}
+                set type wildcard-fqdn
+                set wildcard-fqdn ${test_wildfqdn_domain}
+            next
+        end
+    next
+end    

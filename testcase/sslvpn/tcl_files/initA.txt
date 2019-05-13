@@ -1,0 +1,84 @@
+comment initializeA: initialized FGTA for testing
+
+[FGT_A]
+
+resetFirewall
+
+config sys console
+	set output standard
+end
+config sys global
+       set hostname FGT_A
+       set admintimeout 480
+end
+config ips global
+    set database extended
+end
+
+
+config system interface
+    edit FGT_A:PORT1
+       	set mode static
+        set ip FGT_A:IP_PORT1
+        set allowaccess ping https ssh snmp http telnet
+		config ipv6
+                set ip6-address FGT_A:IP_PORT1_v6
+                set ip6-allowaccess ping https ssh snmp http telnet
+            end
+    next
+    edit FGT_A:PORT2
+        set ip FGT_A:IP_PORT2
+        set allowaccess ping https ssh snmp http telnet
+		config ipv6
+                set ip6-address FGT_A:IP_PORT2_v6
+                set ip6-allowaccess ping https ssh snmp http telnet
+            end
+
+    next
+end
+
+config router static
+    edit 1
+        set device FGT_A:PORT1
+        set gateway 172.16.200.254
+    next
+end
+
+execute ping 172.16.200.254
+sleep 10
+execute ping 10.1.100.254
+sleep 10
+
+config log memory setting
+    set status enable
+end
+
+
+config log memory filter
+   set severity information 
+end
+
+
+##########
+
+config system dns
+    set primary 208.91.112.53
+    set secondary 208.91.112.52
+end
+
+config log fortianalyzer setting
+    set status disable
+end
+
+execute update-av
+execute update-ips
+execute update-now
+
+sleep 30
+
+config system email-server
+    set server "mail.fortinet.com"
+end
+
+diag debug crashlog clear
+

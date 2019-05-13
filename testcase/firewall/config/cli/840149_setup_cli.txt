@@ -1,0 +1,29 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings
+            set ngfw-mode policy-based
+            set ssl-ssh-profile "certificate-inspection"
+        end
+    next
+end
+
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_1}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept                
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set nat enable                
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"             
+                set logtraffic all
+            next
+        end
+    next    
+end    

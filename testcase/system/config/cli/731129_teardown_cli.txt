@@ -1,0 +1,10 @@
+###delete NTP server in cli after gui cutom NTP testing
+config global
+    config system ntp
+       set ntpsync disable
+       set type custom
+       config ntpserver
+              delete 1
+       end
+    end
+end

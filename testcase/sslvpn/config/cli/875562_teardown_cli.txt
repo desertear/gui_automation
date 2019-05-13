@@ -1,0 +1,6 @@
+config vpn ssl web user-group-bookmark
+    edit "${FGT_USER_GROUP_NAME}"
+        config bookmarks
+            delete "${bookmark_name}"
+        end
+end

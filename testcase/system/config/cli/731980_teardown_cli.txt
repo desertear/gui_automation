@@ -1,0 +1,22 @@
+##System resources widget, Verify CPU/Memory Real time view display correctly
+config vdom
+    edit ${SYSTEM_TEST_VDOM_NAME_1}
+        config firewall address
+            delete "731980 address"
+        end
+end
+
+config vdom
+    edit ${SYSTEM_TEST_VDOM_NAME_1}
+        config system switch-interface
+            delete "731980"
+        end
+end
+
+config vdom
+    edit ${SYSTEM_TEST_VDOM_NAME_1}
+        config system interface
+            delete "731980"
+        end
+end
+            

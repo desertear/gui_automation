@@ -1,0 +1,91 @@
+config system console
+    set output standard
+end
+
+config firewall policy
+    purge
+end
+
+config system dhcp server
+    purge
+end
+
+config system virtual-switch
+    purge
+end
+
+config system interface
+    edit mgmt
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt1
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt2
+        set  dedicated-to none
+end
+
+config system global
+    set vdom-mode multi-vdom
+end
+
+config global   
+    config system global    
+        set long-vdom-name enable    
+    end    
+end 
+
+config vdom
+    edit "${FGTB_VDOM_NAME_1}"
+end 
+
+config global
+    config system global
+         set management-vdom  "${FGTB_VDOM_NAME_1}"
+    end
+end
+
+
+    
+config global
+    config system interface     
+        edit "${FGTB_VLAN20_INTERFACE}"
+            set vdom "${FGTB_VDOM_NAME_1}"
+            set mode static
+            set ip ${FGTB_VLAN20_IP} 255.255.255.0
+            set allowaccess https ping http telnet fgfm ssh
+        next     
+        edit "${FGTB_VLAN30_INTERFACE}"
+            set vdom "${FGTB_VDOM_NAME_1}"
+            set mode static
+            set ip ${FGTB_VLAN30_IP} 255.255.255.0
+            set allowaccess https ping http telnet fgfm ssh
+            config ipv6
+                set ip6-address ${FGTB_VLAN30_IP_V6}/64
+                set ip6-allowaccess ping https http 
+            end
+        next     
+        edit "${FGTB_PORT3_INTERFACE}"
+            set vdom "${FGTB_VDOM_NAME_1}"
+        next             
+        edit "${FGTB_PORT4_INTERFACE}"
+            set vdom "${FGTB_VDOM_NAME_1}"
+        next                
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${FGTB_VDOM_NAME_1}"
+        config router static
+            edit 1
+                set gateway 172.16.200.254
+                set device "${FGTB_VLAN30_INTERFACE}"
+            next
+        end
+    next
+end  

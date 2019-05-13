@@ -1,0 +1,7 @@
+config vpn ssl web user-bookmark
+    edit "${sslvpn_username}#${sslvpn_user_group}"
+        config bookmarks
+            delete "${bookmark_name}"
+        end
+    next
+end

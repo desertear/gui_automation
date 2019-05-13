@@ -1,0 +1,1 @@
+###Delete FGT configuration after case running

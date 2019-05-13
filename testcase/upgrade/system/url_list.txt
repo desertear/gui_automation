@@ -1,0 +1,14 @@
+##This configuration file is used to map case id to URL and webelement##
+##column1: oriole case id; column2: relative url; column3: web element used to confirm page is loaded successfully, the variable should exist in config file
+##column4: contains the geometry parameters that are used to specify the area to be compared between two images. 
+##The format of geometry parameters should be like WxH+X+Y, where W means width, H means height, X means horizonal offset and Y means vertical offset.
+##Please refer to "https://www.imagemagick.org/script/command-line-processing.php#geometry" to know how to define an area of image.
+##If column4 is empty/not , default geometry "100x100%+0+0" which means full image will be used.
+##using variable is supported, and variables should be defined in file ./variable.robot.
+##mapping one case id to several URLs is also supported.
+##Each columns should be separated by 2 or more spaces.
+
+
+865933 	ng/page/p/user/local/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]      80x70%+300+100
+865937 	ng/user/local/edit/${user1}?vdom=${vdom1}  xpath://h1[text()="Edit User"]    50x50%+0+0
+865938 	ng/page/p/user/group/?vdom=${vdom1}    ${LOCATOR_GROUP_CREATE_NEW_BUTTON}

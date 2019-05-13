@@ -1,0 +1,3 @@
+config system replacemsg sslvpn "hostcheck-error"
+    unset buffer
+end

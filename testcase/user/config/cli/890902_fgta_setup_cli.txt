@@ -1,0 +1,19 @@
+config user peer
+    edit "${pki_peer_name}"
+        set ca "${pki_ca}"
+        set cn "${pki_peer_cn}"
+    next
+end
+config user group
+    edit "${pki_group}"
+        set member "${pki_peer_name}"
+    next
+end
+config system admin
+    edit "${pki_admin}"
+        set peer-auth enable
+        set accprofile "${pki_admin_profile}"
+        set vdom "root"
+        set peer-group "${pki_group}"
+    next
+end

@@ -1,0 +1,19 @@
+## Verify Captive Portal can be configured and dispaly well in GUi
+config global
+    config system global
+        set pre-login-banner disable
+        set post-login-banner disable
+    end
+    config system interface
+        edit "${SYSTEM_TEST_INTF_3}"
+            set security-mode none
+    end
+end
+
+config global
+    config system interface
+        edit ${SYSTEM_TEST_INTF_4}
+            set security-mode none
+            set vdom ${SYSTEM_TEST_VDOM_NAME_1}
+    end
+end

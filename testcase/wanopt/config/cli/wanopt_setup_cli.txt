@@ -1,0 +1,35 @@
+    config sys settings
+        set gui-wanopt-cache enable
+    end
+    
+    config system interface     
+        edit "${WANOPT_TEST_CLIENT_INTF}"
+            set ip ${WANOPT_TEST_CLIENT_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next     
+        edit "${WANOPT_TEST_SERVER_INTF}"
+            set ip ${WANOPT_TEST_SERVER_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next                           
+    end
+
+        config router static
+            edit 1
+                set gateway 110.110.110.254
+                set device "${WANOPT_TEST_SERVER_INTF}"
+            next
+        end
+
+        config firewall policy
+            edit 1 
+                set name ${WANOPT_IPV4_POLICY_NAME}
+                set srcintf "${WANOPT_TEST_CLIENT_INTF}"
+                set dstintf "${WANOPT_TEST_SERVER_INTF}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set action accept
+                set schedule "always"
+                set service "ALL"
+                set inspection-mode proxy
+            next
+        end

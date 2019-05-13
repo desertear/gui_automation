@@ -1,0 +1,24 @@
+#### To verify VLAN interface could be bound and unbound to a zone in GUI.
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system zone
+            delete "181603_zone"
+        end
+ end
+
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+            delete "181603 address"
+        end
+ end
+
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            delete "181603"
+        end
+ end
+
+ 
+

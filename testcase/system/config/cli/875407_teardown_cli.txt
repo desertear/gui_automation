@@ -1,0 +1,14 @@
+###Verify LLDP settings can be applied to the VLAN Interface
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+            delete "875407 address"
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            delete "875407"
+        end
+end

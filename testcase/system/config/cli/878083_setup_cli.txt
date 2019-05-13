@@ -1,0 +1,48 @@
+### To verify vdom admin can view interfaces/dns pages without error when vdom not enabled
+config global  
+    execute factoryreset 
+end
+
+config firewall policy
+    purge
+end
+
+config system dhcp server
+    purge
+end
+
+config system virtual-switch
+    purge
+end
+
+config system interface
+    edit mgmt
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt1
+        set  dedicated-to none
+end
+
+config system interface
+    edit mgmt2
+        set  dedicated-to none
+end
+
+   
+config system interface     
+        edit "${SYSTEM_TEST_INTF_2}"
+            set mode static
+            set ip ${FGT_VLAN20_IP}  255.255.255.0
+            set allowaccess ping https http telnet ssh fgfm
+end
+
+
+config system console
+    set output standard
+end
+
+config system global
+    set admin-sport ${FGT_PORT}
+end

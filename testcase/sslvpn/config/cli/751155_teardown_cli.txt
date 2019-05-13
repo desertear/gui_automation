@@ -1,0 +1,7 @@
+
+config log disk setting
+    unset status
+end
+config log fortianalyzer setting
+    unset status
+end

@@ -1,0 +1,2 @@
+###factory reset to come to normal mode
+#no need to teardown FGT, because changing back to factory license will factoryreset FGT.

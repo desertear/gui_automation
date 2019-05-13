@@ -1,0 +1,6 @@
+####Verify SNMP V3 user part displays correctly on GUI/System/Config/Snmp in Nat mode
+config global
+    config system snmp user  
+         purge
+    end
+end

@@ -1,0 +1,6 @@
+config system admin
+    delete "${token_admin}"
+end
+config user fortitoken
+    delete ${USER_FORTITOKEN_SN1}
+end

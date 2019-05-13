@@ -1,0 +1,48 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall address
+            edit "${FW_TEST_ADDR_1}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR_2}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR_3}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR_4}"
+                set visibility disable
+            next
+        end
+        config firewall addrgrp
+            edit "${FW_TEST_ADDR_GROUP_1}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR_GROUP_2}"
+                set visibility disable
+            next
+        end
+        config firewall address6
+            edit "${FW_TEST_ADDR6_1}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR6_2}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR6_3}"
+                set visibility disable
+            next            
+            edit "${FW_TEST_ADDR6_4}"
+                set visibility disable
+            next
+        end
+        config firewall addrgrp6
+            edit "${FW_TEST_ADDR6_GROUP_1}"
+                set visibility disable
+            next
+            edit "${FW_TEST_ADDR6_GROUP_2}"
+                set visibility disable
+            next
+        end        
+    next
+end

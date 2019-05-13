@@ -1,0 +1,19 @@
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        unset utm-status
+        unset application-list
+        unset profile-protocol-options
+        unset ssl-ssh-profile
+end
+
+config firewall profile-protocol-options
+    delete 737554
+end
+
+config application list
+    delete "737554"
+end
+
+config system settings
+    unset inspection-mode
+end

@@ -1,0 +1,27 @@
+comment Shutdown PCs
+# add [FGT_A] here as error occurs without it. Nothing to be done on FGT_A.
+[FGT_A]
+
+[PC_01]
+# testdown win10
+shutdown -s -t 3
+sleep 10
+
+[PC_02]
+shutdown -P now
+sleep 10
+
+
+[PC_05]
+shutdown -P now
+sleep 90
+
+comment Remove VMs in HPV. vm instance 1-5 is reserved by Robot.
+[FHV_A]
+	config vm instance
+		del 6
+		del 7
+		del 8
+		del 9	
+		del 10
+	end

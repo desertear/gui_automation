@@ -1,0 +1,138 @@
+config global
+    config system interface           
+        edit "${FW_TEST_INTF_3}"
+            set vdom "${FW_TEST_VDOM_NAME_1}"
+        next             
+        edit "${FW_TEST_INTF_4}"
+            set vdom "${FW_TEST_VDOM_NAME_1}"
+        next                
+    end
+end
+
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system interface     
+            edit "${FW_TEST_INTF_1}"
+                set alias "${intf_alias_1}"      
+            next     
+            edit "${FW_TEST_INTF_2}"                
+                set alias "${intf_alias_2}"
+            next                 
+            edit "${FW_TEST_INTF_3}"                
+                set alias "${intf_alias_3}"
+            next 
+        end
+        config firewall policy
+            edit "${FW_TEST_V4_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next 
+            edit "${FW_TEST_V4_POLICY_ID_2}"
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next 
+            edit "${FW_TEST_V4_POLICY_ID_3}"
+                set srcintf "${FW_TEST_INTF_3}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next             
+            edit "${FW_TEST_V4_POLICY_ID_4}"
+                set srcintf "${FW_TEST_INTF_4}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${POLICY_ID_5}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_3}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${POLICY_ID_6}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_4}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next                  
+        end
+        config firewall policy6
+            edit "${FW_TEST_V6_POLICY_ID_1}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${FW_TEST_V6_POLICY_ID_2}"
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${FW_TEST_V6_POLICY_ID_3}"
+                set srcintf "${FW_TEST_INTF_3}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next            
+            edit "${FW_TEST_V6_POLICY_ID_4}"
+                set srcintf "${FW_TEST_INTF_4}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${POLICY_ID_5}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_3}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+            edit "${POLICY_ID_6}"
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_4}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set action accept
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+            next
+        end
+    next    
+end    

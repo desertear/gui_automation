@@ -1,0 +1,6 @@
+## GUI configuration match to CLI command
+config global
+    config sys admin
+        delete 216789
+    end
+end

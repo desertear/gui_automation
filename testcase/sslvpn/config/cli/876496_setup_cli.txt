@@ -1,0 +1,6 @@
+config vpn ssl web portal
+	edit testportal
+		#ping function is disabled
+		unselect allow-user-access ping
+	next
+end

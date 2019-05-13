@@ -1,0 +1,9 @@
+config vpn ssl web user-group-bookmark
+    edit "${FGT_USER_GROUP_NAME}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set url "${bookmark_url}"
+            next
+        end
+    next
+end

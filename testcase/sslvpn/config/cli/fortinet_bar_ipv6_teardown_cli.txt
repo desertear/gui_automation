@@ -1,0 +1,10 @@
+config firewall policy6
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        unset utm-inspection-mode
+        unset utm-status
+        unset profile-protocol-options
+end
+
+config firewall profile-protocol-options
+    delete fortinet-bar
+end

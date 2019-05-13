@@ -1,0 +1,9 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+       unset host-check-policy
+       set host-check none
+    end
+end
+config vpn ssl web host-check-software
+    delete "win-defender-av"     
+end

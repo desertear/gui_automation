@@ -1,0 +1,25 @@
+config global
+    config system interface     
+        edit "${FW_TEST_INTF_3}"
+            set vdom "${FW_TEST_VDOM_NAME_1}"      
+        next     
+        edit "${FW_TEST_INTF_4}"                
+            set vdom "${FW_TEST_VDOM_NAME_1}"
+        next   
+    end
+end
+config vdom 
+    edit "${FW_TEST_VDOM_NAME_1}"       
+        config system virtual-wan-link
+            set status enable
+            config members
+                edit 1
+                    set interface "${FW_TEST_INTF_3}"
+                next
+                edit 2
+                    set interface "${FW_TEST_INTF_4}"
+                next
+            end
+        end
+    next    
+end    

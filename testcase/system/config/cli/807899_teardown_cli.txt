@@ -1,0 +1,9 @@
+##Verify GUI can set interface's "Role" and each "Role" show/hide certain features on interface page based on the role selection
+config vdom 
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            edit ${FGT_PORT3_INTERFACE}
+            set ip 0.0.0.0 0.0.0.0
+            set role lan
+        end
+end

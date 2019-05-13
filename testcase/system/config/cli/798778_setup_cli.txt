@@ -1,0 +1,6 @@
+###configure gui-display-hostname in cli before gui hostname in login page testing
+config global
+    config system  global
+       set gui-display-hostname enable
+    end
+end

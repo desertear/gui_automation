@@ -1,0 +1,15 @@
+config vpn ssl web user-bookmark
+    edit "${sslvpn_user}#${sslvpn_user_group}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set apptype rdp
+                set description ${bookmark_description}
+                set host ${host}
+                set security ${security_type}
+                set port ${port}
+                set logon-user ${username}
+                set logon-password ${password}
+            next
+        end
+    next
+end

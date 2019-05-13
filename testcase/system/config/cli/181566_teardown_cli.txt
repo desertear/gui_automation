@@ -1,0 +1,29 @@
+## To verify VLAN interface could be bound and unbound to a zone in GUI.
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_TP}"
+        config system zone
+            delete "181566_zone"
+        end
+ end
+
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_TP}"
+        config firewall address
+            delete "181566 address"
+        end
+ end
+
+ config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_TP}"
+        config system interface
+            delete "181566"
+        end
+ end
+
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+    end
+end
+ 

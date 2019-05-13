@@ -1,0 +1,6 @@
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+       set save-password enable 
+       set auto-connect enable 
+    next
+end

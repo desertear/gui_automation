@@ -1,0 +1,5 @@
+config vpn ssl web portal
+    edit ${PORTAL_NAME}
+    	unset user-bookmark
+    next
+end

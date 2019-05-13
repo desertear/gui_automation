@@ -1,0 +1,114 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config firewall policy
+            edit ${FW_TEST_V4_POLICY_ID_1}
+                set name 796172_1
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_1}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service FTP HTTP
+                set action accept
+                set logtraffic all
+            next
+            edit ${FW_TEST_V4_POLICY_ID_2}       
+                set name 796172_2
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+            edit ${FW_TEST_V4_POLICY_ID_3}       
+                set name 796172_3
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+            next
+            edit ${FW_TEST_V4_POLICY_ID_4}       
+                set name 796172_4
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR_ALL}"
+                set dstaddr "${FW_TEST_ADDR_1}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+        end
+        config firewall policy6
+            edit ${FW_TEST_V6_POLICY_ID_1}
+                set name 796172_6_1
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_1}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service FTP HTTP
+                set action accept
+                set logtraffic all
+            next
+            edit ${FW_TEST_V6_POLICY_ID_2}       
+                set name 796172_6_2
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_3}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+            edit ${FW_TEST_V6_POLICY_ID_3}       
+                set name 796172_6_3
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_ALL}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+            next
+            edit ${FW_TEST_V6_POLICY_ID_4}       
+                set name 796172_6_4
+                set srcintf "${FW_TEST_INTF_1}"
+                set dstintf "${FW_TEST_INTF_2}"
+                set srcaddr "${FW_TEST_ADDR6_ALL}"
+                set dstaddr "${FW_TEST_ADDR6_1}"
+                set schedule "${FW_TEST_SCHEDULE_ALWAYS}"
+                set service "${FW_TEST_SERVICE_ALL}"
+                set action accept
+                set utm-status enable
+                set av-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set webfilter-profile "${FW_TEST_UTM_G_DEFAULT}"
+                set application-list "${FW_TEST_UTM_G_DEFAULT}"
+                set ssl-ssh-profile "${FW_TEST_SSL_SSH_PROFILE_CERT}"
+                set logtraffic all
+            next
+        end
+    next    
+end    

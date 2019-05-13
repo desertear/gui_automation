@@ -1,0 +1,4 @@
+##reset saml settings
+config system saml
+    unset status
+end

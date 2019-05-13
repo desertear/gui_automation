@@ -1,0 +1,3 @@
+config log gui-display
+set fortiview-unscanned-apps disable
+end

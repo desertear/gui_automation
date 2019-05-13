@@ -1,0 +1,24 @@
+#Verify FGT system information,embedded console,system resource,unit operation are correct on status page with a vdom admin when HA active-avtive mode.
+config vdom
+    edit vdom1
+        config system admin
+            delete "590397"
+        end
+end
+config global
+    config system HA
+        set mode standalone
+        unset vdom 
+        unset password 
+        unset hbdevice 
+        unset group-name
+    end
+end
+
+config global
+    config system accprofile
+        edit prof_admin
+            set scope vdom
+    end
+end
+

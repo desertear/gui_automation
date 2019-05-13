@@ -1,0 +1,10 @@
+config global
+     config system global
+        set admin-sport 443
+end
+
+config global
+    config system admin
+        delete ${SUPER_ADMIN_NAME}
+    end
+end

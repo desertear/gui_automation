@@ -1,0 +1,13 @@
+#### Verify DHCPv6 Client can be enabled on interface by GUI
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            edit ${FGT_VLAN30_INTERFACE}
+                config ipv6
+                    set ip6-mode static
+                    set ip6-address  0::0/0
+                end
+        end
+
+end
+    

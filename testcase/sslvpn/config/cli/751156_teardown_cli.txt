@@ -1,0 +1,14 @@
+
+execute log filter device forticloud
+execute log delete-all
+
+config log disk setting
+    unset status
+end
+config log fortianalyzer setting
+    unset status
+end
+config log fortiguard setting
+    unset status
+end
+

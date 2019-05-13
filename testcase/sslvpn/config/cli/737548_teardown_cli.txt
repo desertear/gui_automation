@@ -1,0 +1,9 @@
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set utm-status disable
+    next
+end
+config firewall profile-protocol-options
+    delete "fortinet-bar"
+ end

@@ -1,0 +1,20 @@
+##GUI:Verify latency color codes for DNS server in GUI
+config global
+    config system dns
+        set primary "${dns_primary}"
+        set secondary  "${dns_secondary}"
+    end
+end
+
+config global
+    config system dns
+        set ip6-primary "${dns_primary_ipv6}"
+        set ip6-secondary "${dns_primary_ipv6}"
+    end
+end
+
+config global
+    config system global
+        set gui-ipv6 enable
+    end
+end

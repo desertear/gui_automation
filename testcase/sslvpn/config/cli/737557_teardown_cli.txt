@@ -1,0 +1,25 @@
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        unset utm-status
+        unset profile-protocol-options
+end
+
+config firewall profile-protocol-options
+    delete 737557
+end
+
+config system settings
+    unset inspection-mode
+end
+
+config vpn ssl web portal
+    edit "testportal"
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    delete "${http_bookmark_name}"
+                end
+            next
+        end
+    next
+end

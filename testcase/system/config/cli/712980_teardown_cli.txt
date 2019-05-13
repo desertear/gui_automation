@@ -1,0 +1,6 @@
+##Verify set min-lower-case-letter/ min-upper-case-letter/ min-non-alphanumeric/ min-number works for password policy
+config global
+    config system admin
+        delete 712980
+    end
+end

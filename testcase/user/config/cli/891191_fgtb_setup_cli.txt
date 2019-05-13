@@ -1,0 +1,6 @@
+config system sso-admin
+    edit "${admin_username}"
+        set accprofile "${sso_admin_profile_fgtb}"
+        set vdom "root"
+    next
+end

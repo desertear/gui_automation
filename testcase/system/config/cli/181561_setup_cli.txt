@@ -1,0 +1,7 @@
+## To verify in NAT mode, VLAN interface could be created and deleted in GUI.          
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_3}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_TP}"
+    end
+end

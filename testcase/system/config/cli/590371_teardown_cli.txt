@@ -1,0 +1,16 @@
+#Verify FGT System information,serial,time,version etc are correct on status page with a vdom admin
+config vdom
+    edit vdom1
+        config system admin
+            delete "590371"
+        end
+end
+
+config global
+    config system accprofile
+        edit prof_admin
+            set scope vdom
+    end
+end
+
+

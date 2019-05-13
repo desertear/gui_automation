@@ -1,0 +1,10 @@
+####Verify SNMP V3 user part displays correctly on GUI/System/Config/Snmp in Nat mode
+config global
+    config system snmp sysinfo
+         set status enable
+    end
+    config system interface
+        edit "${SYSTEM_TEST_INTF_1}"
+            set allowaccess snmp ping http https telnet ssh
+    end
+end

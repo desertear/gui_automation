@@ -1,0 +1,3 @@
+config global
+    get system status
+end

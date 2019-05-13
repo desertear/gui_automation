@@ -1,0 +1,6 @@
+config vpn ssl web portal
+    edit ${PORTAL_NAME}
+    	unset forticlient-download-method
+        unset customize-forticlient-download-url
+    next
+end

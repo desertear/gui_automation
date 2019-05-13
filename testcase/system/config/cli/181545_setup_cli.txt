@@ -1,0 +1,6 @@
+###To verify the management vdom can not be disabled from GUI
+config global
+    config system global
+         set management-vdom  "${SYSTEM_TEST_VDOM_NAME_1}"
+    end
+end

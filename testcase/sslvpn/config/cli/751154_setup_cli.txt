@@ -1,0 +1,7 @@
+
+config log disk setting
+    set status enable
+end
+
+execute log filter device disk
+execute log delete-all

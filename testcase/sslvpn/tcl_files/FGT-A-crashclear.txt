@@ -1,0 +1,17 @@
+###################
+## Add the following lines in the beginning of setupvm.txt
+## [FGT_A]
+##
+## include	testcase/v540/foc/FGT-A-crashcear.txt
+##
+##
+###################
+
+#set up FGT-A to FGT
+
+[FGT_A]
+
+    conf global
+	diagnose debug crashlog clear 
+    end
+

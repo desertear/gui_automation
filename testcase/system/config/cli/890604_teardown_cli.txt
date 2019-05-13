@@ -1,0 +1,15 @@
+config global
+    config system sso-admin
+        delete ${admin_name}
+    end
+    config system saml
+        set status disable
+    end
+end
+
+config vdom
+    edit vdom1
+        config vpn certificate remote
+            delete "REMOTE_Cert_1"
+        end
+end

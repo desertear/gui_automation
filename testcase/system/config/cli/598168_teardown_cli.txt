@@ -1,0 +1,7 @@
+#Verify that An admin can display different between 2 configuration via GUI.
+config global
+    config system global
+        set revision-backup-on-logout disable
+        set revision-image-auto-backup disable
+    end
+end

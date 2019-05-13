@@ -1,0 +1,19 @@
+###initial setup fgt to no-vdom mode 
+config system console
+    set output standard
+end
+
+config system global
+    set hostname ${FGT_HOSTNAME} 
+end
+
+config system interface   
+    edit "${SYSTEM_TEST_INTF_2}"
+        set mode static
+        set ip ${FGT_VLAN20_IP}  255.255.255.0
+        set allowaccess ping https http telnet ssh fgfm
+end
+
+config system global
+    set admin-sport ${FGT_PORT}
+end

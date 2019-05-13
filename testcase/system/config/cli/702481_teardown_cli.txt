@@ -1,0 +1,13 @@
+####Verify SNMP V3 user can be created on GUI and works fine in Nat mode
+config global
+    config system snmp user  
+         purge
+    end
+    config system snmp sysinfo
+         set status disable
+    end
+    config system interface
+        edit "${SYSTEM_TEST_INTF_1}"
+            set allowaccess ping http https telnet ssh
+    end
+end

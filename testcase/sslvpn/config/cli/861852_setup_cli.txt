@@ -1,0 +1,13 @@
+config vpn ssl web user-bookmark
+    edit "${sslvpn_username}#${sslvpn_user_group}"
+        config bookmarks
+            edit "${bookmark_name}"
+                set url "${http_url}"
+                set sso auto
+                set sso-credential alternative
+                set sso-username "${username}"
+                set sso-password "${password}"
+            next
+        end
+    next
+end

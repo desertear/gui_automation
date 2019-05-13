@@ -1,0 +1,27 @@
+config user local
+    edit "${username}"
+        set type password
+        set passwd ${password}
+    next
+end
+
+config user group
+    edit "${group_name}"
+        set member "${username}"
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        edit 1002
+            set groups "${group_name}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        append groups "${group_name}"
+    next
+end

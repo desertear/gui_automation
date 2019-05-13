@@ -1,0 +1,6 @@
+config vpn ssl web portal
+	edit testportal
+		#enable ping fucntion again
+		unset allow-user-access
+	next
+end

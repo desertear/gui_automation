@@ -1,0 +1,6 @@
+#Verify 10 trusted host can be added in GUI and work properly
+config global
+    config sys admin
+        delete 597077
+    end
+end

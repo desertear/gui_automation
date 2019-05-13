@@ -1,0 +1,48 @@
+###Delete FGT configuration after case running
+config firewall policy
+	delete ${FGT_POLICY_ID_FOR_SSLVPN}
+end
+config firewall policy6
+	delete ${FGT_POLICY6_ID_FOR_SSLVPN}
+end
+
+config vpn ssl settings
+	config authentication-rule
+		purge
+	end
+end
+
+config vpn ssl web portal
+	delete ${FGT_SSLVPN_PORTAL_NAME}
+end
+
+config vpn ssl web user-bookmark
+	purge
+end
+
+config vpn ssl web user-group-bookmark
+	purge
+end
+
+config vpn ssl web realm
+	purge
+end
+
+config firewall address
+	delete ${FGT_ADDRESS_NAME}
+end
+
+config user group
+	delete ${FGT_USER_GROUP_NAME}
+end
+
+config user local
+	delete ${SSLVPN_GUI_USERNAME}
+end
+
+config log memory setting
+    unset status
+end
+config log memory filter
+    unset severity
+end

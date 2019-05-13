@@ -1,0 +1,3 @@
+config system settings
+    set gui-voip-profile enable
+end

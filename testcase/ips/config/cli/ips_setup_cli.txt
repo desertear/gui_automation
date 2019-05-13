@@ -1,0 +1,179 @@
+config system global
+    set vdom-mode multi-vdom
+    set hostname ${FGT_HOSTNAME}
+end
+config system global
+    set gui-ipv6 enable
+end
+config vdom
+    edit "${IPS_TEST_VDOM_NAME_1}"
+        config system settings
+            set inspection-mode proxy
+            set gui-explicit-proxy enable
+        end
+        config user local
+            edit "localuser"
+                set type password
+                set passwd 111111
+            next
+        end
+        config user group
+            edit "localgroup"
+                set member "localuser"
+            next
+        end
+    next
+end
+
+config global
+    config system global    
+        set gui-ipv6 enable
+        set management-vdom "${IPS_TEST_VDOM_NAME_1}"
+    end
+end
+
+config global
+    config system interface     
+        edit "${IPS_TEST_CLIENT_INTF}"
+            set vdom "${IPS_TEST_VDOM_NAME_1}"
+            set ip ${IPS_TEST_CLIENT_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next     
+        edit "${IPS_TEST_SERVER_INTF}"
+            set vdom "${IPS_TEST_VDOM_NAME_1}"
+            set ip ${IPS_TEST_SERVER_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next                           
+    end
+end
+
+#add static route to vdom 1
+config vdom
+    edit "${IPS_TEST_VDOM_NAME_1}"
+        config router static
+            edit 1
+                set gateway 172.16.200.254
+                set device "${IPS_TEST_SERVER_INTF}"
+            next
+        end
+    next
+end  
+
+#config protocols and ssl-ssh profiles
+config firewall profile-protocol-options
+    edit "protocol"
+        set comment ''
+        set replacemsg-group ''
+        set oversize-log enable
+        set switching-protocols-log disable
+        config http
+            set ports 80 8080
+            set status enable
+            set inspect-all disable
+            unset post-lang
+            set retry-count 0
+        end
+        config ftp
+            set ports 21
+            set status enable
+            set inspect-all disable
+            set options splice
+            set comfort-interval 10
+            set comfort-amount 1
+        end
+        config imap
+            set ports 143 8143
+            set status enable
+            set inspect-all disable
+            set options fragmail
+        end
+        config mapi
+            set ports 135
+            set status enable
+            set options fragmail
+        end
+        config pop3
+            set ports 110 8110
+            set status enable
+            set inspect-all disable
+            set options fragmail
+        end
+        config smtp
+            set ports 25 8025
+            set status enable
+            set inspect-all disable
+            set options fragmail splice
+            set server-busy disable
+        end
+        config nntp
+            set ports 119
+            set status enable
+            set inspect-all disable
+            set options splice
+        end
+        config im
+            set status enable
+            unset options
+        end
+        config dns
+            set ports 53
+            set status enable
+        end
+        config mail-signature
+            set status disable
+            set signature ''
+        end
+    next
+end
+        
+config firewall ssl-ssh-profile
+    edit "protocols"
+        config https
+            set ports "443"
+            set status deep-inspection
+        end
+        config ftps
+            set ports "990"
+            set status deep-inspection
+        end
+        config imaps
+            set ports "993"
+            set status deep-inspection
+        end
+        config pop3s
+            set ports "995"
+            set status deep-inspection
+        end
+        config smtps
+            set ports "465"
+            set status deep-inspection
+        end
+        config ssl-exempt
+            purge
+        end
+    next
+end
+
+#add policies and utm to vdom 1
+config vdom
+    edit "${IPS_TEST_VDOM_NAME_1}"  
+        config firewall policy
+            edit 1 
+                set name ${IPS_IPV4_POLICY_NAME}
+                set srcintf "${IPS_TEST_CLIENT_INTF}"
+                set dstintf "${IPS_TEST_SERVER_INTF}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set action accept
+                set schedule "always"
+                set service "ALL"
+                set nat enable
+                set utm-status enable
+                set profile-protocol-options protocol
+                set ssl-ssh-profile protocols
+                set inspection-mode proxy
+            next
+        end
+        diag sys session clear
+    next
+end

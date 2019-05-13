@@ -1,0 +1,10 @@
+config global
+    config system interface     
+        edit "${FW_TEST_INTF_3}"
+            unset vdom 
+        next     
+        edit "${FW_TEST_INTF_4}"
+            unset vdom
+        next   
+    end
+end    

@@ -1,0 +1,6 @@
+config global
+    config system global
+        unset admin-lockout-duration
+        unset admin-lockout-threshold
+    end
+end

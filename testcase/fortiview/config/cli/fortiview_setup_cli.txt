@@ -1,0 +1,65 @@
+###configure FGT before case running
+config firewall policy
+    purge
+end
+config router static
+    purge
+end
+config system dhcp server
+    purge
+end
+config system virtual-switch
+    purge
+end
+config system interface
+    edit "${VLAN10PORT}"
+        set vdom "root"
+        set ip ${VLAN10PORT_IP}
+        set allowaccess ping https ssh snmp http telnet fgfm radius-acct probe-response capwap ftm
+        set type physical
+        config ipv6
+            set ip6-address ${VLAN10PORT_IPV6IP}
+            set ip6-allowaccess ping https ssh http telnet
+        end
+    next
+    edit "${VLAN20PORT}"
+        set vdom "root"
+        set ip ${VLAN20PORT_IP}
+        set allowaccess ping https ssh snmp http telnet fgfm radius-acct probe-response capwap ftm
+        set type physical
+        config ipv6
+            set ip6-address ${VLAN20PORT_IPV6IP}
+            set ip6-allowaccess ping https ssh http telnet
+        end
+    next
+    edit "${VLAN30PORT}"
+        set vdom "root"
+        set ip ${VLAN30PORT_IP}
+        set allowaccess ping https ssh snmp http telnet fgfm radius-acct probe-response capwap ftm
+        set type physical
+        config ipv6
+            set ip6-address ${VLAN30PORT_IPV6IP}
+            set ip6-allowaccess ping https ssh http telnet
+        end
+    next
+end
+config firewall policy
+    edit 1
+        set name "${FGT_POLICY4_NAME}"
+        set srcintf "${VLAN20PORT}"
+        set dstintf "${VLAN30PORT}"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+        set fsso disable
+        set nat enable
+    next
+end
+config router static
+    edit 1
+		set gateway ${FGT_VLAN30_GATEWAY}
+		set device ${FGT_VLAN30_INTERFACE}
+end

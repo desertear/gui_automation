@@ -1,0 +1,27 @@
+config user peer
+    edit "${FGT_PKI_PEER_NAME}"
+        set ca "${FGT_PKI_PEER_CA_NAME}"
+        set cn "${FGT_PKI_PEER_CN}"
+    next
+end
+
+config user group
+    edit "${FGT_PKI_USER_GROUP}"
+        set member "${FGT_PKI_PEER_NAME}"
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        edit 1005
+            set groups "${FGT_PKI_USER_GROUP}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        append groups "${FGT_PKI_USER_GROUP}"
+    next
+end

@@ -1,0 +1,26 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall vip
+            edit "${test_vip_dns}"
+                set type dns-translation
+                set extip ${test_vip_dns_exip_start}-${test_vip_dns_exip_end}
+                set extintf "${FW_TEST_INTF_1}"
+                set mappedip ${test_vip_dns_mapedip_start}-${test_vip_dns_mapedip_end}
+                set src-filter ${test_vip_dns_filter_srcip}
+                set color 19
+                set portforward enable
+                set extport ${test_vip_dns_ex_port_start}-${test_vip_dns_ex_port_end}
+                set mappedport ${test_vip_dns_mapped_port_start}-${test_vip_dns_mapped_port_end}
+            next            
+        end
+        config firewall vip
+            edit "${test_vip_fqdn}"
+                set type fqdn
+                set extip ${test_vip_fqdn_exip}
+                set extintf "${FW_TEST_INTF_1}"
+                set mapped-addr "${test_vip_fqdn_mapaddr}"
+                set color 20
+            next            
+        end
+    next    
+end    

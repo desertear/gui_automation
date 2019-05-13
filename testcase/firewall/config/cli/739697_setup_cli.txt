@@ -1,0 +1,28 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_root}
+        config system settings
+            set gui-default-policy-columns policyid srcintf srcaddr dstaddr schedule service action logtraffic poolname
+        end
+    next
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings
+            set gui-default-policy-columns status bytes packets active_sessions last_used first_used hit_count profile av-profile
+        end
+    next
+    edit ${FW_TEST_VDOM_NAME_2}
+        config system settings
+            set gui-icap enable
+            set gui-voip-profile enable
+            set gui-explicit-proxy enable
+            set gui-dlp enable
+            set gui-spamfilter enable
+            set gui-waf-profile enable
+            set gui-default-policy-columns emailfilter-profile webfilter-profile application-list ips-sensor dlp-sensor icap-profile voip-profile profile-protocol-options
+        end
+    next
+    edit ${FW_TEST_VDOM_NAME_TP}
+        config system settings
+            set gui-default-policy-columns ssl-ssh-profile vpntunnel comments source users groups
+        end
+    next
+end

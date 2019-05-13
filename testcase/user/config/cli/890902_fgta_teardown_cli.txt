@@ -1,0 +1,9 @@
+config system admin
+    delete "${pki_admin}"
+end
+config user group
+    delete "${pki_group}"
+end
+config user peer
+    delete "${pki_peer_name}"
+end

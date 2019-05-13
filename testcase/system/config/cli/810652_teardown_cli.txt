@@ -1,0 +1,6 @@
+## Verify Multi-VDOM Admin user can switch vdom GUI
+config global
+    config system admin
+        delete 810652
+    end
+end

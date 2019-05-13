@@ -1,0 +1,38 @@
+    config sys settings
+        set gui-voip-profile enable
+    end
+    
+    config system interface     
+        edit "${VOIP_TEST_CLIENT_INTF}"
+            set ip ${VOIP_TEST_CLIENT_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next     
+        edit "${VOIP_TEST_SERVER_INTF}"
+            set ip ${VOIP_TEST_SERVER_INTF_IP}/24
+            set allowaccess ping https ssh http telnet
+        next                           
+    end
+
+        config router static
+            edit 1
+                set gateway 110.110.110.254
+                set device "${VOIP_TEST_SERVER_INTF}"
+            next
+        end
+
+        config firewall policy
+            purge
+        end
+
+        config firewall policy
+            edit 1 
+                set name ${VOIP_IPV4_POLICY_NAME}
+                set srcintf "${VOIP_TEST_CLIENT_INTF}"
+                set dstintf "${VOIP_TEST_SERVER_INTF}"
+                set srcaddr "all"
+                set dstaddr "all"
+                set action accept
+                set schedule "always"
+                set service "ALL"
+            next
+        end

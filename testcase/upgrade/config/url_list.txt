@@ -1,0 +1,121 @@
+##This configuration file is used to map case id to URL and webelement##
+##column1: oriole case id; column2: relative url; column3: web element used to confirm page is loaded successfully, the variable should exist in config file
+##column4: contains the geometry parameters that are used to specify the area to be compared between two images. 
+##The format of geometry parameters should be like WxH+X+Y, where W means width, H means height, X means horizonal offset and Y means vertical offset.
+##Please refer to "https://www.imagemagick.org/script/command-line-processing.php#geometry" to know how to define an area of image.
+##If column4 is empty/not , default geometry "100x100%+0+0" which means full image will be used.
+##using variable is supported, and variables should be defined in file ./variable.robot.
+##mapping one case id to several URLs is also supported.
+##Each columns should be separated by 2 or more spaces.
+
+
+##VDOM enabled##
+#Global#
+780675	ng/system/external_security?vdom=    		xpath://h1[text()="Security Fabric Settings"]      60x100%+0+0
+780675 	ng/page/p/system/interface/?vdom=    		${NETWORK_INTERFACES_FACEPLATE}      60x100%+0+0
+780675 	ng/page/p/system/dns/?vdom=                 xpath://h1[text()="DNS Settings"]      60x100%+0+0
+780675 	ng/page/p/system/vdom/?vdom=                xpath://button[contains(div/span,"Create New")]      60x100%+0+0
+780675 	ng/admin?vdom=                              xpath://button[contains(div/span,"Create New")]
+780675 	ng/system/admin-profiles?vdom=              xpath://button[contains(div/span,"Create New")]
+780675 	ng/system/settings?vdom=    				xpath://h1[text()="System Settings"]
+780675 	ng/system/snmp?vdom=                        xpath://h1[text()="SNMP"]
+780675 	ng/system/fortiguard?vdom=                  xpath://h1[text()="FortiGuard Distribution Network"]
+780675 	ng/system/features?vdom=                    xpath://h1[text()="Feature Visibility"]
+780675	ng/page/p/system/certificate/?vdom=         xpath://button[div/span="Generate"]
+780675 	ng/log/settings?vdom=                       xpath://h1[text()="Log Settings"]
+
+#VDOM vdom1#
+780675 	ng/system/external_security?vdom=${vdom1}   xpath://h1[text()="Security Fabric Settings"]
+780675 	ng/page/p/system/interface/?vdom=${vdom1}   ${NETWORK_INTERFACES_FACEPLATE}
+780675 	ng/page/p/system/interface/edit/${interface1}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface2}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface3}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface4}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface5}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface6}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface7}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface8}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface9}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface10}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675	ng/page/p/system/interface/edit/${interface11}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface12}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface13}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface14}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675 	ng/page/p/system/interface/edit/${interface15}/?redir=%2Fp%2Fsystem%2Finterface%2F&vdom=${vdom1}  ${NETWORK_INTERFACES_EDIT_H1}
+780675  ng/system/zone/edit/${zone}?vdom=${vdom1}  xpath://h1[text()="Edit Zone"]
+780675 	ng/network/dns?vdom=${vdom1}  xpath://h2[text()="DNS Service on Interface"]
+780675 	ng/page/p/router/static/?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/page/p/router/policy/?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/routing/rip?vdom=${vdom1}  xpath://h1[text()="RIP"]
+780675 	ng/routing/ospf?vdom=${vdom1}  xpath://h1[text()="OSPF"]
+780675 	ng/routing/bgp?vdom=${vdom1}  xpath://h1[text()="Local BGP Options"]
+780675 	ng/system/features?vdom=${vdom1}  xpath://h1[text()="Feature Visibility"]
+780675 	ng/page/p/system/certificate/?vdom=${vdom1}  xpath://button[div/span="Generate"]
+780675 	ng/firewall/policy/policy/standard?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id1}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675	ng/firewall/policy/policy/standard/edit/${policy4_id2}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id3}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id4}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id5}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id6}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id7}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy/standard/edit/${policy4_id8}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/firewall/policy/policy6/standard?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/firewall/policy/policy6/standard/edit/${policy6_id1}?vdom=${vdom1}  xpath://h1[text()="Edit Policy"]
+780675 	ng/page/p/firewall/policy/local_in/?vdom=${vdom1}  xpath://h1[text()="Local In Policies"]
+780675 	ng/firewall/address?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/page/p/firewall/object/address/edit/${address_name1}/?addr_cat=addr&vdom=${vdom1}  ${POLICY_ADDRESSES_EDIT_HEAD}
+780675 	ng/page/p/firewall/object/address/edit/${address_name2}/?addr_cat=addr&vdom=${vdom1}  ${POLICY_ADDRESSES_EDIT_HEAD}
+780675 	ng/page/p/firewall/object/address/edit/${address_name3}/?addr_cat=addr&vdom=${vdom1}  ${POLICY_ADDRESSES_EDIT_HEAD}
+780675 	ng/page/p/utm/antivirus/profile/edit/${av_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit AntiVirus Profile"]
+780675 	ng/page/p/utm/wf/profile/edit/${web_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit Web Filter Profile"]
+#780675 ng/page/p/utm/dns/profile/edit/${dns_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit DNS Filter Profile"]	
+780675 	ng/utm/appctrl/sensor/edit/${app_profile}?vdom=${vdom1}  xpath://h1[text()="Edit Application Sensor"]	
+780675 	ng/page/p/utm/ips/sensor/edit/${ips_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit IPS Sensor"]
+780675	ng/page/p/utm/email/profile/edit/${spam_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit Anti-Spam Profile"]
+780675 	ng/page/p/utm/dlp/sensor/edit/${dlp_profile}/?vdom=${vdom1}  xpath://h1[text()="Edit DLP Sensor"]
+780675 	ng/page/p/firewall/deep_inspection/edit/${ssl_ssh_profile}/?vdom=${vdom1}  xpath://h1[normalize-space(.)="Edit SSL/SSH Inspection Profile"]
+780675 	ng/page/p/vpn/tunnel/tunnels/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/vpn/ipsec/edit/${ipsec_vpn1}?vdom=${vdom1}  xpath://h1[text()="Edit VPN Tunnel"]
+780675	ng/vpn/ipsec/edit/${ipsec_vpn2}?vdom=${vdom1}  xpath://h1[text()="Edit VPN Tunnel"]
+780675 	ng/vpn/ipsec/edit/${ipsec_vpn3}?vdom=${vdom1}  xpath://h1[text()="Edit VPN Tunnel"]      80x70%+10+10
+780675 	ng/vpn/ipsec/edit/${ipsec_vpn4}?vdom=${vdom1}  xpath://h1[text()="Edit VPN Tunnel"]
+780675 	ng/vpn/ssl/portal?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/vpn/ssl/portal/edit/${sslvpn1}?vdom=${vdom1}  xpath://h1[text()="Edit SSL-VPN Portal"]
+780675 	ng/page/p/vpn/ssl/settings/?vdom=${vdom1}  xpath://h1[text()="SSL-VPN Settings"]
+780675 	ng/page/p/user/local/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/user/local/edit/${user1}?vdom=${vdom1}  xpath://h1[text()="Edit User"]
+780675 	ng/user/local/edit/${user2}?vdom=${vdom1}  xpath://h1[text()="Edit User"] 	
+780675 	ng/user/local/edit/${user3}?vdom=${vdom1}  xpath://h1[text()="Edit User"] 	
+780675 	ng/user/local/edit/${user4}?vdom=${vdom1}  xpath://h1[text()="Edit User"] 	
+780675 	ng/user/local/edit/${user5}?vdom=${vdom1}  xpath://h1[text()="Edit User"] 	
+780675 	ng/page/p/user/group/?vdom=${vdom1}    ${GROUP_CREATE_NEW_BUTTON}
+780675 	ng/user/group/edit/${usergrp1}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/user/group/edit/${usergrp2}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/user/group/edit/${usergrp3}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/user/group/edit/${usergrp4}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/user/group/edit/${usergrp5}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675	ng/user/group/edit/${usergrp6}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/user/group/edit/${usergrp7}?vdom=${vdom1}  xpath://h1[text()="Edit User Group"]
+780675 	ng/page/p/user/ldap/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/user/ldap/edit/${ldap_srv1}?vdom=${vdom1}  xpath://h1[text()="Edit LDAP Server"]
+780675 	ng/page/p/user/radius/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/user/radius/edit/${rad_srv1}?vdom=${vdom1}  xpath://h1[text()="Edit RADIUS Server"]
+780675 	ng/user/radius/edit/${rad_srv2}?vdom=${vdom1}  xpath://h1[text()="Edit RADIUS Server"] 	
+780675 	ng/page/p/user/tacplus/?vdom=${vdom1}    xpath://button[contains(div/span,"Create New")]
+780675 	ng/page/p/user/tacplus/edit/${tac_srv1}/?vdom=${vdom1}  xpath://h1[text()="Edit TACACS+ Server"]
+780675 	ng/page/p/user/auth/settings/?vdom=${vdom1}  xpath://h1[text()="Authentication Settings"]
+780675 	ng/page/p/user/ftoken/?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/user/pki?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/user/pki/edit/${pki_user1}?vdom=${vdom1}  xpath://h1[text()="Edit PKI User"]
+780675 	ng/user/pki/edit/${pki_user2}?vdom=${vdom1}  xpath://h1[text()="Edit PKI User"]
+780675 	ng/user/pki/edit/${pki_user3}?vdom=${vdom1}  xpath://h1[text()="Edit PKI User"]        50x50%+0+0
+780675 	ng/wanopt/cache?vdom=${vdom1}  xpath://h1[text()="Settings"]
+780675 	ng/page/p/wifi/ssid/?vdom=${vdom1}  xpath://button[contains(div/span,"Create New")]
+780675 	ng/routing/monitor?vdom=${vdom1}  ${MONITOR_SSL_VPN_REFRESH_BUTTON}
+#VDOM 1234567890#
+780675	ng/firewall/policy/policy/standard?vdom=${vdom2}  xpath://button[contains(div/span,"Create New")]
+#VDOM abcdefghijk#
+780675 	ng/firewall/policy/policy/standard?vdom=${vdom3}  xpath://button[contains(div/span,"Create New")]
+#VDOM root#
+780675 	ng/firewall/policy/policy/standard?vdom=${vdom4}  xpath://button[contains(div/span,"Create New")]

@@ -1,0 +1,3 @@
+###factory reset to come to normal mode
+config global
+    execute factoryreset

@@ -1,0 +1,41 @@
+#config global
+#    config system global    
+#        unset gui-ipv6
+#    end
+#end
+
+#config global
+    #config system interface     
+        #edit ${APP_TEST_INTF_1}
+            #unset ip
+        #next     
+        #edit ${APP_TEST_INTF_2}
+           # unset ip
+        #next                            
+    #end
+#end
+
+#delete static route from vdom 1
+#config vdom
+    #edit "${APP_TEST_VDOM_NAME_1}"
+        #config router static
+            #purge
+       # end
+   # next
+#end  
+
+#config global
+    #config system global    
+        #unset management-vdom
+    #end
+#end
+
+#delete vdoms
+#config vdom
+    #delete "${APP_TEST_VDOM_NAME_1}"
+
+#end
+#config global
+    #config system global
+        #set vdom-mode no-vdom
+#end

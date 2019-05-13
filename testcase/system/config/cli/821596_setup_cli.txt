@@ -1,0 +1,6 @@
+#Verify When connected to FGD, GUI System Information widget can display detailed public IP info include city/province/contry.
+config global
+    exec update-now
+    diag sys waninfo
+    diag sys waninfo
+end

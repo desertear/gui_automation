@@ -1,0 +1,32 @@
+config vpn ssl web portal
+    edit "testportal"
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    edit "${http_bookmark_name}"
+                        set description "tmp bookmark for 737557"
+                        set url "${http_bookmark_url}"
+                    next
+                end
+            next
+        end
+    next
+end
+
+
+config system settings
+    set inspection-mode proxy
+end
+
+config firewall profile-protocol-options
+    edit 737557
+        config http
+            set fortinet-bar enable
+        end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set utm-status enable
+        set profile-protocol-options 737557
+end

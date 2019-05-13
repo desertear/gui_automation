@@ -1,0 +1,14 @@
+config log memory setting
+    status enable
+end
+
+config log memory filter
+    set severity information
+end
+
+config log disk setting
+    set status disable
+end
+
+execute log filter device memory
+execute log delete-all

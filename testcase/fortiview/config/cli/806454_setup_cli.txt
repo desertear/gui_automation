@@ -1,0 +1,14 @@
+config system accprofile
+    edit "fortiview_access_profile"
+        set ftviewgrp read
+        set authgrp read
+        set loggrp read
+    next
+end
+config system admin
+    edit "fortiviewadmin"
+        set accprofile "fortiview_access_profile"
+        set vdom "root"
+        set password 123456
+    next
+end

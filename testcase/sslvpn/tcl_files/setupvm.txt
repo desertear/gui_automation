@@ -1,0 +1,129 @@
+#[FGT_A]
+#	include 	sslvpnweb/FGT-A-KeyCheck.txt
+#	include 	sslvpnweb/FGT-A-crashclear.txt
+
+[FHV_A]
+	comment Power off and delete PC01-PC06 in case they were not cleared after running last feature
+	exe vm poweroff 6
+	sleep 10
+	exe vm poweroff 7
+	sleep 10
+	exe vm poweroff 8
+	sleep 10
+	exe vm poweroff 9
+	sleep 10
+	exe vm poweroff 10
+	sleep 10
+	exe vm poweroff 11
+	sleep 10
+	exe vm poweroff 12
+	sleep 10
+
+	config vm instance
+			del 6
+			sleep 3
+			del 7
+			sleep 3
+			del 8
+			sleep 3
+			del 9
+			sleep 3
+			del 10
+			sleep 3
+			del 11
+			sleep 3
+			del 12
+			sleep 20
+	end
+
+[FHV_A]
+	comment Add VM PCs. vm instance 1-5 is reserved by Robot.
+	config vm instance
+	    edit 6
+		set name "FHV_A:PC01_NAME"
+		set auto-start disable
+		set vcpu 4
+        	set mem 4096
+		set cpuset 0-11
+		config disk
+		    edit 1
+			set interface ide
+			set file "FHV_A:PC01_IMAGE"
+		    next
+		end
+		config interface
+		    edit 1
+			set device "FHV_A:INTERFACE1"
+			set model e1000
+		    next
+		    edit 2
+			set device "FHV_A:INTERFACE2"
+			set model e1000
+		    next
+		end
+    next
+            edit 7
+                set name "FHV_A:PC03_NAME"
+                set auto-start disable
+                set vcpu 4
+                set mem 4096
+                set cpuset 0-11
+                config disk
+                    edit 1
+                        set interface ide
+                        set file "FHV_A:PC03_IMAGE"
+                    next
+                end
+                config interface
+                    edit 1
+                        set device "FHV_A:INTERFACE1"
+                        set model e1000
+                    next
+                    edit 2
+                        set device "FHV_A:INTERFACE2"
+                        set model e1000
+                    next
+                end
+    next
+	    edit 8
+		set name "FHV_A:PC05_NAME"
+		set auto-start disable
+		set cpuset 0-11
+		config disk
+		    edit 1
+			set file "FHV_A:PC05_IMAGE"
+		    next
+		end
+		config interface
+		    edit 1
+			set device "FHV_A:INTERFACE1"
+			set model virtio-net
+		    next
+		    edit 2
+			set device "FHV_A:INTERFACE3"
+			set model virtio-net
+		    next
+		end
+   next
+end
+
+	sleep 20
+	exe vm start 6
+	sleep 3
+	exe vm start 7
+	sleep 3
+	exe vm start 8
+	sleep 3
+	sleep 180
+
+    exe vm list 6
+    expect -e "sslvpnweb.controlpc.win10" -for setupvm -t 5
+    expect -e "Running" -for setupvm -t 5
+    expect -e "100%" -for setupvm -fail match -t 5
+
+    exe vm list 7
+    expect -e "sslvpnweb.pc05.ubuntu" -for setupvm -t 5
+    expect -e "Running" -for setupvm -t 5
+    expect -e "100%" -for setupvm -fail match -t 5
+
+report setupvm

@@ -1,0 +1,57 @@
+#delete static route from vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config router static
+            purge
+        end
+    next
+end  
+config global
+    config system interface     
+        edit ${FW_TEST_INTF_1}
+            config ipv6
+                unset ip6-address
+                unset ip6-allowaccess
+            end
+            set vdom root
+            unset ip
+            unset allowaccess
+        next     
+        edit ${FW_TEST_INTF_2}
+            config ipv6
+                unset ip6-address
+                unset ip6-allowaccess
+            end
+            set vdom root
+            unset ip
+            unset allowaccess
+        next             
+        edit ${FW_TEST_INTF_3}
+            set vdom root
+        next             
+        edit ${FW_TEST_INTF_4}
+            set vdom root
+        next                
+    end
+end
+
+
+config global
+    config system global    
+        unset management-vdom
+    end
+end
+
+#delete vdoms
+config vdom
+    delete "${FW_TEST_VDOM_NAME_1}"
+    delete "${FW_TEST_VDOM_NAME_2}"    
+    delete "${FW_TEST_VDOM_NAME_TP}"
+end
+config global
+    config system global
+    	unset gui-ipv6
+        unset gui-wireless-opensecurity
+        unset admintimeout
+        set vdom-mode no-vdom
+end

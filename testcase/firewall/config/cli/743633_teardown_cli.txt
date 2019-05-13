@@ -1,0 +1,12 @@
+config vdom
+    edit ${FW_TEST_VDOM_NAME_1}
+        config system settings 
+            unset gui-implicit-policy
+        end
+    next
+    edit ${FW_TEST_VDOM_NAME_2}
+        config system settings 
+            unset gui-implicit-policy
+        end
+    next
+end    

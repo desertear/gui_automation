@@ -1,0 +1,15 @@
+config firewall address
+    delete "vlan30"
+end
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        set split-tunneling disable
+     next
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set dstaddr all
+    next
+end

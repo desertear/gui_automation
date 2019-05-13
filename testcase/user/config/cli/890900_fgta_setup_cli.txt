@@ -1,0 +1,14 @@
+config user fortitoken
+    edit ${USER_FORTITOKEN_SN1}
+    next
+end
+config system admin
+    edit "${token_admin}"
+        set accprofile "${token_admin_profile}"
+        set vdom "root"
+        set two-factor fortitoken
+        set fortitoken ${USER_FORTITOKEN_SN1}
+        set email-to "${EMAIL_ADDRESS_FOR_TOKEN}"
+        set password ${token_admin_password}
+    next
+end

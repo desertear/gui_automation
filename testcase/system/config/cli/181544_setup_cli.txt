@@ -1,0 +1,7 @@
+###To verify the multiple vdoms can be disabled even they are not empty from GUI
+config global
+    config system interface
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+    end
+end

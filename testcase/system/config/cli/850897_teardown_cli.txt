@@ -1,0 +1,18 @@
+##Verify emac-vlan can be created/edited/deleted with physical interface and vlan interface on GUI
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config firewall address
+            delete "850897_emac_ph address"
+            delete "850897_em_vlan address"
+            delete "850897_vlan address"
+        end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_1}"
+        config system interface
+            delete "850897_emac_ph"
+            delete "850897_em_vlan"
+            delete "850897_vlan"
+        end
+end

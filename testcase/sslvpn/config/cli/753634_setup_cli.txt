@@ -1,0 +1,27 @@
+config user radius
+    edit "${FGT_RADIUS_SERVER_NAME}"
+        set server "${FGT_RADIUS_SERVER_IP}"
+        set secret ${FGT_RADIUS_SECRET}
+    next
+end
+
+config user group
+    edit "${FGT_RADIUS_GROUP_NAME}"
+        set member "${FGT_RADIUS_SERVER_NAME}"
+    next
+end
+
+config vpn ssl settings
+    config authentication-rule
+        edit 1002
+            set groups "${FGT_RADIUS_GROUP_NAME}"
+            set portal "${FGT_SSLVPN_PORTAL_NAME}"
+        next
+    end
+end
+
+config firewall policy6
+    edit ${FGT_POLICY6_ID_FOR_SSLVPN}
+        append groups "${FGT_RADIUS_GROUP_NAME}"
+    next
+end

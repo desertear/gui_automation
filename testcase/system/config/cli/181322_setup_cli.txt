@@ -1,0 +1,4 @@
+##Verify the restore configuration file from  USB, options will not given if The USB card does not contain a confg file
+config global
+    exec usb-disk list
+end

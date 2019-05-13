@@ -1,0 +1,32 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system settings
+            unset gui-dynamic-profile-display            
+            unset gui-allow-unnamed-policy
+        end
+        config system interface     
+            edit "${FW_TEST_INTF_1}"
+                unset device-identification
+            next     
+            edit "${FW_TEST_INTF_2}"
+                unset device-identification
+            next             
+        end
+        config firewall policy
+            delete "${FW_TEST_V4_POLICY_ID_1}"
+            delete "${FW_TEST_V4_POLICY_ID_2}"
+            delete "${FW_TEST_V4_POLICY_ID_3}"
+            delete "${FW_TEST_V4_POLICY_ID_4}"
+        end        
+        config firewall policy6
+            delete "${FW_TEST_V6_POLICY_ID_1}"
+            delete "${FW_TEST_V6_POLICY_ID_2}"
+            delete "${FW_TEST_V6_POLICY_ID_3}"
+            delete "${FW_TEST_V6_POLICY_ID_4}"
+        end
+        config firewall profile-group
+            delete "${FW_TEST_UTM_PROFILE_GROUP_1}"
+            delete "${FW_TEST_UTM_PROFILE_GROUP_2}"
+        end
+    next    
+end    

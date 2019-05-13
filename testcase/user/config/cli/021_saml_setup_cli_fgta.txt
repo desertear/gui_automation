@@ -1,0 +1,20 @@
+config system saml
+    set status enable
+    set role IDP
+    set cert "${IDP_CERTIFICATE}"
+    set server-address "${IDP_SERVER_ADDRESS}:${IDP_SERVER_PORT}"
+    config service-providers
+        edit "${IDP_PROVIDER_NAME}"
+            set prefix "${SP_PREFIX}"
+            set sp-entity-id "http://${SP_SERVER_ADDRESS}:${SP_SERVER_PORT}/metadata/"
+            set sp-single-sign-on-url "https://${SP_SERVER_ADDRESS}:${SP_SERVER_PORT}/saml/?acs"
+            set sp-single-logout-url "https://${SP_SERVER_ADDRESS}:${SP_SERVER_PORT}/saml/?sls"
+            set sp-portal-url "https://${SP_SERVER_ADDRESS}:${SP_SERVER_PORT}/saml/login/"
+            config assertion-attributes
+                edit "username"
+                next
+            end
+        next
+    end
+end
+

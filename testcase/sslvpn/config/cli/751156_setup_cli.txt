@@ -1,0 +1,19 @@
+execute fortiguard-log login ${FGT_FGD_ACCOUNT} ${FGT_FGD_PASSWORD}
+
+config log memory setting
+    set status disable
+end
+config log disk setting
+    set status disable
+end
+config log fortianalyzer setting
+    set status disable
+end
+
+config log fortiguard setting
+    set status enable
+    set upload-option realtime
+end
+
+execute log filter device forticloud
+execute log delete-all

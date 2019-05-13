@@ -1,0 +1,16 @@
+
+config firewall profile-protocol-options
+    edit fortinet-bar
+        config http
+            set fortinet-bar enable
+        end
+end
+
+config firewall policy6
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        set utm-status enable
+        set utm-inspection-mode proxy
+        set av-profile default
+        set profile-protocol-options fortinet-bar
+end
+

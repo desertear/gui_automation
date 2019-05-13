@@ -1,0 +1,6 @@
+##Verify messages GUI for global and vdom
+config global
+    config system global
+        set language english
+    end
+end

@@ -1,0 +1,2 @@
+#- Auto test full list -
+topology1       testcase/trunk/sslvpnweb/topology1           "factory reset and load configuration"

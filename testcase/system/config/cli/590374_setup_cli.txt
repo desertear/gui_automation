@@ -1,0 +1,9 @@
+#Verify embedded console can be connected and working with a vdom admin
+config global
+    config system admin
+        edit 590374
+            set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+            set password 123
+            set accprofile prof_admin
+    end
+end

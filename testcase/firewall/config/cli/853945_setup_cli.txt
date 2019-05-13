@@ -1,0 +1,28 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall policy
+            edit "${ipv4_policy_id}"
+                set name 8539451
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+                set schedule always
+                set service ALL
+            next         
+        end
+        config firewall policy6
+            edit "${ipv6_policy_id}"            
+                set name 8539452
+                set srcintf "${FW_TEST_INTF_2}"
+                set dstintf "${FW_TEST_INTF_1}"
+                set srcaddr all
+                set dstaddr all
+                set action accept
+                set schedule always
+                set service ALL
+            next
+        end
+    next    
+end    

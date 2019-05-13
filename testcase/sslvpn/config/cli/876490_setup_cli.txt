@@ -1,0 +1,12 @@
+##CLI setup for 730229
+config system dns-database
+    edit "730229"
+        config dns-entry
+            edit 1
+                set hostname "${SSLVPN_HTTP_PAGE_KEYWORD}"
+                set ip ${SSLVPN_HTTP_IP}
+            next
+        end
+        set domain "qatest.com"
+    next
+end

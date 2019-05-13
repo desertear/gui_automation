@@ -1,0 +1,6 @@
+#Verified Multi-VDOM Admin user login default VDOM be the one that the connecting interface belongs to,GUI
+config global
+    config sys admin
+        delete 729824
+    end
+end

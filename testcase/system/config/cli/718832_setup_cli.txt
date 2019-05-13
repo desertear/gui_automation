@@ -1,0 +1,20 @@
+##### Verify vdom-admin only see and create a new capture for their vdom interface
+config vdom
+       edit "${SYSTEM_TEST_VDOM_NAME_1}"
+           config system admin
+               edit "718832"
+                  set accprofile "prof_admin"
+                  set vdom "${SYSTEM_TEST_VDOM_NAME_1}"
+                  set password 123
+               next
+           end
+       next
+end
+
+config global
+    config system interface     
+        edit "${SYSTEM_TEST_INTF_4}"
+            set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+        next                
+    end
+end

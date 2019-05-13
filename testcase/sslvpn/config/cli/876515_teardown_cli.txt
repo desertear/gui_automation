@@ -1,0 +1,20 @@
+config vpn ssl settings
+    config authentication-rule
+        delete 1004
+    end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        unselect groups "${FGT_TACACS_GROUP_NAME}"
+    next
+end
+
+config user group
+    delete "${FGT_TACACS_GROUP_NAME}"
+end
+
+config user tacacs+
+    delete "${FGT_TACACS_SERVER_NAME}"
+end
+

@@ -1,0 +1,6 @@
+## reset passwd policy
+config global
+    config system password-policy
+        unset status
+    end
+end

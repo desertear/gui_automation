@@ -1,0 +1,36 @@
+###[GUI] Verify SNMP V3 user can be created on GUI and works fine in TP mode
+config global  
+    execute factoryreset keepvmlicense
+end
+
+config system console
+  set output standard
+end
+
+config system global
+    set vdom-mode multi-vdom
+end
+
+config global
+  config system interface
+    edit  npu0_vlink0
+      set status down
+  end
+  config system snmp sysinfo
+        set status enable
+  end
+end
+
+config vdom
+    edit "${SYSTEM_TEST_VDOM_NAME_2}"
+    config system settings
+       set opmode transparent
+       set manageip  ${FGT_VLAN30_IP} 255.255.255.0
+    end
+    config system interface
+      edit "${SYSTEM_TEST_INTF_1}"
+        set allowaccess http https snmp
+        set vdom "${SYSTEM_TEST_VDOM_NAME_2}"
+    end
+end
+

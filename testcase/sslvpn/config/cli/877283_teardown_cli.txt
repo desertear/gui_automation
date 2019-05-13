@@ -1,0 +1,31 @@
+config vpn ssl settings
+    config authentication-rule
+        delete 1002
+    end
+end
+
+config firewall policy
+    edit ${FGT_POLICY_ID_FOR_SSLVPN}
+        unselect groups "${group_name}"
+    next
+end
+
+config user group
+    delete "${group_name}"
+end
+
+config user local
+    delete "${username}"
+end
+
+config vpn ssl web portal
+    edit "${FGT_SSLVPN_PORTAL_NAME}"
+        config bookmark-group
+            edit "gui-bookmarks"
+                config bookmarks
+                    delete "${bookmark_name}"
+                end
+            next
+        end
+    next
+end

@@ -1,0 +1,483 @@
+config global
+    config system global    
+	    set gui-ipv6 enable
+        set gui-wireless-opensecurity enable
+    end
+end
+
+config global
+    config system interface          
+        edit "${FW_TEST_INTF_3}"
+            set vdom "${FW_TEST_VDOM_NAME_2}"
+        next             
+        edit "${FW_TEST_INTF_4}"
+            set vdom "${FW_TEST_VDOM_NAME_2}"
+        next                
+    end
+end
+
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system settings
+            set gui-nat46-64 enable
+            set gui-traffic-shaping enable
+        end
+    next
+    edit "${FW_TEST_VDOM_NAME_2}"    
+        config system settings
+            set gui-traffic-shaping enable
+        end
+    next   
+end
+
+
+#add test service and service group to vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"  
+        config firewall service custom
+            edit "${FW_TEST_SERVICE_1}"
+                set tcp-portrange 3000-3002 4000-4002                
+                set color 27
+            next
+            edit "${FW_TEST_SERVICE_2}"
+                set category "Web Access"
+                set protocol IP
+                set protocol-number 17
+                set color 28
+            next
+            edit "${FW_TEST_SERVICE_3}"
+                set category "Network Services"
+                set fqdn "www.fortinet.com"
+                set tcp-portrange 13000-13002:5000-5100
+                set udp-portrange 3000-30002:4000-4001
+                set sctp-portrange 500-502:6000-6600                
+                set color 29
+            next
+            edit "${FW_TEST_SERVICE_4}"
+                set category "Remote Access"
+                set protocol ICMP6
+                set icmptype 8
+                set icmpcode 0
+                set color 30
+            next            
+            edit "${FW_TEST_SERVICE_5}"
+                set category "Remote Access"
+                set protocol ICMP
+                set icmptype 0
+                set icmpcode 0                
+                set color 31
+            next
+        end
+        config firewall service group
+            edit "${FW_TEST_SERVICE_GROUP_1}"
+                set member "${FW_TEST_SERVICE_1}" "${FW_TEST_SERVICE_2}"                
+                set color 32
+            next            
+            edit "${FW_TEST_SERVICE_GROUP_2}"
+                set member "${FW_TEST_SERVICE_3}" "Email Access" "${FW_TEST_SERVICE_GROUP_1}"                
+                set color 0
+            next                        
+            edit "${FW_TEST_SERVICE_GROUP_3}"
+                set member "${FW_TEST_SERVICE_4}"                                
+                set color 1
+            next
+        end
+    next
+end
+
+#add test address and address group to vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall address
+            edit "${FW_TEST_ADDR_1}"
+                set type iprange
+                set start-ip 10.1.100.6
+                set end-ip 10.1.100.10
+                set color 2
+            next
+            edit "${FW_TEST_ADDR_2}"
+                set type geography
+                set country "CA"
+                set color 3
+            next
+            edit "${FW_TEST_ADDR_3}"
+                set type fqdn
+                set fqdn "www.fortinet.com"
+                set color 4
+            next
+            edit "${FW_TEST_ADDR_4}"
+                set type ipmask
+                set subnet 10.1.100.8 255.255.255.252
+                set color 5
+            next
+        end
+        config firewall addrgrp
+            edit "${FW_TEST_ADDR_GROUP_1}"              
+                set member "${FW_TEST_ADDR_1}" "${FW_TEST_ADDR_2}"
+                set color 6
+            next
+            edit "${FW_TEST_ADDR_GROUP_2}"              
+                set member "${FW_TEST_ADDR_GROUP_1}" "${FW_TEST_ADDR_3}"
+                set color 7
+            next            
+            edit "${FW_TEST_ADDR_GROUP_3}"              
+                set member "${FW_TEST_ADDR_4}"
+                set color 8
+            next
+            edit "${FW_TEST_ADDRESS_W_FQDN_GROUP1}"
+                set member ${FW_TEST_ADDRESS_W_FQDN_DROPBOX}
+            next
+            edit "${FW_TEST_ADDRESS_W_FQDN_GROUP2}"
+                set member "${FW_TEST_ADDRESS_W_FQDN_DROPBOX}" "${FW_TEST_ADDR_1}" "${FW_TEST_ADDR_2}"
+            next
+        end
+        config firewall address6-template
+            edit "${FW_TEST_ADDR6_TEMPLATE_1}"
+                set ip6 2000:10:1:100::/64
+                set subnet-segment-count 6
+            next
+            edit "${FW_TEST_ADDR6_TEMPLATE_2}"
+                set ip6 2000:10:1:101:2000::/80
+                set subnet-segment-count 6
+                config subnet-segment
+                    edit 1
+                        set name "country"
+                        set bits 4
+                    next
+                    edit 2
+                        set name "state"
+                        set bits 2
+                    next
+                    edit 3
+                        set name "city"
+                        set bits 4
+                    next
+                    edit 4
+                        set name "site"
+                        set bits 4
+                    next
+                    edit 5
+                        set name "street"
+                        set bits 4
+                    next
+                    edit 6
+                        set name "number"
+                        set bits 4
+                    next
+                end
+            next            
+        end
+        config firewall address6
+            edit "${FW_TEST_ADDR6_1}"
+                set ip6 2000:10:1:100:1::/80                
+                set color 9
+            next
+            edit "${FW_TEST_ADDR6_2}"
+                set type template
+                set template "${FW_TEST_ADDR6_TEMPLATE_2}"
+                config subnet-segment
+                    edit "country"
+                        set type specific
+                        set value "0xa"
+                    next
+                    edit "state"
+                        set type specific
+                        set value "0b11"
+                    next
+                    edit "city"
+                        set type specific
+                        set value "0xb"
+                    next
+                    edit "site"
+                        set type specific
+                        set value "0xc"
+                    next
+                    edit "street"
+                        set type specific
+                        set value "0xd"
+                    next
+                    edit "number"
+                        set type specific
+                        set value "0xe"
+                    next
+                end                
+                set color 10
+            next
+            edit "${FW_TEST_ADDR6_3}"
+                set type fqdn
+                set fqdn "www.google.ca"                
+                set color 11
+            next            
+            edit "${FW_TEST_ADDR6_4}"
+                set type iprange
+                set start-ip 2000:10:1:100::1
+                set end-ip 2000:10:1:100::10                
+                set color 12
+            next
+        end
+        config firewall addrgrp6
+            edit "${FW_TEST_ADDR6_GROUP_1}"
+                set member "${FW_TEST_ADDR6_1}" "${FW_TEST_ADDR6_2}"
+                set color 13
+            next
+            edit "${FW_TEST_ADDR6_GROUP_2}"
+                set member "${FW_TEST_ADDR6_GROUP_1}" "${FW_TEST_ADDR6_3}"
+                set color 14
+            next
+            edit "${FW_TEST_ADDR6_GROUP_3}"
+                set member "${FW_TEST_ADDR6_4}"                
+                set color 15
+            next
+        end        
+    next
+end
+
+#add wildcard FQDN in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall wildcard-fqdn group
+            edit "${FW_TEST_W_FQDN_GROUP_1}"
+                set member "${FW_TEST_W_FQDN_FORTINET}" "${FW_TEST_W_FQDN_ITUNE}"
+            next
+        end
+    next
+end
+
+#add schedule in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall schedule recurring
+            edit "${FW_TEST_SCHEDULE_1}"
+                set start 06:00
+                set end 20:00
+                set day monday tuesday wednesday thursday friday
+                set color 16
+            next
+            
+        end
+        config firewall schedule onetime
+            edit "${FW_TEST_SCHEDULE_ONE_TIME_1}"
+                set start 08:00 2018/11/01
+                set end 20:00 2020/11/30
+                set color 17
+            next
+        end
+        config firewall schedule group
+            edit "${FW_TEST_SCHEDULE_GROUP_1}"
+                set member "${FW_TEST_SCHEDULE_1}"                
+                set color 18
+            next
+        end
+    next
+end
+
+#add vip in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall vip
+            edit "${FW_TEST_VIP_1}"
+                set extip 172.16.202.1
+                #set extintf "any"
+                set extintf "${FW_TEST_INTF_1}"
+                set mappedip "10.1.102.1"
+                set color 19
+            next
+        end        
+        config firewall vip6
+            edit "${FW_TEST_VIP6_1}"
+                set extip 2000:172:16:202::1
+                set mappedip 2000:10:1:102::1
+                set color 20
+            next
+        end
+        config firewall vip46
+            edit "${FW_TEST_VIP46_1}"
+                set extip 10.250.250.1-10.250.250.200
+                set mappedip 2000:10:250:250::1-2000:10:250:250::c8                
+                set color 21
+            next
+        end
+        config firewall vip64
+            edit "${FW_TEST_VIP64_1}"
+                set extip 2000:172:16:202::4
+                set mappedip 10.1.102.4                
+                set color 22
+            next
+        end
+        config firewall vipgrp
+            edit "${FW_TEST_VIP_GROUP_1}"
+                #set interface "any"
+                set interface "${FW_TEST_INTF_1}"
+                set member "${FW_TEST_VIP_1}"                
+                set color 23
+            next
+        end
+        config firewall vipgrp6
+            edit "${FW_TEST_VIP6_GROUP_1}"
+                set member "${FW_TEST_VIP6_1}"
+                set color 24                
+            next
+        end
+        config firewall vipgrp46
+            edit "${FW_TEST_VIP46_GROUP_1}"
+                set member "${FW_TEST_VIP46_1}"
+                set color 25
+            next
+        end         
+        config firewall vipgrp64
+            edit "${FW_TEST_VIP64_GROUP_1}"
+                set member "${FW_TEST_VIP64_1}"
+                set color 26
+            next
+        end        
+    next
+end    
+
+#add ip pools in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall ippool
+            edit "${FW_TEST_IP_POOLS_1}"
+                set startip 10.1.100.150
+                set endip 10.1.100.150
+            next
+            edit "${FW_TEST_IP_POOLS_2}"
+                set type one-to-one
+                set startip 10.1.100.151
+                set endip 10.1.100.160
+            next
+            edit "${FW_TEST_IP_POOLS_3}"
+                set type fixed-port-range
+                set startip 172.16.201.1
+                set endip  172.16.201.1
+                set source-startip 10.1.101.1 
+                set source-endip 10.1.101.1
+            next     
+            edit "${FW_TEST_IP_POOLS_4}"
+                set type port-block-allocation
+                set startip 172.16.201.2
+                set endip 172.16.201.2
+            next       
+        end
+        config firewall ippool6
+            edit "${FW_TEST_IP_POOLS6_1}"
+                set startip 2000:10:1:100::71
+                set endip 2000:10:1:100::71
+            next
+            edit "${FW_TEST_IP_POOLS6_2}"
+                set startip 2000:10:1:100::72
+                set endip 2000:10:1:100::72
+            next
+        end
+    next
+end
+
+#add user and user group to vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config user ldap
+            edit "${FW_TEST_LDAP_SERVER}"
+                set server "${REAL_SERVER_PC4_VLAN30}"
+                set cnid "uid"
+                set dn "ou=users,dc=qa,dc=fortinet,dc=com"
+            next
+        end
+        config user tacacs+
+            edit "${FW_TEST_TACACS_P_SERVER}"
+                set server "${REAL_SERVER_PC5_VLAN30}"
+                set key 123456
+            next
+        end
+        config user radius
+            edit "${FW_TEST_RADIUS_SERVER}"
+                set server "${REAL_SERVER_PC4_VLAN30}"
+                set secret 123456 
+                config accounting-server
+                    edit 1
+                        set status enable
+                        set server "${REAL_SERVER_PC4_VLAN30}"
+                        set secret 123456
+                    next
+                end
+            next
+        end
+        config user local        
+            edit "${FW_TEST_LDAP_USER}"
+                set type ldap
+                set ldap-server "${FW_TEST_LDAP_SERVER}"
+            next
+            edit "${FW_TEST_TACACS_P_USER}"
+                set type tacacs+
+                set tacacs+-server "${FW_TEST_TACACS_P_SERVER}"
+            next
+            edit "${FW_TEST_RADIUS_USER}"
+                set type radius
+                set radius-server "${FW_TEST_RADIUS_SERVER}"
+            next
+            edit "${FW_TEST_LOCAL_USER_1}"
+                set type password
+                set email-to "tester123456@fortinet.com"                
+                set passwd 123456
+            next
+            edit "${FW_TEST_LOCAL_USER_2}"
+                set type password              
+                set passwd 123456
+            next            
+        end
+        config user group
+            edit "${FW_TEST_LDAP_USER_GROUP}"
+                set member "${FW_TEST_LDAP_SERVER}"
+            next
+            edit "${FW_TEST_RADIUS_USER_GROUP}"
+                set member "${FW_TEST_RADIUS_SERVER}"
+            next
+            edit "${FW_TEST_TACACS_USER_GROUP}"
+                set member "${FW_TEST_TACACS_P_SERVER}"
+            next
+            edit "${FW_TEST_USER_GROUP_1}"
+                set member "${FW_TEST_LOCAL_USER_1}"
+            next
+            edit "${FW_TEST_USER_GROUP_2}"
+                set member "${FW_TEST_LOCAL_USER_2}" "${FW_TEST_LDAP_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_RADIUS_USER}"
+            next 
+            edit "${FW_TEST_USER_GROUP_3}"
+                set member "${FW_TEST_RADIUS_USER}" "${FW_TEST_TACACS_P_USER}" "${FW_TEST_LDAP_USER}"
+            next
+            edit "${FW_TEST_USER_GROUP_4}"
+                set member "${FW_TEST_LDAP_SERVER}" "${FW_TEST_TACACS_P_SERVER}" "${FW_TEST_RADIUS_SERVER}" "${FW_TEST_RADIUS_USER}"
+            next
+        end
+    next
+end
+
+#add device and device group in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config user device
+            edit "${FW_TEST_CUSTOM_DEVICE_1}"
+                set mac 00:55:55:55:55:55
+                set type other-network-device
+            next
+            edit "${FW_TEST_CUSTOM_DEVICE_2}"
+                set mac 00:56:55:55:55:55
+                set type iphone
+            next
+        end
+    next
+end
+
+#add traffic shaper in vdom 1
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config firewall shaper per-ip-shaper
+            edit "${FW_TEST_SHAPER_PER_IP_1}"
+                set max-bandwidth 10000
+                set max-concurrent-session 1
+                set diffserv-forward enable
+                set diffserv-reverse enable
+                set diffservcode-forward 111000
+                set diffservcode-rev 000111
+            next
+        end
+    next
+end    

@@ -1,0 +1,10 @@
+#### GUI: Verify show DNS setting when dhcp client set dns-server-override enable, clear data after test
+config global
+     config system interface
+        edit  ${FGT_PORT3_INTERFACE} 
+             set mode static
+             set ip 0.0.0.0/0.0.0.0
+        next
+     end
+end
+    

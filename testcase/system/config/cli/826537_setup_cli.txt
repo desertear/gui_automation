@@ -1,0 +1,6 @@
+##GUI:Verify can create VDOM name with a maximum length of 31 characters on GUI after long-vdom-name is enabled
+config global
+    config system global
+        set long-vdom-name enable
+    end
+end

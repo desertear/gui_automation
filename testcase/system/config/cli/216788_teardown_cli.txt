@@ -1,0 +1,7 @@
+## GUI can show and fill for password policy configuration
+config global
+    config system password-policy
+        set status disable
+    end
+end
+

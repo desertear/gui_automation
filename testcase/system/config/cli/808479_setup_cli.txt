@@ -1,0 +1,8 @@
+#### Verify GUI prompt a warning message when IP conflict between static and dhcp interfaces, set an ip add to port
+config global
+config system interface
+    edit ${FGT_PORT4_INTERFACE}
+        set ip 10.1.200.1/255.255.255.0   
+    end
+end
+    
