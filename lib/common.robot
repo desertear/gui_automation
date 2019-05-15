@@ -228,7 +228,6 @@ get all selenium config
     ${speed}=     Get Selenium Speed
     [Return]    ${timeout}    ${wait}    ${speed}
 
-
 Wait Until FortiAnalyzer is connected
     Wait Until Keyword Succeeds    3x    5s    FortiAnalyzer should be connected
 
@@ -258,7 +257,6 @@ If Text Is Locator
     ${pattern}=    set variable    ^(?:id|name|identifier|class|tag|xpath|css|dom|link|partial link|sizzle|jquery|default)\\s?[:=]\\s?.*$
     ${status}=    run keyword and return status    should match regexp    ${text}    ${pattern}
     [Return]    ${status}
-
 
 wait Until page contains element regardless of iframe
     [Arguments]    ${element}
@@ -324,7 +322,6 @@ clean up on SSLVPN GUI
     run keyword and ignore error    Delete All Cookies
     run keyword and ignore error    close all browsers
 
-
 ${operation} regardless of iframe: ${element}
     # [Arguments]    ${element}
     [Documentation]    support all "wait until keywords"
@@ -341,7 +338,6 @@ ${operation} regardless of iframe: ${element}
     Fail    fail to ${operation} including all iFrames
     [teardown]    run keyword if    "${num_locator}"!="${0}"    unselect frame
 
-
 Align FortiGates
     [Documentation]  This Keyword is to remove hardware specified configuration i.e. default interfaces, default routes
     ...    These configuration is created by default after factory reset, which varies among different FortiGates.
@@ -353,7 +349,6 @@ Align FortiGates
     Run keyword If    not ${if_cli_file_exist}    Log    No Hardware Specific CLI files, therefore it's uncessary to remove default settings.
     ...    ELSE    Run Cli commands in File on Terminal Server    ${FGT_CLI_FILE_DIR}${/}${FGT_TYPE}_cli.txt
 
-
 Convert List to String
     [Documentation]    Turn Items of List into a String with specified separator. Example: [1,2,'a']->'12a'
     [Arguments]    ${list}    ${separator}=${EMPTY}
@@ -363,7 +358,6 @@ Convert List to String
     \    ${string}=    set variable    ${string}${separator}@{list}[${index}]
     Log    ${string}
     [Return]    ${string}
-
 
 Log CLI To File
     [Documentation]    Log CLI execution details to file
@@ -388,3 +382,14 @@ Define Running Time FOR JSON FILE as global variable
     ${if_exist}=    Run keyword and return status    Variable Should Exist    ${RUNNING_TIME_JSON}
     ${runing_time_json}=    Get Time
     Run keyword if    not ${if_exist}    Set Global Variable    ${RUNNING_TIME_JSON}     ${runing_time_json}
+
+Get Text when it is not empty
+    [Arguments]    ${locator}    ${retry}=5x    ${retry_interval}=2 sec
+    ${status}=    Wait Until Keyword Succeeds    ${retry}    ${retry_interval}    Get Text and it should not be empty    ${locator}
+    [Return]    ${status}
+
+Get Text and it should not be empty
+    [Arguments]    ${locator}
+    ${status}=    Get Text    ${locator}
+    Should not be equal    ${status}    ${EMPTY}
+    [Return]    ${status}

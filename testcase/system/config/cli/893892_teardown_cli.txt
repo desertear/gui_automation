@@ -1,0 +1,5 @@
+config global
+    config system ntp
+        set server-mode disable
+    end
+end

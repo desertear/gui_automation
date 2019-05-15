@@ -90,10 +90,10 @@ Config SSLVPN ON FGT
     ...    ${ip_ranges}    ${portal_mappings}    full-access
     # create a firewall ipv4 policy for SSLVPN
     create ip policy    ${policy_name}    ${incoming}    ${outgoing}    ${source_addresses}    ${destination_addresses}
-    ...    always    ALL    ACCEPT    True
+    ...    always    ALL    ACCEPT    enable
     # create a firewall ipv6 policy for SSLVPN
     create ip policy    ${policy6_name}    ${incoming_ipv6}    ${outgoing_ipv6}    ${source_addresses_ipv6}    ${destination_addresses_ipv6}
-    ...    always    ALL    ACCEPT    True   ip_version=6 
+    ...    always    ALL    ACCEPT    enable   ip_version=6 
     Logout FortiGate
     [Teardown]    Close Browser
 

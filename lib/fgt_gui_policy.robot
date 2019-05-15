@@ -9,47 +9,60 @@ Go to IPv4 policy
     click element    ${MENU_POLICY_IPV4_POLICY}
     Wait Until Element Is Visible    ${POLICY_V4V6_TABLE}
 
+Go to Consolidated Policy
+    Wait Until Element Is Visible    ${MENU_POLICY_CONSOLIDATED_POLICY}
+    click element    ${MENU_POLICY_CONSOLIDATED_POLICY}
+    Wait Until Element Is Visible    ${POLICY_V4V6_TABLE}
+
 create ip policy
     [Arguments]     ${policy_name}    ${incoming}    ${outgoing}
     ...    ${source_addresses}    ${destination_addresses}
-    ...    ${schedule}    ${service}    ${action}    ${nat}    ${security_profile}=NONE   ${multi_intf}=disable    ${ip_version}=4 
+    ...    ${schedule}    ${service}    ${action}    ${nat}    ${ippool_config_mode}=Outgoing Interface   ${ippool_name}=NONE    ${preserve_source_port}=disable    ${protocol_option}=default
+    ...    ${inspection_mode}=Flow-based    ${security_profile}=NONE   ${multi_intf}=disable    ${ip_version}=4    ${consolidated}=NO
     [Documentation]    possible item of list @{incoming}/@{outgoing}: port1,port8,mgmt1,mgmt2,any and SSL-VPN tunnel interface (ssl.root)
     ...    format and meaning of source/destination ip address:
     ...    ADDRESS:all--->ADDRESS indicates this is an address, and "all" is the address name
     ...    USER:test--->USER indicates this is a user, and test is the user name
     ...    GROUP:testgrp---->GROUP indicates this is a group, and testgrp is the group name
-    clean same name policy and click create new    ${policy_name}
-    set general config to policy   ${policy_name}    ${incoming}    ${outgoing}   ${schedule}    ${service}    ${action}    ${nat}   ${security_profile}   ${multi_intf}
+    clean same name policy and click create new    ${policy_name}    ${consolidated}
     set address to policy    ${source_addresses}    ${destination_addresses}    ${ip_version}
+    set general config to policy   ${policy_name}    ${incoming}    ${outgoing}   ${schedule}    ${service}    ${action}    
+    ...      ${nat}   ${ippool_config_mode}   ${ippool_name}    ${preserve_source_port}     ${protocol_option}
+    ...      ${inspection_mode}   ${security_profile}   ${multi_intf}    
     click button    ${GENERAL_EDITOR_OK_BUTTON}
-    deal with certificate warning and verify if policy created    ${policy_name}
+    deal with certificate warning and verify if policy created    ${policy_name}    ${consolidated}
 
 edit ip policy
     [Arguments]   ${policy_name_old}   ${policy_name_new}    ${incoming}    ${outgoing}
     ...    ${source_addresses}    ${destination_addresses}
-    ...    ${schedule}    ${service}    ${action}    ${nat}   ${security_profile}=NONE   ${multi_intf}=disable   ${ip_version}=4
+    ...    ${schedule}    ${service}    ${action}    ${nat}   ${ippool_config_mode}=Outgoing Interface   ${ippool_name}=NONE  ${preserve_source_port}=disable    ${protocol_option}=default
+    ...    ${inspection_mode}=Flow-based   ${security_profile}=NONE   ${multi_intf}=disable   ${ip_version}=4   ${consolidated}=NO
     [Documentation]    possible item of list @{incoming}/@{outgoing}: port1,port8,mgmt1,mgmt2,any and SSL-VPN tunnel interface (ssl.root)
     ...    format and meaning of source/destination ip address:
     ...    ADDRESS:all--->ADDRESS indicates this is an address, and "all" is the address name
     ...    USER:test--->USER indicates this is a user, and test is the user name
     ...    GROUP:testgrp---->GROUP indicates this is a group, and testgrp is the group name
-    Edit Policy By NAME on Policy list    ${policy_name_old}
-    set general edit config to policy   ${policy_name_new}    ${incoming}    ${outgoing}   ${schedule}    ${service}    ${action}    ${nat}   ${security_profile}   ${multi_intf}
+    Edit Policy By NAME on Policy list    ${policy_name_old}    ${consolidated}
+    remove element config in policy editing    Source
+    remove element config in policy editing    Destination
     set address to policy     ${source_addresses}    ${destination_addresses}    ${ip_version}
+    set general edit config to policy   ${policy_name_new}    ${incoming}    ${outgoing}   ${schedule}    ${service}    ${action}
+    ...    ${nat}     ${ippool_config_mode}   ${ippool_name}    ${preserve_source_port}    ${protocol_option}
+    ...    ${inspection_mode}    ${security_profile}   ${multi_intf}    
     click button    ${GENERAL_EDITOR_OK_BUTTON}
-    deal with certificate warning and verify if policy created    ${policy_name_new}
+    deal with certificate warning and verify if policy created    ${policy_name_new}    ${consolidated}
 
 if ip policy exists
-    [Arguments]   ${policy_name}
-    Wait Until Element Is Visible    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
-    click button    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
-    Wait Until Element Is Visible    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON_SELECTED}
+    [Arguments]   ${policy_name}    ${consolidated}=NO
+    run keyword if    "${consolidated}"!="YES"     Wait Until Element Is Visible    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
+    run keyword if    "${consolidated}"!="YES"     click button    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
+    run keyword if    "${consolidated}"!="YES"     Wait Until Element Is Visible    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON_SELECTED}
     ${policy_in_table}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_IN_TABLE}    ${policy_name}
     ${status}=    run keyword and return status    Wait Until Element Is Visible    ${policy_in_table}
     [return]    ${status}
 
 delete ip policy
-    [Arguments]   ${policy_name}
+    [Arguments]   ${policy_name}    
     ${policy_in_table}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_IN_TABLE}    ${policy_name}
     click element    ${policy_in_table}
     click button    ${POLICY_V4V6_DELETE_BUTTON_E}
@@ -66,6 +79,7 @@ set address to policy
     [Arguments]    ${source_addresses}    ${destination_addresses}  ${ip_version}=4
     #add source address
     click element    ${POLICY_V4V6_SOURCE_DIV}
+    sleep   1
     Wait Until Element Is Visible    ${POLICY_V4V6_SELECTION_PANE_H1}
     :FOR    ${source_address}    IN    @{source_addresses}
     \    @{split_addr}=    Split String    ${source_address}    :
@@ -76,6 +90,7 @@ set address to policy
 
     #add destination address
     click element    ${POLICY_V4V6_DESTINATION_DIV}
+    sleep   1
     Wait Until Element Is Visible    ${POLICY_V4V6_SELECTION_PANE_H1}
     :FOR    ${destination_address}    IN    @{destination_addresses}
     \    @{split_addr}=    Split String    ${destination_address}    :
@@ -85,7 +100,7 @@ set address to policy
     sleep    3
    
 deal with certificate warning and verify if policy created
-    [Arguments]   ${policy_name}
+    [Arguments]   ${policy_name}    ${consolidated}
     #deal with certificate warning
     ${if_certificate_warning}=    run keyword and return status    wait until element is visible    ${POLICY_V4V6_CERTIFICATE_CONFIRM_HEAD}
     run keyword if    "${if_certificate_warning}"=="True"    wait until element is visible    ${POLICY_V4V6_CERTIFICATE_CONFIRM_OK_BUTTON}
@@ -93,27 +108,29 @@ deal with certificate warning and verify if policy created
     Wait Until Page Does Not Contain Element    ${POLICY_V4V6_CERTIFICATE_CONFIRM_HEAD}
 
     #verify if the policy is created successfully
-    wait until element is visible    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
-    click button    ${POLICY_V4V6_VIEW_SEQUENCE_BUTTON}
+    run keyword if     "${consolidated}"!="YES"     View By Sequence
     ${policy_in_table}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_IN_TABLE}    ${policy_name}
     wait until element is visible    ${policy_in_table}
 
 clean same name policy and click create new
-    [Arguments]    ${policy_name}
+    [Arguments]    ${policy_name}   ${consolidated}
     Wait Until Element Is Visible    ${GENERAL_LIST_CREATE_NEW_BUTTON}
-    ${status}=    if ip policy exists    ${policy_name}
+    ${status}=    if ip policy exists    ${policy_name}    ${consolidated}
     run keyword if    "${status}"=="True"     delete ip policy    ${policy_name}
     click button    ${GENERAL_LIST_CREATE_NEW_BUTTON}
+    sleep   2
 
 check policy exist and click edit
-    [Arguments]    ${policy_name}
+    [Arguments]    ${policy_name}    ${consolidated}
     Wait Until Element Is Visible    ${GENERAL_LIST_EDIT_BUTTON}
-    ${status}=    if ip policy exists    ${policy_name}
+    ${status}=    if ip policy exists    ${policy_name}    ${consolidated}
     run keyword if    "${status}"=="True"    click button    ${GENERAL_LIST_CREATE_NEW_BUTTON}
 
 set general config to policy
     [Arguments]    ${policy_name}    ${incoming}    ${outgoing}
-    ...    ${schedule}    ${service}    ${action}    ${nat}   ${security_profile}   ${multi_intf}
+    ...    ${schedule}    ${service}    ${action}    ${nat}    ${ippool_config_mode}   ${ippool_name}   ${preserve_source_port}    ${protocol_option}
+    ...    ${inspection_mode}   ${security_profile}   ${multi_intf}
+
     Wait Until Element Is Visible    ${POLICY_V4V6_POLICY_H1}
     Wait Until Element Is Visible    ${POLICY_V4V6_NAME_TEXT}
     input text    ${POLICY_V4V6_NAME_TEXT}    ${policy_name}
@@ -124,11 +141,11 @@ set general config to policy
     # #config schedule:
     # click element    ${POLICY_V4V6_SCHEDULE_DIV}
     # ${locator_schedule_in_dropdown}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_SCHEDULE_IN_DROPDOWN}    ${schedule}   
-    # wait until element is visible    ${locator_schedule_in_dropdown}
+    # wait until element is visible    ${locator_schedule_in_dropdown}   
     # click element    ${locator_schedule_in_dropdown}
     # ${locator_schedule_in_div}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_SCHEDULE_IN_DIV}    ${schedule} 
     # wait until element is visible    ${locator_schedule_in_div}
-
+    
     #set service
     click element    ${POLICY_V4V6_SERVICE_DIV}
     Wait Until Element Is Visible    ${POLICY_V4V6_SERVICE_ENTRY_LIST}
@@ -142,6 +159,23 @@ set general config to policy
     #set action
     run keyword if    "${action}"=="DENY"    click element    ${POLICY_V4V6_ACTION_DENY_LABEL}
     ...    ELSE    click element    ${POLICY_V4V6_ACTION_ACCEPT_LABEL}
+    
+    run keyword if    "${action}"=="ACCEPT"    set accept action based features in policy editing    ${nat}    ${ippool_config_mode}    ${ippool_name}     ${preserve_source_port}     ${protocol_option}    
+    ...     ${inspection_mode}    ${security_profile}
+
+
+
+set accept action based features in policy editing
+    [Arguments]     ${nat}    ${ippool_config_mode}    ${ippool_name}     ${preserve_source_port}     ${protocol_option}    
+    ...     ${inspection_mode}    ${security_profile}
+    ##set nat and ippool
+    set item enable disable in policy edit page     NAT    ${nat}
+    run keyword if    "${nat}"=="enable"    set ippool in policy edit page   ${ippool_config_mode}   ${ippool_name}    
+    run keyword if    "${nat}"=="enable"    set item enable disable in policy edit page       Preserve Source Port    ${preserve_source_port} 
+    set protocol options in policy edit page    ${protocol_option}
+
+    ## set inspection mode  
+    set inspection mode in policy edit page    ${inspection_mode}
 
     ###   set security profiles  ###
     run keyword if    "${security_profile}"!="NONE"    set security profiles to policy4    ${security_profile}
@@ -159,7 +193,9 @@ remove element config in policy editing
 
 set general edit config to policy
     [Arguments]    ${policy_name}    ${incoming}    ${outgoing}
-    ...    ${schedule}    ${service}    ${action}    ${nat}   ${security_profile}   ${multi_intf}
+    ...    ${schedule}    ${service}    ${action}    ${nat}    ${ippool_config_mode}   ${ippool_name}   ${preserve_source_port}   ${protocol_option}
+    ...    ${inspection_mode}    ${security_profile}   ${multi_intf}
+
     Wait Until Element Is Visible    ${POLICY_V4V6_POLICY_H1_EDIT}
     Wait Until Element Is Visible    ${POLICY_V4V6_NAME_TEXT}
     clear element text    ${POLICY_V4V6_NAME_TEXT}
@@ -169,8 +205,6 @@ set general edit config to policy
 
     run keyword if   "${multi_intf}"!="disable"     remove element config in policy editing    Outgoing
     run keyword if   "${multi_intf}"!="disable"    add multi-interfaces in policy creating    ${incoming}    ${outgoing}
-    remove element config in policy editing    Source
-    remove element config in policy editing    Destination
     
     # #config schedule:
     # click element    ${POLICY_V4V6_SCHEDULE_DIV}
@@ -194,9 +228,26 @@ set general edit config to policy
     #set action
     run keyword if    "${action}"=="DENY"    click element    ${POLICY_V4V6_ACTION_DENY_LABEL}
     ...    ELSE    click element    ${POLICY_V4V6_ACTION_ACCEPT_LABEL}
+    
+    run keyword if    "${action}"=="ACCEPT"    set edit accept action based features in policy editing    ${nat}    ${ippool_config_mode}   ${ippool_name}    ${preserve_source_port}    
+    ...    ${protocol_option}    ${inspection_mode}    ${security_profile}
+
+set edit accept action based features in policy editing
+    [Arguments]    ${nat}    ${ippool_config_mode}   ${ippool_name}    ${preserve_source_port}    
+    ...     ${protocol_option}    ${inspection_mode}    ${security_profile}
+    ##set nat and ippool
+    set item enable disable in policy edit page     NAT    ${nat}
+    run keyword if    "${nat}"=="enable"    remove all ippools in policy editing
+    run keyword if    "${nat}"=="enable"    set ippool in policy edit page   ${ippool_config_mode}   ${ippool_name}    
+    run keyword if    "${nat}"=="enable"    set item enable disable in policy edit page       Preserve Source Port    ${preserve_source_port} 
+    set protocol options in policy edit page    ${protocol_option}
+
+    ## set inspection mode  
+    set inspection mode in policy edit page    ${inspection_mode}
 
     ###   set security profiles  ###
     run keyword if    "${security_profile}"!="NONE"    set security profiles to policy4    ${security_profile}
+
 
 add multi-interfaces in policy creating
     [Arguments]    ${incoming}    ${outgoing}
@@ -245,15 +296,19 @@ select address to policy4
     #click tab to choose address type
     wait until element is visible    ${POLICY_V4V6_ENTRY_ADDRESS_TAB}
     sleep    5
-    run keyword if    "${address_type}"=="ADDRESS"    click element    ${POLICY_V4V6_ENTRY_ADDRESS_TAB}
-    ...    ELSE IF    "${address_type}"=="USER"    click element    ${POLICY_V4V6_ENTRY_USER_TAB}
-    ...    ELSE IF    "${address_type}"=="GROUP"    click element    ${POLICY_V4V6_ENTRY_USER_TAB}
-    ...    ELSE    Fail    wrong address type, it should be one of ADDRESS, USER, GROUP
+    # run keyword if    "${address_type}"=="ADDRESS"    click element    ${POLICY_V4V6_ENTRY_ADDRESS_TAB}
+    # ...    ELSE IF    "${address_type}"=="USER"    click element    ${POLICY_V4V6_ENTRY_USER_TAB}
+    # ...    ELSE IF    "${address_type}"=="GROUP"    click element    ${POLICY_V4V6_ENTRY_USER_TAB}
+    # ...    ELSE    Fail    wrong address type, it should be one of ADDRESS, USER, GROUP
+
     #choose entry
-    run keyword if    "${address_type}"=="ADDRESS"    click element    xpath://label[contains(span,"Address \(")]/following-sibling::div[span/span[text()="${name}"]]
-    ...    ELSE IF    "${address_type}"=="USER"    click element    xpath://label[contains(span,"User \(")]/following-sibling::div[span/span[text()="${name}"]]
-    ...    ELSE IF    "${address_type}"=="GROUP"    click element    xpath://label[contains(span,"User Group \(")]/following-sibling::div[span/span[text()="${name}"]]
-    ...    ELSE    Fail    wrong address type, it should be one of ADDRESS, USER, GROUP
+    # run keyword if    "${address_type}"=="ADDRESS"    click element    xpath://label[contains(span,"Address \(")]/following-sibling::div[span/span[text()="${name}"]]
+    # ...    ELSE IF    "${address_type}"=="USER"    click element    xpath://label[contains(span,"User \(")]/following-sibling::div[span/span[text()="${name}"]]
+    # ...    ELSE IF    "${address_type}"=="GROUP"    click element    xpath://label[contains(span,"User Group \(")]/following-sibling::div[span/span[text()="${name}"]]
+    # ...    ELSE    Fail    wrong address type, it should be one of ADDRESS, USER, GROUP
+    click element     ${POLICY_V4V6_ENTRY_${address_type}_TAB}
+    ${entry}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_${address_type}_IN_SELECT_ENTRY}    ${name}
+    wait and click     ${entry}
     #move out of selected entry, to avoid to be obscured by bubble message.
     Mouse Out    ${POLICY_V4V6_SELECTION_PANE_DIV}
     #make user it's Selected
@@ -267,7 +322,6 @@ get name list from action list
     \    Append to list   ${name_list}    @{split_profile}[0]    
     [Return]    ${name_list}
 
-
 get value list from action list
     [Arguments]    ${action_list}
     ${values_return}=    create list
@@ -278,20 +332,84 @@ get value list from action list
 
 set security profiles to policy4
     [Arguments]   ${security_profile}
+    ${enable_label}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_LABEL}    Eable this policy
+    Press Down Key Until an Element is Visible    ${enable_label}    10
     :FOR    ${profile}    IN    @{security_profile}
     \    @{split_profile}=    Split String    ${profile}    :
     \    set security profile in policy edit page    @{split_profile}[0]    @{split_profile}[1]
 
 set security profile in policy edit page
     [Arguments]   ${profile_type}   ${profile_name}
+    [Documentation]   this keyword is to set security profile in policy edit page, SSL do not have the checkbox button
+    ...               if won't enable a profile, profile_name should be set to "disable"
     ${profile_disable}=   run keyword and return status    should be true  "${profile_name}"=="disable"
     ${action}=   set variable if    "${profile_disable}"=="True"    disable    enable
-    set item enable disable in policy edit page    ${profile_type}   ${action}
+    ${if_ssl}=   run keyword and return status    should contain    ${profile_type}   SSL
+    run keyword if    "${if_ssl}"=="False"    set checkbox in policy edit page    ${action}    ${profile_type}   
     ${security_menu}=  REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_SECURITY_PROFILE_SELECT_MENU}    ${profile_type}
-    run keyword if   "${profile_disable}"=="False"   wait and click    ${security_menu} 
+    run keyword if   "${profile_disable}"=="False" and "${if_ssl}"=="False"    wait and click    ${security_menu} 
+    ...    ELSE IF    "${if_ssl}"=="True"    wait and click    ${security_menu} 
+    sleep   2
     ${menu_bar}=     REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${NETWORK_SELECT_INTERFACE_MEMBER_MENU_BAR}    ${profile_name}
-    run keyword if   "${profile_disable}"=="False"   wait and click   ${menu_bar}
+    run keyword if   "${profile_disable}"=="False" and "${if_ssl}"=="False"    wait and click    ${menu_bar} 
+    ...    ELSE IF    "${if_ssl}"=="True"    wait and click    ${menu_bar} 
+
+set checkbox in policy edit page
+    [Arguments]        ${enable}    ${chkbox_name}
+    ${enable}=    Convert To lowercase    ${enable}
+    ${new_input}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_INPUT}    ${chkbox_name}
+    ${new_label}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_LABEL}    ${chkbox_name}
+    ${status}=    run keyword and return status    checkbox should be selected    ${new_input}
+    run keyword if    "${status}"=="False" and "${enable}"=="enable"    wait and click    ${new_label}
+    ...   ELSE IF     "${status}"=="True" and "${enable}"=="disable"    wait and click    ${new_label}
+    ${status}=    run keyword and return status    checkbox should be selected    ${new_input}
+    run keyword if    "${enable}"=="enable"     should be equal    "${status}"    "True"
+    run keyword if    "${enable}"=="disable"    should be equal    "${status}"    "False"
+
+set protocol options in policy edit page
+    [Arguments]    ${pro_opt_name}
+    wait and click   ${POLICY_V4V6_PROTOCOL_OPTION_SELECT_MENU}
+    ${menu_bar}=     REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${NETWORK_SELECT_INTERFACE_MEMBER_MENU_BAR}    ${pro_opt_name}
+    wait and click   ${menu_bar} 
+
+set ippool in policy edit page
+    [Arguments]    ${ippool_config_mode}    ${ippool_name}
+    [Documentation]   this keyword is to set ippool on policy edit page, pool name is a list
+    ...               ippool only be set as mode is "Dynamic"
+    set ippool config mode in policy edit page    ${ippool_config_mode}
+    ${dynamic}=    run keyword and return status    should contain    ${ippool_config_mode}    Dynamic
+    run keyword if    "${dynamic}"=="True"    add ipppol in policy edit page    ${ippool_name}
+
+set ippool config mode in policy edit page
+    [Arguments]    ${ippool_config_mode}
+    ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_IPPOOL_CONFIG_MODE}    ${ippool_config_mode}
+    wait and click    ${new_locator}
     
+add ipppol in policy edit page
+    [Arguments]    ${ippool_name}
+    :FOR   ${element}   IN    @{ippool_name}
+    \    wait and click    ${POLICY_V4V6_IPPOOL_CONFIG_ADD_BUTTON}
+    \    SELECT MENU BAR FROM SELECTION PANE  ${element}
+    \    ${pool_shown}=     REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_EDIT_PAGE_IPPOOL_ENTRY}    ${element}
+    \    Wait Until Element Is Visible     ${pool_shown}
+
+remove a ipppol in policy edit page
+    [Arguments]    ${ippool_name}
+    ${pool_shown}=     REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_EDIT_PAGE_IPPOOL_ENTRY}    ${ippool_name}
+    #check if ippool is on the page
+    Wait Until Element Is Visible     ${pool_shown}
+    wait and click    ${POLICY_V4V6_IPPOOL_CONFIG_ADD_BUTTON}
+    SELECT MENU BAR FROM SELECTION PANE  ${ippool_name}
+    Wait Until Element Is NOT Visible     ${pool_shown}
+
+remove all ippools in policy editing
+    [Documentation]    remove all ippols configed in policy editing
+    ${remove_button}=    CATENATE   SEPARATOR=    ${POLICY_EDIT_PAGE_IPPOOL_FIRST_ENTRY_SELECTED}    ${POLICY_EDIT_PAGE_ELEMENT_REMOVE_BUTTON}
+    :FOR    ${i}    IN RANGE   1  100
+    \    ${exist}=    run keyword and return status    wait until element is visible    ${POLICY_EDIT_PAGE_IPPOOL_FIRST_ENTRY_SELECTED}
+    \    EXIT FOR LOOP IF    "${exist}"=="False"
+    \    wait and click  ${remove_button}
+
 
 set inspection mode in policy edit page
     [Arguments]    ${inspection_mode}
@@ -334,24 +452,24 @@ set item enable disable in policy edit page
     run keyword if   "${status}"=="False" and "${action}"=="enable"   wait and click   ${new_label}
     run keyword if   "${status}"=="True" and "${action}"=="disable"   wait and click   ${new_label}
 
-set ip pool in policy edit page
-    [Arguments]        ${preserve_source_port}    ${ippool_mode}=Interface   ${ippool_name}=NONAME    
-    ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_IPPOOL_MODE}    ${ippool_mode}
-    wait and click    ${new_locator}
-    ${dynamic}=   run keyword and return status    should contain    ${ippool_mode}   Dynamic
-    run keyword if   ${dynamic}    select Dynamic ippool in policy edit page    ${ippool_name}
-    ${new_input}=   REPLACE PLACEHOLDER IN LOCATOR WITH VALUE   ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_INPUT}    Preserve Source Port
-    ${new_label}=   REPLACE PLACEHOLDER IN LOCATOR WITH VALUE   ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_LABEL}    Preserve Source Port
-    ${status}=   run keyword and return status    checkbox should be selected    ${new_input}
-    run keyword if   "${status}"=="False" and "${preserve_source_port}"=="enable"   wait and click   ${new_label}
-    run keyword if   "${status}"=="True" and "${preserve_source_port}"=="disable"   wait and click   ${new_label}
-    wait and click    ${SUBMIT_OK_BUTTON}
+# set ip pool in policy edit page
+#     [Arguments]        ${preserve_source_port}    ${ippool_mode}=Interface   ${ippool_name}=NONAME    
+#     ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_V4V6_IPPOOL_MODE}    ${ippool_mode}
+#     wait and click    ${new_locator}
+#     ${dynamic}=   run keyword and return status    should contain    ${ippool_mode}   Dynamic
+#     run keyword if   ${dynamic}    select Dynamic ippool in policy edit page    ${ippool_name}
+#     ${new_input}=   REPLACE PLACEHOLDER IN LOCATOR WITH VALUE   ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_INPUT}    Preserve Source Port
+#     ${new_label}=   REPLACE PLACEHOLDER IN LOCATOR WITH VALUE   ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_LABEL}    Preserve Source Port
+#     ${status}=   run keyword and return status    checkbox should be selected    ${new_input}
+#     run keyword if   "${status}"=="False" and "${preserve_source_port}"=="enable"   wait and click   ${new_label}
+#     run keyword if   "${status}"=="True" and "${preserve_source_port}"=="disable"   wait and click   ${new_label}
+#     wait and click    ${SUBMIT_OK_BUTTON}
 
-select Dynamic ippool in policy edit page
-    [Arguments]    ${ippool_name}
-    wait and click    ${POLICY_V4V6_IP_POOL_DYNAMIC_POOL_DIV}
-    Select Element in Selection Pane   ${ippool_name}
-    Close Selection Pane
+# select Dynamic ippool in policy edit page
+#     [Arguments]    ${ippool_name}
+#     wait and click    ${POLICY_V4V6_IP_POOL_DYNAMIC_POOL_DIV}
+#     Select Element in Selection Pane   ${ippool_name}
+#     Close Selection Pane
 
 
 Add Index to XPATH
@@ -404,21 +522,21 @@ Get Policy Config by Column Name and Policy ID
     [return]    ${config_list}
 
 Get Policy Config by Column Name and Policy NAME    
-    [Arguments]   ${column_list}    ${policy_name} 
+    [Arguments]   ${column_list}    ${policy_name}    ${consolidated}=NO
     [Documentation]    This keyword return the displayed text in request columns 
     ...    ${column_list}: a list of column names;    ${policy_name}: the policy name
     ...    ${config_list}: a list of text displayed in the requested columns of the policy name
-    ${config_list}=    Get Config by Column Name and Key    ${column_list}    ${policy_name}    ${D_POLICY_DISPLAY_NAME_TO_COLUMN_ID}    ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING_BY_NAME}
+    ${config_list}=    run keyword if    "${consolidated}"!="YES"     Get Config by Column Name and Key    ${column_list}    ${policy_name}    ${D_POLICY_DISPLAY_NAME_TO_COLUMN_ID}    ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING_BY_NAME}
+    ...      ELSE    Get Config by Column Name and Key    ${column_list}    ${policy_name}    ${D_CONSOLIDATED_POLICY_DISPLAY_NAME_TO_COLUMN_ID}    ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING_BY_NAME}
     [return]    ${config_list}
 
 Get Policy Security Profile Config by Policy NAME    
-    [Arguments]   ${security_profile_list}    ${policy_name} 
+    [Arguments]   ${security_profile_list}    ${policy_name}   
     ${config_list}=   Create List
     ${loactor_list}=   create list   ${policy_name}   profile
     ${locator_header}=   REPLACE PLACEHOLDERS IN LOCATOR WITH VALUE   ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING_BY_NAME}   ${loactor_list}
     :FOR    ${profile_name}    IN    @{security_profile_list}
-    \    ${lower_name}=    Convert To Lowercase    ${profile_name}
-    \    ${lower_name}=    replace string    ${lower_name}    ${SPACE}   ${EMPTY}
+    \    ${lower_name}=    Get From Dictionary    ${D_POLICY_DISPLAY_SECURITY_PROFILE_TO_ICON}    ${profile_name}
     \    ${new_locator}=   REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_COLUMN_SETTING_SECURITY_PROFILE}    ${lower_name}
     \    ${new_locator}=   Catenate   SEPARATOR=   ${locator_header}    ${new_locator}
     \    ${exist}=   run keyword and return status   wait until element is visible   ${new_locator} 
@@ -480,13 +598,13 @@ Click Policy By ID on Policy List
     Mouse Out    ${policy_in_table}    #this is to avoid tooltips making the edit button not visible
 
 Edit Policy By NAME on Policy list
-    [Arguments]   ${policy_name}
-    Click Policy By NAME on Policy List    ${policy_name}
+    [Arguments]   ${policy_name}    ${consolidated}
+    Click Policy By NAME on Policy List    ${policy_name}    ${consolidated}
     Click Edit Button on Policy List
 
 Click Policy By NAME on Policy List
-    [Arguments]   ${policy_name}
-    View By Sequence
+    [Arguments]   ${policy_name}    ${consolidated}
+    run keyword if     "${consolidated}"!="YES"     View By Sequence
     ${policy_in_table}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_POLICY_V4V6_NAME_BY_NAME_COLUMN}    ${policy_name}
     Click Element    ${policy_in_table}
     Wait Until Element Is Visible    xpath://div[contains(@class,"selected")]//div[@column-id="name"]
@@ -1287,36 +1405,40 @@ get wildcard fqdn list from cli
 create vwp policy
     [Arguments]   ${vwp_name}    ${policy_name}    
     ...    ${source_addresses}    ${destination_addresses}
-    ...    ${schedule}    ${service}    ${action}    ${direction}=bi    ${security_profile}=NONE    ${ip_version}=4
+    ...    ${schedule}    ${service}    ${action}    ${direction}=bi    ${inspection_mode}=Flow-based   ${protocol_option}=default
+    ...    ${security_profile}=NONE    ${ip_version}=4    ${consolidated}=NO
     [Documentation]    possible item of list @{incoming}/@{outgoing}: port1,port8,mgmt1,mgmt2,any and SSL-VPN tunnel interface (ssl.root)
     ...    format and meaning of source/destination ip address:
     ...    ADDRESS:all--->ADDRESS indicates this is an address, and "all" is the address name
     ...    USER:test--->USER indicates this is a user, and test is the user name
     ...    GROUP:testgrp---->GROUP indicates this is a group, and testgrp is the group name
     ...    Direction:   left   right   bi
-    clean same name vwp policy and click create new    ${vwp_name}    ${policy_name}
-    set general config to vwp policy      ${policy_name}    ${schedule}    ${service}    ${action}    ${direction}    ${security_profile}
+    clean same name vwp policy and click create new    ${vwp_name}    ${policy_name}    ${consolidated}
+    set general config to vwp policy      ${policy_name}    ${schedule}    ${service}    ${action}    ${direction}   
+    ...    ${inspection_mode}   ${protocol_option}   ${security_profile}
     set address to policy    ${source_addresses}    ${destination_addresses}    ${ip_version}
     click button    ${GENERAL_EDITOR_OK_BUTTON}
-    deal with certificate warning and verify if policy created    ${policy_name}
+    deal with certificate warning and verify if policy created    ${policy_name}    ${consolidated}
 
 edit vwp policy
     [Arguments]    ${vwp_name}    ${policy_name}    ${policy_name_new}    
     ...    ${source_addresses}    ${destination_addresses}
-    ...    ${schedule}    ${service}    ${action}    ${direction}=bi    ${security_profile}=NONE    ${ip_version}=4
+    ...    ${schedule}    ${service}    ${action}    ${direction}=bi    ${inspection_mode}=Flow-based   ${protocol_option}=default
+    ...    ${security_profile}=NONE    ${ip_version}=4    ${consolidated}=NO
     wait and click    ${POLICY_VWP_PAIR_SELECT_MENU}
     ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_VWP_PAIR_SELECT_MENU_BAR}    ${vwp_name}
     wait and click    ${new_locator}
     ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_VWP_PAIR_SELECTED}    ${vwp_name}
     Wait Until Element Is Visible    ${new_locator}
-    Edit Policy By NAME on Policy list    ${policy_name}
-    set general edit config to vwp policy      ${policy_name_new}    ${schedule}    ${service}    ${action}    ${direction}    ${security_profile}
+    Edit Policy By NAME on Policy list    ${policy_name}    ${consolidated}
+    set general edit config to vwp policy      ${policy_name_new}    ${schedule}    ${service}    ${action}    ${direction}
+    ...    ${inspection_mode}   ${protocol_option}   ${security_profile}
     set address to policy    ${source_addresses}    ${destination_addresses}    ${ip_version}
     click button    ${GENERAL_EDITOR_OK_BUTTON}
-    deal with certificate warning and verify if policy created    ${policy_name_new}
+    deal with certificate warning and verify if policy created    ${policy_name_new}    ${consolidated}
 
 clean same name vwp policy and click create new
-    [Arguments]   ${vwp_name}    ${policy_name}
+    [Arguments]   ${vwp_name}    ${policy_name}    ${consolidated}
     wait and click    ${POLICY_VWP_PAIR_SELECT_MENU}
     ${new_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${POLICY_VWP_PAIR_SELECT_MENU_BAR}    ${vwp_name}
     wait and click    ${new_locator}
@@ -1324,13 +1446,13 @@ clean same name vwp policy and click create new
     Wait Until Element Is Visible    ${new_locator}
     ## create policy for the vwp
     Wait Until Element Is Visible    ${GENERAL_LIST_CREATE_NEW_BUTTON}
-    ${status}=    if ip policy exists    ${policy_name}
+    ${status}=    if ip policy exists    ${policy_name}    ${consolidated}
     run keyword if    "${status}"=="True"     delete ip policy    ${policy_name}
     click button    ${GENERAL_LIST_CREATE_NEW_BUTTON}
 
 set general config to vwp policy
     [Arguments]     ${policy_name}
-    ...    ${schedule}    ${service}    ${action}    ${direction}    ${security_profile}
+    ...    ${schedule}    ${service}    ${action}    ${direction}    ${inspection_mode}    ${protocol_option}    ${security_profile}
     ## select vwp and check if it has been select ##
     Wait Until Element Is Visible    ${POLICY_V4V6_POLICY_H1}
     Wait Until Element Is Visible    ${POLICY_V4V6_NAME_TEXT}
@@ -1361,13 +1483,20 @@ set general config to vwp policy
     #set action
     run keyword if    "${action}"=="DENY"    click element    ${POLICY_V4V6_ACTION_DENY_LABEL}
     ...    ELSE    click element    ${POLICY_V4V6_ACTION_ACCEPT_LABEL}
+    run keyword if    "${action}"=="ACCEPT"    set accept action based features in vwp policy editing   ${inspection_mode}   ${protocol_option}   ${security_profile}
 
+set accept action based features in vwp policy editing
+    [Arguments]    ${inspection_mode}   ${protocol_option}   ${security_profile}
+    ## set inspection mode  
+    set inspection mode in policy edit page    ${inspection_mode}
+    ##  set protocol_option
+    set protocol options in policy edit page    ${protocol_option}
     ###   set security profiles  ###
-    run keyword if    "${security_profile}"!="NONE"    set security profiles to policy4    ${security_profile}
+    run keyword if    "${security_profile}"!="NONE"     set security profiles to policy4    ${security_profile}
 
 set general edit config to vwp policy
     [Arguments]    ${policy_name}
-    ...    ${schedule}    ${service}    ${action}    ${direction}    ${security_profile}
+    ...    ${schedule}    ${service}    ${action}    ${direction}    ${inspection_mode}   ${protocol_option}   ${security_profile}
     Wait Until Element Is Visible    ${POLICY_V4V6_POLICY_H1_EDIT}
     Wait Until Element Is Visible    ${POLICY_V4V6_NAME_TEXT}
     clear element text    ${POLICY_V4V6_NAME_TEXT}
@@ -1403,6 +1532,5 @@ set general edit config to vwp policy
     #set action
     run keyword if    "${action}"=="DENY"    click element    ${POLICY_V4V6_ACTION_DENY_LABEL}
     ...    ELSE    click element    ${POLICY_V4V6_ACTION_ACCEPT_LABEL}
-
-    ###   set security profiles  ###
-    run keyword if    "${security_profile}"!="NONE"    set security profiles to policy4    ${security_profile}
+    
+    run keyword if    "${action}"=="ACCEPT"    set accept action based features in vwp policy editing   ${inspection_mode}   ${protocol_option}   ${security_profile}

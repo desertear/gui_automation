@@ -1,0 +1,41 @@
+config user ldap
+    edit "${ldap1_name}"
+        set server "${ldap1_address}"
+        set cnid "${ldap1_cn}"
+        set dn "${ldap1_dn}"
+        set type regular
+        set username "${ldap1_username}"
+        set password ${ldap1_password}
+        set group-member-check ${ldap1_group_check}
+    next
+    edit "${ldap2_name}"
+        set server "${ldap2_address}"
+        set cnid "${ldap2_cn}"
+        set dn "${ldap2_dn}"
+        set type regular
+        set username "${ldap2_username}"
+        set password ${ldap2_password}
+        set group-member-check ${ldap2_group_check}
+        set group-object-filter ${ldap2_group_object_filter}
+    next
+end
+
+config user group
+    edit "${group_name}"
+        set member "${ldap1_name}" "${ldap2_name}"
+        config match
+            edit 1
+                set server-name "${ldap1_name}"
+                set group-name "${ldap1_group_cn1}"
+            next
+            edit 2
+                set server-name "${ldap2_name}"
+                set group-name "${ldap2_group_cn1}"
+            next
+            edit 3
+                set server-name "${ldap2_name}"
+                set group-name "${ldap2_group_cn2}"
+            next
+        end
+    next
+end

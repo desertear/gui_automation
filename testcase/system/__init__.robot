@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation    GUI automation for SYSTEM feature
 Resource        ./system_resource.robot
-Suite Setup      Setup system_testing environment   ${ssh_cmd_pc1}   ${ssh_cmd_pc5}   ${ssh_cmd_fgt}
-Suite teardown   Clear system_testing Environment
+#Suite Setup      Setup system_testing environment   ${ssh_cmd_pc1}   ${ssh_cmd_pc5}   ${ssh_cmd_fgt}
+#Suite teardown   Clear system_testing Environment
 Test Timeout    20 min
 Force Tags    system
 

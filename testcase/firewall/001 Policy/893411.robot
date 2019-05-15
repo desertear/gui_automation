@@ -23,7 +23,7 @@ ${policy_name}   893411
     Log    ==================== Step 1: check multi-interface setting in gui and create ipv6 policy ==================== 
     ${multi_intf}=    get policy multi_intf status from cli    ${FW_TEST_VDOM_NAME_1}
     create ip policy    ${policy_name}    ${incoming}    ${outgoing}    ${source_addresses}    ${destination_addresses}
-    ...    always    ALL    DENY    True   multi_intf=${multi_intf}   ip_version=6
+    ...    always    ALL    DENY    enable   multi_intf=${multi_intf}   ip_version=6
 
     #Step 2: check if policy has been created and then delete it
     Log    ==================== Step 2: check if policy has been created and then delete it ==================== 

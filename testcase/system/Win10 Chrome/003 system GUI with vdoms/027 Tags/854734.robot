@@ -2,6 +2,7 @@
 Documentation    GUI: Verify interface can be moved to another vdom even when tag is configured
 ...              with BUG 0525707, tag category cannot be removed, so don't run this case. Or, This 
 ...              case will pass and other tag case will fail.
+...              Tag feature removed from 6.2.0 build0896.
 Resource    ../../../system_resource.robot
 
 *** Variables ***

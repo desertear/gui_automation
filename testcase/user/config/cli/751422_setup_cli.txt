@@ -1,0 +1,18 @@
+config user ldap
+    edit "${ldap1_name}"
+        set server "${ldap1_address}"
+        set cnid "${ldap1_cn}"
+        set dn "${ldap1_dn}"
+        set type regular
+        set username "${ldap1_username}"
+        set password ${ldap1_password}
+    next
+    edit "${ldap2_name}"
+        set server "${ldap2_address}"
+        set cnid "${ldap2_cn}"
+        set dn "${ldap2_dn}"
+        set type regular
+        set username "${ldap2_username}"
+        set password ${ldap2_password}
+    next
+end

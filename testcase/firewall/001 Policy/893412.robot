@@ -18,8 +18,8 @@ ${policy_name}   893412
     Go to VDOM    ${FW_TEST_VDOM_NAME_1}
     Go to policy and objects  
     Go to Policy_IPV6_VWP_Policy
-    #Step 1: check multi-interface setting in gui and create ipv6 policy
-    Log    ==================== Step 1: check multi-interface setting in gui and create ipv6 policy ==================== 
+    #Step 1: create ipv6 policy
+    Log    ==================== Step 1: create ipv6 policy ==================== 
     create vwp policy  ${vwp_name}  ${policy_name}  ${source_addresses}  ${destination_addresses} 
     ...    always    ALL    ACCEPT     direction=bi    ip_version=6
 

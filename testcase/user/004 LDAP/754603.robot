@@ -6,29 +6,32 @@ Suite Teardown    clean up on fortigate GUI
 *** Variables ***
 ${ldap_name}    ${USER_LDAP1_NAME}
 ${ldap_address}    ${USER_LDAP1_SERVER_ADDR}
-${ldap_port}    ${USER_LDAP1_SERVER_PORT}
+${ldap_port}    ${USER_LDAP1_SERVER_LDAPS_PORT}
 ${ldap_cn}    ${USER_LDAP1_CNID}
 ${ldap_dn}    ${USER_LDAP1_DN}
-${ldap_bind_type}    Regular
 ${ldap_username}    ${USER_LDAP1_USERNAME}
 ${ldap_password}    ${USER_LDAP1_PASSWORD}
+@{ldap_users}    ${USER_LDAP1_USER1}    ${USER_LDAP1_USER2}
+&{dic2}    ldap_server=${ldap_name}    ldap_remote_users=${ldap_users}
+@{cmd_correct_pwd}    diagnose test authserver local '' ${USER_LDAP1_USER1} ${USER_LDAP1_PASSWORD1}
+@{cmd_wrong_pwd}    diagnose test authserver local '' ${USER_LDAP1_USER2} 654321
+
 *** Test Cases ***
 754603
-    [Tags]    v6.2    chrome    754603    high    norun
+    [Tags]    v6.2    chrome    754603    high
+    [setup]    Run Cli commands in File on Terminal Server    ${USER_CLI_FILE_DIR}${/}${TEST NAME}_setup_cli.txt
     Login FortiGate
-    Create New LDAP Server    ${ldap_name}    ${ldap_address}    ${ldap_port}    ${ldap_cn}
-    ...    ${ldap_dn}    ${ldap_bind_type}    ${ldap_username}    ${ldap_password}
-    #query DN in regular type
-    Edit LDAP Server    ${ldap_name}    Browse    ${EMPTY}
-    Edit LDAP Server    ${ldap_name}    Bind Type    Simple
-    #query DN in simple type
-    Edit LDAP Server    ${ldap_name}    Browse    ${EMPTY}
-    #query DN in anonymous type doesn't work due to bug #0505066
-    Delete LDAP Server    ${ldap_name}
+    Create new user    Remote LDAP User    &{dic2}    
     Logout FortiGate
     Close Browser
+    #user debug command to verify the user authentication
+    ${response_list}=    Execute CLI commands on FortiGate Via Terminal Server    commands=${cmd_correct_pwd}
+    Should Contain     @{response_list}[-1]    succeeded
+    ${response_list}=    Execute CLI commands on FortiGate Via Terminal Server    commands=${cmd_wrong_pwd}
+    Should Contain     @{response_list}[-1]    failed
     [Teardown]    case Teardown
 
 *** Keywords ***
 case Teardown
+    Run Cli commands in File on Terminal Server    ${USER_CLI_FILE_DIR}${/}${TEST NAME}_teardown_cli.txt
     write test result to file    ${CURDIR}

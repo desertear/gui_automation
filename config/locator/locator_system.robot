@@ -752,7 +752,7 @@ ${NETWORK_SDWAN_MEMBER_ADD_INTERFACE_SELECTED}    /f-field[label[field-label/spa
 ${NETWORK_SDWAN_MEMBER_ADD_INTERFACE_GATEWAY}  /f-field[label[field-label="Gateway"]]//input
 ${NETWORK_SDWAN_MEMBER_ADD_INTERFACE_STATUS_LABEL}    /f-field[label[field-label="Status"]]//label[span="\${PLACEHOLDER}"]
 ${NETWORK_SDWAN_MEMBER_ADD_INTERFACE_STATUS_VALUE}    /f-field[label[field-label="Status"]]//input[@radio-label="\${PLACEHOLDER}"]
-${NETWORK_SELECT_INTERFACE_MEMBER_MENU_BAR}    xpath://div[@class="selection-dropdown"]/div[2]/div[span/span="\${PLACEHOLDER}"]
+${NETWORK_SELECT_INTERFACE_MEMBER_MENU_BAR}    xpath://div[@class="selection-dropdown"]/div[@class="virtual-results"]/div[span/span="\${PLACEHOLDER}"]
 
 ####### Security Profiles####
 ${SECURITY PROFILE_Antivirus_MENU_BAR}     xpath://div[div/span="Security Profiles"]//span[text()="AntiVirus"]

@@ -12,7 +12,7 @@ ${policy_name_new}   893420_new
 @{source_addresses_new}    ADDRESS:${FW_TEST_ADDR_1}   ADDRESS:${FW_TEST_ADDR_3}
 @{destination_addresses_new}   ADDRESS:${FW_TEST_ADDR_2}
 @{column_list}    Source    Destination
-@{configed_list}   ${FW_TEST_ADDR_1}${FW_TEST_ADDR_3}    ${FW_TEST_ADDR_2}
+@{configed_list}   config    ${FW_TEST_ADDR_1}${FW_TEST_ADDR_3}    ${FW_TEST_ADDR_2}
 *** Test Cases ***
 893420
     [Documentation]    
@@ -23,8 +23,8 @@ ${policy_name_new}   893420_new
     Go to VDOM    ${FW_TEST_VDOM_NAME_1}
     Go to policy and objects  
     Go to Policy_IPV4_VWP_Policy
-    #Step 1: check multi-interface setting in gui and create ipv6 policy
-    Log    ==================== Step 1: check multi-interface setting in gui and create ipv6 policy ==================== 
+    #Step 1: create ipv4 vwp policy
+    Log    ==================== Step 1: create ipv4 vwp policy ==================== 
     create vwp policy  ${vwp_name}  ${policy_name}   ${source_addresses}  ${destination_addresses} 
     ...    always    ALL    ACCEPT     direction=bi
 
@@ -39,9 +39,6 @@ ${policy_name_new}   893420_new
     #Step 3: check if policy has been edited correctly
     Log    ==================== Step 3: check if policy has been edited correctly ==================== 
     ${config}=    Get Policy Config by Column Name and Policy NAME    ${column_list}     ${policy_name_new} 
-    ${edit_list}=    Combine lists    ${source_addresses_new}    ${destination_addresses_new}
-    ${edit_list}=    get value list from action list    ${edit_list}
-    Insert Into List   ${edit_list}    0    config
     Lists Should Be Equal    ${config}    ${configed_list} 
     sleep   2
 

@@ -1,0 +1,4 @@
+config user ldap
+    delete "${ldap1_name}"
+    delete "${ldap2_name}"
+end

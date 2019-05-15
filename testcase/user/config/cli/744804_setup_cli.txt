@@ -1,0 +1,5 @@
+config user tacacs+
+    edit "tmp_tac"
+        set server "5.5.5.5"
+    next
+end

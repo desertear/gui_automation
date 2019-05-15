@@ -16,6 +16,7 @@ Create new group
     Go to User Groups
     ${status}=    If group exists    ${groupname}
     run keyword if    "${status}"=="${True}"     Delete Group    ${groupname}
+    Wait Until Element Is Visible    ${GROUP_CREATE_NEW_BUTTON}
     click button    ${GROUP_CREATE_NEW_BUTTON}
     Wait Until Element Is Visible    ${GROUP_WIZARD_H1}
     input text    ${GROUP_NAME_TEXT}    ${groupname}
@@ -69,8 +70,8 @@ delete remote group from user group
     Click Element    ${locator}
     Wait Until Element Is Visible    ${GROUP_REMOTE_GROUPS_DELETE_BUTTON}
     Click Element    ${GROUP_REMOTE_GROUPS_DELETE_BUTTON}
-    Wait Until Element    ${GROUP_REMOTE_GROUPS_SERVER_DELETE_HEAD}
-    Wait Until Element    ${GROUP_REMOTE_GROUPS_SERVER_DELETE_HEAD}
+    Wait Until Element Is Visible    ${GROUP_REMOTE_GROUPS_SERVER_DELETE_HEAD}
+    Wait Until Element Is Visible    ${GROUP_REMOTE_GROUPS_SERVER_DELETE_HEAD}
     Click Button    ${GROUP_REMOTE_GROUPS_SERVER_DELETE_OK_BUTTON}
     confirm remote group is deleted    ${server_name}
 
@@ -84,6 +85,7 @@ edit ldap remote group for user group
     confirm remote group is added    ${server_name}
     ${locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_GROUP_REMOTE_GROUPS_ENTRY_IN_TABLE}    ${server_name}
     Wait Until Element Is Visible    ${locator}
+    Click element    ${locator}
     Wait Until Element Is Visible    ${GROUP_REMOTE_GROUPS_EDIT_BUTTON}
     Click Element    ${GROUP_REMOTE_GROUPS_EDIT_BUTTON}
     remove ldap groups from user group    @{original_remote_groups}
@@ -110,8 +112,8 @@ add ldap groups to user group
     \    ${group_locator}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${VAR_GROUP_REMOTE_GROUPS_SERVER_IN_LIST}    ${group}
     \    Wait Until Element is Visible    ${group_locator}
     \    Open Context Menu    ${group_locator}
-    \    Wait Until Element is Visible    ${GROUP_REMOTE_GROUPS_SERVER_REMOVE_BUTTON}
-    \    Click Button    ${GROUP_REMOTE_GROUPS_SERVER_REMOVE_BUTTON}
+    \    Wait Until Element is Visible    ${GROUP_REMOTE_GROUPS_SERVER_ADD_BUTTON}
+    \    Click Button    ${GROUP_REMOTE_GROUPS_SERVER_ADD_BUTTON}
 
 remove ldap groups from user group
     [Arguments]    @{remote_groups}

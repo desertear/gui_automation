@@ -1,0 +1,5 @@
+config user tacacs+
+    edit "${tacacs_name}"
+        set server "${tacacs_server}"
+        set key ${tacacs_secret}
+end

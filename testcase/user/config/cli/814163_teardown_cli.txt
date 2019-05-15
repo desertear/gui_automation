@@ -1,0 +1,3 @@
+config user tacacs+
+    delete "${tacacs_name}"
+end

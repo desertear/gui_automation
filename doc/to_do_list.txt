@@ -1,0 +1,9 @@
+About Frame:
+1. code rules(naming, structure, format)
+2. documentation
+
+new function:
+1. keep telnet/ssh session
+2. support cli results matching(should match regexp)
+3. add more special commands in CLI(sleep)
+4. support unfinished commands(diag sniffer...)

@@ -8,9 +8,11 @@ ${USER_GROUP_ENTRY}    xpath://span[text()="User Groups"]
 ${USER_GROUP_FRAME}    name:embedded-iframe
 ${GROUP_LIST_COLUMN}    xpath://div[@class="table-container"]
 ${GROUP_CREATE_NEW_BUTTON}    xpath://button[div/span="Create New"]
+${GROUP_CREATE_EDIT_BUTTON}    xpath://button[div/span="Edit"]
+${GROUP_CREATE_CLONE_BUTTON}    xpath://button[div/span="Clone"]
 ${VAR_GROUP_GROUP_IN_TABLE}    xpath://div[@class="table-container"]//div[text()="\${PLACEHOLDER}"]
-
 ${GROUP_WIZARD_H1}    xpath://h1[text()="New User Group"]
+${GROUP_EDIT_H1}    xpath://h1[text()="Edit User Group"]
 ${GROUP_NAME_TEXT}     xpath://div/label[text()="Name"]/following-sibling::div/input
 ${VAR_GROUP_TYPE_FIREWALL_LABEL}    xpath://label[span="\${PLACEHOLDER}"]
 ${GROUP_TYPE_FIREWALL_LABEL}    xpath://label[span="Firewall"]

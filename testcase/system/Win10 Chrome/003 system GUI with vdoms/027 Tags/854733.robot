@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    GUI: Verify tag color, tooltips, and reference count are displayed correctly
 ...              Failcase  bug #0531622, the ref of tag on interface page is '0', not '1', case failed
+...              Tag feature removed from 6.2.0 build0896.
 Resource    ../../../system_resource.robot
 
 *** Variables ***
@@ -21,7 +22,7 @@ ${SYSTEM_TAG_tool_tip_color}  xpath://span[span="1floor"]/f-icon
 *** Test Cases ***
 854733
     [Documentation]    
-    [Tags]    Failcase!Bug#0531622   v6.0    chrome   854733    High    win10,64bit    runable    env2fail
+    [Tags]    Failcase!Bug#0531622   v6.0    chrome   854733    High    win10,64bit    norun    env2fail
     login FortiGate
     Go To Vdom          ${SYSTEM_TEST_VDOM_NAME_1}
     Go to system

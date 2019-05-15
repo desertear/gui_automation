@@ -1,0 +1,31 @@
+config user ldap
+    edit "${ldap1_name}"
+        set server "${ldap1_address}"
+        set cnid "${ldap1_cn}"
+        set dn "${ldap1_dn}"
+        set type regular
+        set username "${ldap1_username}"
+        set password ${ldap1_password}
+    next
+end
+config user group
+    edit "${group_name}"
+        set member "${ldap1_name}"
+        config match
+            edit 1
+                set server-name "${ldap1_name}"
+                set group-name "${group_cn}"
+            next
+        end
+    next
+end
+config system admin
+    edit "${admin_name}"
+        set remote-auth enable
+        set accprofile "super_admin"
+        set vdom "root"
+        set wildcard enable
+        set remote-group "${group_name}"
+    next
+end
+

@@ -1,0 +1,6 @@
+config vdom
+    edit "${FW_TEST_VDOM_NAME_1}"
+        config system settings
+            set consolidated-firewall-mode enable
+        end
+end

@@ -15,7 +15,7 @@ Resource    ../../../system_resource.robot
     Go to system_Settings
     ${time_old}=   Get Text    ${system_time_in_setting_page}
     ${time_old}=   Convert Date    ${time_old}    epoch
-    set checkbox enable    Setup device as local NTP server
+    set checkbox     enable    Setup device as local NTP server
     set ntp listen on interface to    ${FGT_VLAN20_INTERFACE}
     Wait Until Element Is Visible    ${system_gui_apply}
     Click Element    ${system_gui_apply}
@@ -40,5 +40,6 @@ Resource    ../../../system_resource.robot
 case teardown
    Logout FortiGate
    Close All Browsers
+   Run Cli commands in File    ${SYSTEM_CLI_FILE_DIR}${/}${TEST NAME}_teardown_cli.txt
    write test result to file    ${CURDIR}
 

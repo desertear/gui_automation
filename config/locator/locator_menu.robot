@@ -14,6 +14,7 @@ ${MENU_VDOM_LIST_NEW_VDOM}    xpath://div[./div[./span/span[text()="root"] and c
 ${MENU_POLICY_AND_OBJECT}    xpath://span[text()="Policy & Objects"]
 ${MENU_POLICY_IPV4_POLICY}    xpath://span[text()="IPv4 Policy"]
 ${MENU_POLICY_IPV6_POLICY}    xpath://span[text()="IPv6 Policy"]
+${MENU_POLICY_CONSOLIDATED_POLICY}    xpath://span[text()="Consolidated Policy"]
 ${MENU_POLICY_NAT64_POLICY}    xpath://span[text()="NAT64 Policy"]
 ${MENU_POLICY_NAT46_POLICY}    xpath://span[text()="NAT46 Policy"]
 ${MENU_POLICY_CENTRAL_SNAT}    xpath://span[text()="Central SNAT"]

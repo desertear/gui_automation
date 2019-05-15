@@ -23,6 +23,7 @@ Resource    ./lib/fgt_gui_user_definiton.robot
 Resource    ./lib/fgt_gui_user_group.robot
 Resource    ./lib/fgt_gui_user_ldap.robot
 Resource    ./lib/fgt_gui_user_radius.robot
+Resource    ./lib/fgt_gui_user_tacacs.robot
 Resource    ./lib/fgt_gui_policy.robot
 Resource    ./lib/fgt_gui_policy_object.robot
 Resource    ./lib/fgt_gui_shaping.robot
@@ -63,6 +64,7 @@ Resource    ./config/locator/locator_user_definition.robot
 Resource    ./config/locator/locator_user_group.robot
 Resource    ./config/locator/locator_user_ldap.robot
 Resource    ./config/locator/locator_user_radius.robot
+Resource    ./config/locator/locator_user_tacacs.robot
 Resource    ./config/locator/locator_sslvpn.robot
 Resource    ./config/locator/locator_securityprofile_appctrl.robot
 Resource    ./config/locator/locator_system_certificates.robot

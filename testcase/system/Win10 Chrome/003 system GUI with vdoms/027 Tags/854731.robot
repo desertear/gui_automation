@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation    Verify Tags can be added mandatory or optionally and enable/disable allow multiple tag selection works
+...              Tag feature removed from 6.2.0 build0896.
 Resource    ../../../system_resource.robot
 
 *** Variables ***
@@ -14,7 +15,7 @@ ${SYSTEM_TAG_TAGS_ON_INTERFACE_CLEAN_BUTTON}   xpath://div[@id="tag-list"]/div[l
 *** Test Cases ***
 854731
     [Documentation]    
-    [Tags]    v6.0    chrome   854731    High    win10,64bit    runable
+    [Tags]    v6.0    chrome   854731    High    win10,64bit    norun
     login FortiGate
     Go To Vdom       ${SYSTEM_TEST_VDOM_NAME_1}
     Go to system

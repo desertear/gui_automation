@@ -47,11 +47,16 @@ ${VAR_POLICY_V4V6_CONTEXT_MENU_POLICY_NAT_ENABLE}    xpath://div[@f-pop-up-menu=
 ${VAR_POLICY_V4V6_COLUMN_ID_SETTING}    xpath:(//div[@column-id="\${PLACEHOLDER}"]//label)
 ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING}    xpath://div[@column-id="policyid" and ./div//label[text()="\${PLACEHOLDER1}"]]/following-sibling::div[@column-id="\${PLACEHOLDER2}"]
 ${VAR_POLICY_V4V6_COLUMN_GENERAL_SETTING_BY_NAME}    xpath://div[@column-id="name" and ./div//div[text()="\${PLACEHOLDER1}"]]/following-sibling::div[@column-id="\${PLACEHOLDER2}"]
+${VAR_POLICY_V4V6_COLUMN_GENERAL_ENTRY}    //div[@class="collection-entries"]/div[\${PLACEHOLDER}]
+${VAR_POLICY_V4V6_COLUMN_GENERAL_ENTRY_SPAN}    //span[f-icon[contains(@class,"\${PLACEHOLDER}")]]/span
 ${VAR_POLICY_V4V6_COLUMN_SETTING_SECURITY_PROFILE}    //span[contains(@class,"\${PLACEHOLDER}")]/following-sibling::span
 ${VAR_POLICY_V4V6_COLUMN_SETTING_IPPOOL_NAME}    //span[span="\${PLACEHOLDER}"]
 #this is the dictionary of displayed column name to the column-id in html.
 &{D_POLICY_DISPLAY_NAME_TO_COLUMN_ID}    From=srcintf    To=dstintf    Source=source    Destination=destination    Destination Address=dstaddr    Schedule=schedule    Service=service    Action=action    
 ...    NAT=poolname    Security Profiles=profile    Log=logtraffic
+${D_CONSOLIDATED_POLICY_DISPLAY_NAME_TO_COLUMN_ID}    From=srcintf    To=dstintf    Source=consolidated-source    Destination=consolidated-destination    Destination Address=consolidated-dstaddr    Schedule=schedule    Service=service    Action=action    
+...    NAT=consolidated-poolname    Security Profiles=profile    Log=logtraffic
+&{D_POLICY_DISPLAY_SECURITY_PROFILE_TO_ICON}     AntiVirus=antivirus    Web Filter=webfilter    DNS Filter=dnsfilter    Application Control=application    IPS=ips   SSL Inspection=inspection
 ${POLICY_V4V6_NOTIFY_MSG_SAVED}    xpath://div[contains(@class,"success-notify-message")]//div[contains(text(),"Your changes have been saved")]
 ${POLICY_V4V6_TOOLTIPS}    xpath://div[@class="base-tooltip"]
 #Policy Header
@@ -117,10 +122,15 @@ ${POLICY_V4V6_OUTGOING_INTERFACE_DIV}    xpath://label[text()="Outgoing Interfac
 ${POLICY_V4V6_ENTRY_ADDRESS_LIST}    xpath://div[contains(@class,"virtual-results")]
 ${POLICY_V4V6_ENTRY_ADDRESS_TAB}    xpath://label[text()="Address"]
 ${POLICY_V4V6_ENTRY_USER_TAB}    xpath://label[text()="User"]
+${POLICY_V4V6_ENTRY_GROUP_TAB}    xpath://label[text()="User"]
+${POLICY_V4V6_ENTRY_IPV6 ADDRESS_TAB}    xpath://label[text()="IPv6 Address"]
+${POLICY_V4V6_ENTRY_INTERNET SERVICE_TAB}    xpath://label[text()="Internet Service"]
 ${POLICY_V4V6_ADDRESS_NONE_IN_SELECT_ENTRY}    xpath://label[contains(span,"Address")]/following-sibling::div[span/span[text()="none"]]
 ${VAR_POLICY_V4V6_ADDRESS_IN_SELECT_ENTRY}    xpath://label[contains(span,"Address")]/following-sibling::div[span/span[text()="\${PLACEHOLDER}"]]
 ${VAR_POLICY_V4V6_USER_IN_SELECT_ENTRY}    xpath://label[contains(span,"User \(")]/following-sibling::div[span/span[text()="\${PLACEHOLDER}"]]
 ${VAR_POLICY_V4V6_GROUP_IN_SELECT_ENTRY}    xpath://label[contains(span,"User Group \(")]/following-sibling::div[span/span[text()="\${PLACEHOLDER}"]]
+${VAR_POLICY_V4V6_IPV6 ADDRESS_IN_SELECT_ENTRY}    xpath://label[contains(span,"IPv6 Address \(")]/following-sibling::div[span/span[text()="\${PLACEHOLDER}"]]
+${VAR_POLICY_V4V6_INTERNET SERVICE_IN_SELECT_ENTRY}    xpath://label[contains(span,"Internet Service \(")]/following-sibling::div[span/span[text()="\${PLACEHOLDER}"]]
 ${VAR_POLICY_V4V6_ADDRESS_IN_DIV}    xpath://label[contains(span,"Source") or contains(span,"Destination")]/following-sibling::div//span[text()="\${PLACEHOLDER}"]
 ${VAR_POLICY_V4V6_ADDRESS_IN_DIV_SOURCE}    xpath://label[contains(span,"Source")]/following-sibling::div//span[text()="\${PLACEHOLDER}"]
 ${VAR_POLICY_V4V6_ADDRESS_IN_DIV_DESTINATION}    xpath://label[contains(span,"Destination")]/following-sibling::div//span[text()="\${PLACEHOLDER}"]
@@ -196,11 +206,15 @@ ${POLICY_V4V6_SLIDER_AREA}    xpath://div[@class="slider-area"]
 ###IPv4 Policy Editor
 ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_INPUT}    xpath://span[span="\${PLACEHOLDER}"]/input
 ${POLICY_V4V6_POLICY_EDIT_CHECKBOX_LABEL}    xpath://span[span="\${PLACEHOLDER}"]/label
-${POLICY_V4V6_SECURITY_PROFILE_SELECT_MENU}    xpath://f-field[label//span="\${PLACEHOLDER}"]/div//div[contains(@class,"single-select")]
-${POLICY_V4V6_INSPECTION_MODE}    xpath://f-filed[label/field-label="Inspection Mode"]/div//label[span="\${PLACEHOLDER}"]
+${POLICY_V4V6_SECURITY_PROFILE_SELECT_MENU}    xpath://f-field[label//span[contains(text(),"\${PLACEHOLDER}")]]/div//div[contains(@class,"single-select")]
+${POLICY_V4V6_INSPECTION_MODE}    xpath://f-field[label/field-label="Inspection Mode"]/div//label[span="\${PLACEHOLDER}"]
+${POLICY_V4V6_PROTOCOL_OPTION_SELECT_MENU}    xpath://div[label/span="Protocol Options"]/div//div[contains(@class,"single-select")]
 ${POLICY_V4V6_ACTION}    xpath://div[label="Action"]/div//label[span="\${PLACEHOLDER}"]
 ${POLICY_V4V6_LOG_ALLOWED_TRAFFIC}    xpath://div[label//span[contains(text(),"Log Allowed Traffic")]]/div//label[text()="\${PLACEHOLDER}"]
-${POLICY_V4V6_IPPOOL_MODE}    xpath://div[label="IP Pool Configuration"]/div//label[contains(text(),"\${PLACEHOLDER}")]
+${POLICY_V4V6_IPPOOL_CONFIG_MODE}    xpath://div[label="IP Pool Configuration"]/div//label[contains(text(),"\${PLACEHOLDER}")]
+${POLICY_V4V6_IPPOOL_CONFIG_ADD_BUTTON}    xpath://div[label="IP Pool Configuration"]/following-sibling::div[1]//div[@class="add-placeholder"]
+${POLICY_EDIT_PAGE_IPPOOL_FIRST_ENTRY_SELECTED}    xpath://div[label="IP Pool Configuration"]/following-sibling::div[1]//div[@class="selected-entries"]/div[1]
+${POLICY_EDIT_PAGE_IPPOOL_ENTRY}    xpath://div[label="IP Pool Configuration"]/following-sibling::div[1]//div[@class="selected-entries"]/div[span="\${PLACEHOLDER}"]
 ${POLICY_EDIT_PAGE_ELEMENT_FIRST_ENTRY_SELECTED}    xpath://div[label[contains(descendant-or-self::text(),"\${PLACEHOLDER}")]]//div[@class="selected-entries"]/div[1]
 ${POLICY_EDIT_PAGE_ELEMENT_REMOVE_BUTTON}    /f-icon[contains(@class,"remove-selected-entry")]
 ###IPv6 Policy Editor

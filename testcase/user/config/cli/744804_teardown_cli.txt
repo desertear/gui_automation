@@ -1,0 +1,3 @@
+config user tacacs+
+    delete "tmp_tac"
+end

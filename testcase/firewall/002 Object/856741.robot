@@ -17,7 +17,7 @@ ${dos_id}    6741
 *** Test Cases ***
 856741
     [Documentation]
-    [Tags]    chrome    856741    High
+    [Tags]    chrome    856741    High    Failcase!bug#0542379
     [setup]    Run Cli commands in File    ${FW_CLI_FILE_DIR}${/}${TEST NAME}_setup_cli.txt
     [Teardown]    case Teardown
     Login FortiGate

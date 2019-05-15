@@ -26,14 +26,14 @@ ${policy_name}   893404
     Log    ==================== Step 1: check multi-interface setting in gui and create ipv6 policy ==================== 
     ${multi_intf}=    get policy multi_intf status from cli    ${FW_TEST_VDOM_NAME_1}
     create ip policy    ${policy_name}    ${incoming}    ${outgoing}    ${source_addresses}    ${destination_addresses}
-    ...    always    ALL    ACCEPT    True   multi_intf=${multi_intf}   ip_version=6
+    ...    always    ALL    ACCEPT    enable   multi_intf=${multi_intf}   ip_version=6
 
     #Step 2: check if policy has been created and then edit it
     Log    ==================== Step 2: check if policy has been created and then edit it ==================== 
     ${status}=    if ip policy exists    ${policy_name}
     Should be equal    "${status}"    "True"
     edit ip policy   ${policy_name}    ${policy_name}    ${incoming}    ${outgoing}    ${source_addresses_new}    ${destination_addresses_new}
-    ...    always    ALL    ACCEPT    True   multi_intf=${multi_intf}    ip_version=6
+    ...    always    ALL    ACCEPT    enable   multi_intf=${multi_intf}    ip_version=6
     sleep   2
     
     #Step 3: check if policy has been edited correctly

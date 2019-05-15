@@ -19,6 +19,7 @@ Create New LDAP Server
     run keyword if    "${status}"=="True"     Delete LDAP Server    ${ldap_server_name}
     Wait Until Element Is Visible    ${USER_FRAME}
     select frame    ${USER_FRAME}
+    Wait Until Element Is Visible    ${USER_LDAP_SERVERS_CREATE_NEW}
     click button    ${USER_LDAP_SERVERS_CREATE_NEW}
     unselect frame
     Wait Until Element Is Visible    ${USER_LDAP_SERVERS_EDIT_H1}
@@ -205,7 +206,7 @@ test ldap server connectivity
     Wait Until Element Is Visible    ${USER_LDAP_SERVERS_TEST_CONNECTIVITY_BUTTON}
     Click Button    ${USER_LDAP_SERVERS_TEST_CONNECTIVITY_BUTTON}
     Wait Until Element Is Visible    ${USER_LDAP_SERVERS_CONNECTION_STATUS}
-    ${status}=    Get Text    ${USER_LDAP_SERVERS_CONNECTION_STATUS}
+    ${status}=    Get Text when it is not empty    ${USER_LDAP_SERVERS_CONNECTION_STATUS}
     Should Contain    ${status}    ${expected_status}
 
 test ldap server user credentials
@@ -220,7 +221,7 @@ test ldap server user credentials
     Input Text    ${USER_LDAP_SERVERS_TEST_CREDENTIALS_PASSWORD_INPUT}    ${password}
     Click Button    ${USER_LDAP_SERVERS_TEST_CREDENTIALS_TEST_BUTTON}
     Wait Until Element Is Visible     ${USER_LDAP_SERVERS_CREDENTIALS_STATUS}
-    ${status}=    Get Text    ${USER_LDAP_SERVERS_CREDENTIALS_STATUS}
+    ${status}=    Get Text when it is not empty    ${USER_LDAP_SERVERS_CREDENTIALS_STATUS}
     Should Contain    ${status}    ${expected_result}
     Click Button    ${USER_LDAP_SERVERS_TEST_CREDENTIALS_CLOSE_BUTTON}
     Wait Until Element is not Visible    ${USER_LDAP_SERVERS_TEST_CREDENTIALS_HEAD}

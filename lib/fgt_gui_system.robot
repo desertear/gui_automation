@@ -160,14 +160,17 @@ wait and click
     sleep  2
     Click Element     ${wait and click_button}
 
-set checkbox enable
-    [Arguments]    ${chkbox_name}
+set checkbox
+    [Arguments]        ${enable}    ${chkbox_name}
+    ${enable}=    Convert To lowercase    ${enable}
     ${new_input}=    REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${SYSTEM_GERERAL_CHKBOX_INPUT}    ${chkbox_name}
     ${new_label}=     REPLACE PLACEHOLDER IN LOCATOR WITH VALUE    ${SYSTEM_GERERAL_CHKBOX_LABEL}   ${chkbox_name}
     ${status}=    run keyword and return status    checkbox should be selected    ${new_input}
-    run keyword if    "${status}"=="False"    wait and click    ${new_label}
+    run keyword if    "${status}"=="False" and "${enable}"=="enable"    wait and click    ${new_label}
+    ...   ELSE IF     "${status}"=="True" and "${enable}"=="disable"    wait and click    ${new_label}
     ${status}=    run keyword and return status    checkbox should be selected    ${new_input}
-    should be equal    "${status}"    "True"
+    run keyword if    "${enable}"=="enable"    should be equal    "${status}"    "True"
+    run keyword if    "${enable}"=="disable"    should be equal    "${status}"    "False"
 
 popup embed console 
     Wait Until Element Is Visible     ${system_embed_console_button}

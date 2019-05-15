@@ -1,0 +1,42 @@
+config vdom
+edit "${FW_TEST_VDOM_NAME_1}"
+    config firewall profile-protocol-options
+        edit "${protocol_option}"
+            config http
+                set ports 180
+                unset options
+                unset post-lang
+            end
+            config ftp
+                set ports 121
+                unset options
+            end
+            config imap
+                set ports 1143
+                unset options
+            end
+            config mapi
+                set ports 1135
+                unset options
+            end
+            config pop3
+                set ports 1110
+                unset options
+            end
+            config smtp
+                set ports 125
+                unset options
+            end
+            config nntp
+                set ports 1119
+                unset options
+            end
+            config dns
+                set ports 153
+            end
+            config cifs
+                set ports 1445
+            end
+        next
+    end
+end

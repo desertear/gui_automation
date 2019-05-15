@@ -1,0 +1,9 @@
+config system admin
+    delete "${admin_name}"
+end
+config user group
+    delete "${group_name}"
+end
+config user ldap
+    delete "${ldap1_name}"
+end
