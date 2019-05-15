@@ -3,6 +3,7 @@
 **/result
 **/output
 **/.svn
+**/*.bat
 tools
 # Byte-compiled / optimized / DLL files
 __pycache__/
